@@ -1114,6 +1114,7 @@
     [self contentOffsetChanged:contentOffset];
 }
 
+
 - (void)createMapView
 {
     self.layer = [CALayer layer];
@@ -2544,6 +2545,8 @@
     RMProjectedPoint normalizedProjectedPoint;
     normalizedProjectedPoint.x = ((pixelCoordinate.x + _mapScrollView.contentOffset.x) * _metersPerPixel) - fabs(planetBounds.origin.x);
     normalizedProjectedPoint.y = ((_mapScrollView.contentSize.height - _mapScrollView.contentOffset.y - pixelCoordinate.y) * _metersPerPixel) - fabs(planetBounds.origin.y);
+    
+    normalizedProjectedPoint.y = -normalizedProjectedPoint.y;
     
     RMLog(@"pixelToPoint: {%f,%f} -> {%f,%f}", pixelCoordinate.x, pixelCoordinate.y, normalizedProjectedPoint.x, normalizedProjectedPoint.y);
     RMLog(@"contentOFfset: {%f, %f}", _mapScrollView.contentOffset.x, _mapScrollView.contentOffset.y);
