@@ -2524,7 +2524,7 @@
     RMProjectedRect planetBounds = _projection.planetBounds;
     RMProjectedPoint normalizedProjectedPoint;
 	normalizedProjectedPoint.x = projectedPoint.x + fabs(planetBounds.origin.x);
-	normalizedProjectedPoint.y = projectedPoint.y + fabs(planetBounds.origin.y);
+	normalizedProjectedPoint.y = -(projectedPoint.y + fabs(planetBounds.origin.y));
     
     // \bug: There is a rounding error here for high zoom levels
     CGPoint projectedPixel = CGPointMake((normalizedProjectedPoint.x / _metersPerPixel) - _mapScrollView.contentOffset.x, (_mapScrollView.contentSize.height - (normalizedProjectedPoint.y / _metersPerPixel)) - _mapScrollView.contentOffset.y);
