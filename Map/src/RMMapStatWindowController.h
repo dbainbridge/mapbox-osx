@@ -7,9 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <CoreLocation/CoreLocation.h>
 
 @class RMMapView;
 
 @interface RMMapStatWindowController : NSWindowController
 @property (nonatomic, weak) RMMapView *mapView;
+@property (nonatomic, assign) CLLocationCoordinate2D location;
+@property (nonatomic, assign) CLLocationDegrees latitude;
+@property (nonatomic, assign) CLLocationDegrees longitude;
+
+- (void)startTrackingMap;
 @end

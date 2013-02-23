@@ -8,8 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class RMMapStatWindowController;
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (strong) IBOutlet NSView *testView;
+@property (nonatomic, strong) RMMapStatWindowController *statWindowController;
 @end

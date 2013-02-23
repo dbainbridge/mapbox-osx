@@ -11,6 +11,7 @@
 #import "RMMapBoxSource.h"
 #import "RMOpenStreetMapSource.h"
 #import "RMOpenSeaMapSource.h"
+#import "RMMapStatWindowController.h"
 
 #import "TestView.h"
 
@@ -34,6 +35,10 @@
     [myView addSubview:mapView];
     [mapView zoomByFactor:8 near:point animated:NO];
 
+    self.statWindowController = [[RMMapStatWindowController alloc] init];
+    [self.statWindowController showWindow:nil];
+    self.statWindowController.mapView = mapView;
+    [self.statWindowController startTrackingMap];
 }
 
 - (void)awakeFromNib
