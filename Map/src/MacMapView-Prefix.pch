@@ -1,0 +1,56 @@
+//
+// Prefix header for all source files of the 'MacMapView' target in the 'MacMapView' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#import <QuartzCore/QuartzCore.h>
+
+#import "UIColor.h"
+#import "UIImage.h"
+#import "UIGraphics.h"
+#import "UIFont.h"
+#import "UIStringDrawing.h"
+#import "UIDevice.h"
+#import "UIScreen.h"
+#endif
+
+#if DEBUG
+#define RMLog(args...) NSLog(@"%@", [NSString stringWithFormat: args])
+#define LogMethod() NSLog(@"logged method call: -[%@ %@] (line %d)", self, NSStringFromSelector(_cmd), __LINE__)
+#define WarnDeprecated() NSLog(@"***** WARNING: deprecated method call: -[%@ %@] (line %d)", self, NSStringFromSelector(_cmd), __LINE__)
+#else
+// DEBUG not defined:
+
+#define RMLog(args...)    // do nothing.
+#define LogMethod()
+#define WarnDeprecated()
+#define NS_BLOCK_ASSERTIONS 1
+#endif
+
+
+#if ! __has_feature(objc_arc)
+
+#define RMDispatchQueueRelease(__v) (dispatch_release(__v));
+#else
+
+#if TARGET_OS_IPHONE
+// Compiling for iOS
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
+// iOS 6.0 or later
+#define RMDispatchQueueRelease(__v)
+#else
+// iOS 5.X or earlier
+#define RMDispatchQueueRelease(__v) (dispatch_release(__v));
+#endif
+#else
+// Compiling for Mac OS X
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1080
+// Mac OS X 10.8 or later
+#define RMDispatchQueueRelease(__v)
+#else
+// Mac OS X 10.7 or earlier
+#define RMDispatchQueueRelease(__v) (dispatch_release(__v));
+#endif
+#endif
+#endif
