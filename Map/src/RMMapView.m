@@ -943,6 +943,8 @@
         pivot.y += offset.y;
         pivot.x += offset.x;
         [_mapScrollView scrollPointToCentre:pivot];
+        [self updateMetersPerPixel];
+        
 /*
         float zoomScale = _mapScrollView.zoomScale;
         CGSize newZoomSize = CGSizeMake(_mapScrollView.bounds.size.width / zoomFactor,
@@ -1429,6 +1431,12 @@
     *aContentSize = CGSizeMake((*aContentSize).width * factor, (*aContentSize).height * factor);
 }
 
+- (void)updateMetersPerPixel
+{
+    RMProjectedRect planetBounds = _projection.planetBounds;
+    _metersPerPixel = planetBounds.size.width / _mapScrollView.contentSize.width;    
+}
+
 //- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)change context:(void *)context
 - (void)contentOffsetChanged:(CGPoint)newContentOffset
 {
@@ -1456,14 +1464,13 @@
      
         return;
     }
-*/    
+*/
+    [self updateMetersPerPixel];
     RMLog(@"contentOffset: {%.0f,%.0f} -> {%.1f,%.1f} (%.0f,%.0f)", _lastContentOffset.x, _lastContentOffset.y, newContentOffset.x, newContentOffset.y, newContentOffset.x - _lastContentOffset.x, newContentOffset.y - _lastContentOffset.y);
     RMLog(@"contentSize: {%.0f,%.0f} -> {%.0f,%.0f}", _lastContentSize.width, _lastContentSize.height, _mapScrollView.contentSize.width, _mapScrollView.contentSize.height);
     //    RMLog(@"isZooming: %d, scrollview.zooming: %d", _mapScrollViewIsZooming, mapScrollView.zooming);
     
-    RMProjectedRect planetBounds = _projection.planetBounds;
-    _metersPerPixel = planetBounds.size.width / _mapScrollView.contentSize.width;
-    /*
+     /*
     _zoom = log2f(_mapScrollView.zoomScale);
     _zoom = (_zoom > _maxZoom) ? _maxZoom : _zoom;
     _zoom = (_zoom < _minZoom) ? _minZoom : _zoom;
@@ -2545,9 +2552,11 @@
     RMProjectedPoint normalizedProjectedPoint;
     normalizedProjectedPoint.x = ((pixelCoordinate.x + _mapScrollView.contentOffset.x) * _metersPerPixel) - fabs(planetBounds.origin.x);
     normalizedProjectedPoint.y = ((_mapScrollView.contentSize.height - _mapScrollView.contentOffset.y - pixelCoordinate.y) * _metersPerPixel) - fabs(planetBounds.origin.y);
+    normalizedProjectedPoint.y = ((pixelCoordinate.y + _mapScrollView.contentOffset.y ) * _metersPerPixel) - fabs(planetBounds.origin.y);
     
-    normalizedProjectedPoint.y = -normalizedProjectedPoint.y;
+    //normalizedProjectedPoint.y = -normalizedProjectedPoint.y;
     
+    RMLog(@"meters per pixel: %f", _metersPerPixel);
     RMLog(@"pixelToPoint: {%f,%f} -> {%f,%f}", pixelCoordinate.x, pixelCoordinate.y, normalizedProjectedPoint.x, normalizedProjectedPoint.y);
     RMLog(@"contentOFfset: {%f, %f}", _mapScrollView.contentOffset.x, _mapScrollView.contentOffset.y);
     return normalizedProjectedPoint;
