@@ -27,6 +27,11 @@
     return self;
 }
 
+- (BOOL)isFlipped
+{
+    return YES;
+}
+
 - (void)dealloc
 {
  //   [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -39,18 +44,22 @@
 
 - (CGSize)contentSize
 {
-    return [[self documentView] bounds].size;
+    NSView *view = [self documentView];
+    return [[self documentView] frame].size;
 }
 
 - (void)setContentSize:(CGSize)theContentSize
 {
-    [[self documentView] setBoundsSize:theContentSize];
+    [[self documentView] setFrameSize:theContentSize];
 //    [[self documentView] setSize:theContentSize];
 }
 
 - (CGPoint)contentOffset
 {
-    return [self documentVisibleRect].origin;
+    NSRect frame = [[self documentView] frame];
+    NSLog(@"---- contentOFfset y: %f", [self contentView].bounds.origin.y);
+    return [self contentView].bounds.origin;
+    //return [self documentVisibleRect].origin;
 }
 
 - (void)setContentOffset:(CGPoint)theOffset
