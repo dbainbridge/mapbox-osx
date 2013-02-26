@@ -33,6 +33,8 @@
 #import "RMAttributionViewController.h"
 #import "UIGeometry.h"
 
+#import "DuxScrollViewAnimation.h"
+
 //#import "SMCalloutView.h"
 
 #pragma mark --- begin constants ----
@@ -249,6 +251,8 @@
     _positionClusterMarkersAtTheGravityCenter = YES;
     _clusterMarkerSize = CGSizeMake(100.0, 100.0);
     _clusterAreaSize = CGSizeMake(150.0, 150.0);
+    
+    _metersPerPixel = 1.0;
     
     _moveDelegateQueue = [NSOperationQueue new];
     [_moveDelegateQueue setMaxConcurrentOperationCount:1];
@@ -786,6 +790,10 @@
     [self setCenterProjectedPoint:centerProjectedPoint animated:YES];
 }
 
+- (void)scrollClipView:(NSClipView *)aClipView toPoint:(NSPoint)aPoint
+{
+    
+}
 - (void)setCenterProjectedPoint:(RMProjectedPoint)centerProjectedPoint animated:(BOOL)animated
 {
     if (RMProjectedPointEqualToProjectedPoint(centerProjectedPoint, [self centerProjectedPoint]))
@@ -935,28 +943,9 @@
     
     if ([self shouldZoomToTargetZoom:targetZoom withZoomFactor:zoomFactor])
     {
-        RMProjectedPoint aPoint = [self centerProjectedPoint];
-//        CGPoint newPivot = {pivot.x * zoomFactor, pivot.y * zoomFactor};
-       
+//        [self centerMapAtPixelPoint:pivot];
         [_mapScrollView zoomWithFactor:zoomFactor];
-        CGPoint offset = _mapScrollView.contentOffset;
-        pivot.y += offset.y;
-        pivot.x += offset.x;
-        [_mapScrollView scrollPointToCentre:pivot];
         [self updateMetersPerPixel];
-        
-/*
-        float zoomScale = _mapScrollView.zoomScale;
-        CGSize newZoomSize = CGSizeMake(_mapScrollView.bounds.size.width / zoomFactor,
-                                        _mapScrollView.bounds.size.height / zoomFactor);
-        CGFloat factorX = pivot.x / _mapScrollView.bounds.size.width,
-        factorY = pivot.y / _mapScrollView.bounds.size.height;
-        CGRect zoomRect = CGRectMake(((_mapScrollView.contentOffset.x + pivot.x) - (newZoomSize.width * factorX)) / zoomScale,
-                                     ((_mapScrollView.contentOffset.y + pivot.y) - (newZoomSize.height * factorY)) / zoomScale,
-                                     newZoomSize.width / zoomScale,
-                                     newZoomSize.height / zoomScale);
-        [_mapScrollView zoomToRect:zoomRect animated:animated];
- */
     }
     else
     {
@@ -1466,6 +1455,8 @@
     }
 */
     [self updateMetersPerPixel];
+    return;
+    
     RMLog(@"contentOffset: {%.0f,%.0f} -> {%.1f,%.1f} (%.0f,%.0f)", _lastContentOffset.x, _lastContentOffset.y, newContentOffset.x, newContentOffset.y, newContentOffset.x - _lastContentOffset.x, newContentOffset.y - _lastContentOffset.y);
     RMLog(@"contentSize: {%.0f,%.0f} -> {%.0f,%.0f}", _lastContentSize.width, _lastContentSize.height, _mapScrollView.contentSize.width, _mapScrollView.contentSize.height);
     //    RMLog(@"isZooming: %d, scrollview.zooming: %d", _mapScrollViewIsZooming, mapScrollView.zooming);
@@ -1529,6 +1520,21 @@
         [_delegate mapViewRegionDidChange:self];
 }
 
+// dbainbridge
+- (void)centerMapAtPixelPoint:(CGPoint)targetPoint
+{
+    NSRect visibleRect = _mapScrollView.documentVisibleRect;
+    NSClipView *contentView = [_mapScrollView contentView];
+    
+    CGPoint newPoint;
+//    newPoint.x = (targetPoint.x + visibleRect.origin.x - NSWidth(visibleRect)/2.0);
+//    newPoint.y = (targetPoint.y + visibleRect.origin.y - NSHeight(visibleRect)/2.0);
+    newPoint.x = (targetPoint.x + contentView.bounds.origin.x - NSWidth(contentView.frame)/2.0);
+    newPoint.y = (targetPoint.y + contentView.bounds.origin.y - NSHeight(contentView.frame)/2.0);
+
+    [_mapScrollView.documentView scrollPoint:newPoint];
+}
+
 #pragma mark - Gesture Recognizers and event handling
 - (void)mouseDown:(NSEvent *)theEvent {
     if ([theEvent clickCount] > 1) {
@@ -1556,6 +1562,9 @@
 
 - (void)doubleTapAtPoint:(CGPoint)aPoint
 {
+//    [self centerMapAtPixelPoint:aPoint];
+ //   return;
+    
     if (self.zoom < self.maxZoom)
     {
         [self registerZoomEventByUser:YES];
@@ -3625,5 +3634,10 @@
     }
 }
 
+- (void)test
+{
+    NSPoint center = {512, 512};
+    [DuxScrollViewAnimation animatedScrollPointToCenter:center inScrollView:_mapScrollView];
+}
 
 @end

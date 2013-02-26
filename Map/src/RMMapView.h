@@ -167,6 +167,8 @@ typedef enum : NSUInteger {
  *   @param delta A `CGSize` by which to move the map center. */
 - (void)moveBy:(CGSize)delta;
 
+- (void)centerMapAtPixelPoint:(CGPoint)point;
+
 #pragma mark - Zoom
 
 /** @name Zooming the Map */
@@ -477,4 +479,5 @@ typedef enum : NSUInteger {
  *   @param animated Whether changes to the map center or rotation should be animated when the mode is changed. */
 - (void)setUserTrackingMode:(RMUserTrackingMode)mode animated:(BOOL)animated;
 
+- (void)test;
 @end

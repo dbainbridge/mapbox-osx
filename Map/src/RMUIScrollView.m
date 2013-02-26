@@ -82,6 +82,7 @@
         contentOffset.x = round(theOffset.x);
         contentOffset.y = round(theOffset.y);
         
+        NSLog(@"===== scrollPoint: %f %f: ", contentOffset.x, contentOffset.y);
         /*
         CGRect bounds = self.bounds;
         bounds.origin.x = contentOffset.x+_contentInset.left;
@@ -117,7 +118,7 @@
 - (void)zoomWithFactor:(float)zoomFactor
 {
 //    if (self.zoomScale > [sender floatValue]) // then we are zooming in
-    {
+//    {
         //float zoomFactor = 1 + self.zoomScale - [sender floatValue];
         //float zoomFactor = 2.0;
         
@@ -129,9 +130,20 @@
         
         [self.documentView scaleUnitSquareToSize:NSMakeSize(zoomFactor, zoomFactor)];
         [self.documentView setFrame:NSMakeRect(0, 0, frame.size.width * zoomFactor, frame.size.height * zoomFactor)];
-        //[[self documentView] scrollPoint:newrect.origin];
+    NSRect contentBounds = self.contentView.bounds;
+    contentBounds.origin.x *=  zoomFactor;
+    contentBounds.origin.y *=  zoomFactor;
+    NSPoint newPoint = NSMakePoint(visible.origin.x * zoomFactor, visible.origin.y * zoomFactor);
+    
+    NSRect visible2 = [self documentVisibleRect];
+    
+    //[self.contentView setBoundsOrigin:contentBounds.origin];
+    //[self reflectScrolledClipView:self.contentView];
+    visible.origin.x += visible.size.width/4.0;
+    visible.origin.y += visible.size.height/4.0;
+        [[self documentView] scrollPoint:visible.origin];
         
-    }
+//    }
 }
 - (void)scrollPointToCentre:(NSPoint) aPoint
 {
