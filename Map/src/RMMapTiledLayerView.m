@@ -19,6 +19,15 @@
 
 #define IS_VALID_TILE_IMAGE(image) (image != nil && [image isKindOfClass:[UIImage class]])
 
+@interface FastCATiledLayer : CATiledLayer
+@end
+
+@implementation FastCATiledLayer
++(CFTimeInterval)fadeDuration {
+    return 0.0;
+}
+@end
+
 @interface RMMapTiledLayerView ()
 {
 }
@@ -41,7 +50,7 @@
 
 + (Class)layerClass
 {
-    return [CATiledLayer class];
+    return [FastCATiledLayer class];
 }
 
 - (CATiledLayer *)tiledLayer
