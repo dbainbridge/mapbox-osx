@@ -70,7 +70,7 @@
     _tileSource = aTileSource;
     
     //dbainbridge
-    self.layer = [CATiledLayer layer];
+    self.layer = [FastCATiledLayer layer];
     self.wantsLayer = YES;
     self.layer.delegate = self;
     
@@ -212,12 +212,14 @@
                                            //
                                            if (_tileSource.isCacheable && [_tileSource imageForTile:RMTileMake(x, y, zoom) inCache:[_mapView tileCache]])
                                            {
+                                               /*
                                                dispatch_async(dispatch_get_main_queue(), ^(void)
                                                               {
                                                                   // do it all again for this tile, next time synchronously from cache
                                                                   //
                                                                   [self.layer setNeedsDisplayInRect:rect];
                                                               });
+                                                */
                                            }
                                        }
                                    });
