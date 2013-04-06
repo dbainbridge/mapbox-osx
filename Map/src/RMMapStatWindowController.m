@@ -8,8 +8,6 @@
 
 #import "RMMapStatWindowController.h"
 #import "RMMapView.h"
-#import "TransformerKit.h"
-#import "NSValueTransformer+TransformerKit.h"
 
 
 @interface RMMapStatWindowController ()

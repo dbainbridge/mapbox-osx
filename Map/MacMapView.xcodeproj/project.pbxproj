@@ -102,9 +102,6 @@
 		46C6232A16D2CBB800879171 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C6232916D2CBB800879171 /* TestView.m */; };
 		46DA7E7A16D93B2E00FA1A10 /* RMMapStatWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA7E7816D93B2E00FA1A10 /* RMMapStatWindowController.m */; };
 		46DA7E7B16D93B2E00FA1A10 /* RMMapStatWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46DA7E7916D93B2E00FA1A10 /* RMMapStatWindow.xib */; };
-		46DA7E8516DA8CBA00FA1A10 /* NSValueTransformer+TransformerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA7E7F16DA8CBA00FA1A10 /* NSValueTransformer+TransformerKit.m */; };
-		46DA7E8616DA8CBA00FA1A10 /* TKImageTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA7E8116DA8CBA00FA1A10 /* TKImageTransformers.m */; };
-		46DA7E8716DA8CBA00FA1A10 /* TKStringTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA7E8316DA8CBA00FA1A10 /* TKStringTransformers.m */; };
 		46DA7E8A16DAD1AD00FA1A10 /* DuxScrollViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA7E8916DAD1AD00FA1A10 /* DuxScrollViewAnimation.m */; };
 /* End PBXBuildFile section */
 
@@ -284,13 +281,6 @@
 		46DA7E7716D93B2E00FA1A10 /* RMMapStatWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapStatWindowController.h; sourceTree = "<group>"; };
 		46DA7E7816D93B2E00FA1A10 /* RMMapStatWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMapStatWindowController.m; sourceTree = "<group>"; };
 		46DA7E7916D93B2E00FA1A10 /* RMMapStatWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMMapStatWindow.xib; sourceTree = "<group>"; };
-		46DA7E7E16DA8CBA00FA1A10 /* NSValueTransformer+TransformerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValueTransformer+TransformerKit.h"; sourceTree = "<group>"; };
-		46DA7E7F16DA8CBA00FA1A10 /* NSValueTransformer+TransformerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValueTransformer+TransformerKit.m"; sourceTree = "<group>"; };
-		46DA7E8016DA8CBA00FA1A10 /* TKImageTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKImageTransformers.h; sourceTree = "<group>"; };
-		46DA7E8116DA8CBA00FA1A10 /* TKImageTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKImageTransformers.m; sourceTree = "<group>"; };
-		46DA7E8216DA8CBA00FA1A10 /* TKStringTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKStringTransformers.h; sourceTree = "<group>"; };
-		46DA7E8316DA8CBA00FA1A10 /* TKStringTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKStringTransformers.m; sourceTree = "<group>"; };
-		46DA7E8416DA8CBA00FA1A10 /* TransformerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformerKit.h; sourceTree = "<group>"; };
 		46DA7E8816DAD1AD00FA1A10 /* DuxScrollViewAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuxScrollViewAnimation.h; sourceTree = "<group>"; };
 		46DA7E8916DAD1AD00FA1A10 /* DuxScrollViewAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DuxScrollViewAnimation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -316,10 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				46C6230016D2B18D00879171 /* libMacProj4.a */,
-				46C622FE16D2B17400879171 /* CoreLocation.framework */,
 				46C622FC16D2B16300879171 /* libsqlite3.dylib */,
-				46C622FA16D2B15300879171 /* QuartzCore.framework */,
-				46A6033C16D2ADE6006A4081 /* SystemConfiguration.framework */,
 				46A602FC16D2AD29006A4081 /* MacMapView */,
 				46A602F516D2AD29006A4081 /* Frameworks */,
 				46A602F416D2AD29006A4081 /* Products */,
@@ -337,6 +324,9 @@
 		46A602F516D2AD29006A4081 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				46C622FE16D2B17400879171 /* CoreLocation.framework */,
+				46C622FA16D2B15300879171 /* QuartzCore.framework */,
+				46A6033C16D2ADE6006A4081 /* SystemConfiguration.framework */,
 				46A602F616D2AD29006A4081 /* Cocoa.framework */,
 				46A602F816D2AD29006A4081 /* Other Frameworks */,
 			);
@@ -389,7 +379,6 @@
 				46A6031316D2AD94006A4081 /* Chameleon */,
 				46A6030816D2AD29006A4081 /* AppDelegate.h */,
 				46A6030916D2AD29006A4081 /* AppDelegate.m */,
-				46DA7E7D16DA8CB900FA1A10 /* TransformerKit */,
 				46DA7E7716D93B2E00FA1A10 /* RMMapStatWindowController.h */,
 				46DA7E7816D93B2E00FA1A10 /* RMMapStatWindowController.m */,
 				46DA7E8816DAD1AD00FA1A10 /* DuxScrollViewAnimation.h */,
@@ -569,20 +558,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		46DA7E7D16DA8CB900FA1A10 /* TransformerKit */ = {
-			isa = PBXGroup;
-			children = (
-				46DA7E7E16DA8CBA00FA1A10 /* NSValueTransformer+TransformerKit.h */,
-				46DA7E7F16DA8CBA00FA1A10 /* NSValueTransformer+TransformerKit.m */,
-				46DA7E8016DA8CBA00FA1A10 /* TKImageTransformers.h */,
-				46DA7E8116DA8CBA00FA1A10 /* TKImageTransformers.m */,
-				46DA7E8216DA8CBA00FA1A10 /* TKStringTransformers.h */,
-				46DA7E8316DA8CBA00FA1A10 /* TKStringTransformers.m */,
-				46DA7E8416DA8CBA00FA1A10 /* TransformerKit.h */,
-			);
-			path = TransformerKit;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -733,9 +708,6 @@
 				46A606DE16D2AFD9006A4081 /* FMResultSet.m in Sources */,
 				46C6232A16D2CBB800879171 /* TestView.m in Sources */,
 				46DA7E7A16D93B2E00FA1A10 /* RMMapStatWindowController.m in Sources */,
-				46DA7E8516DA8CBA00FA1A10 /* NSValueTransformer+TransformerKit.m in Sources */,
-				46DA7E8616DA8CBA00FA1A10 /* TKImageTransformers.m in Sources */,
-				46DA7E8716DA8CBA00FA1A10 /* TKStringTransformers.m in Sources */,
 				46DA7E8A16DAD1AD00FA1A10 /* DuxScrollViewAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
