@@ -57,7 +57,7 @@
 - (CGPoint)contentOffset
 {
     NSRect frame = [[self documentView] frame];
-    NSLog(@"---- contentOFfset y: %f", [self contentView].bounds.origin.y);
+//    NSLog(@"---- contentOFfset y: %f", [self contentView].bounds.origin.y);
     return [self contentView].bounds.origin;
     //return [self documentVisibleRect].origin;
 }

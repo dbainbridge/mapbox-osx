@@ -8,12 +8,18 @@
 
 #import "RMMapStatWindowController.h"
 #import "RMMapView.h"
+#import "TransformerKit.h"
+#import "NSValueTransformer+TransformerKit.h"
+
 
 @interface RMMapStatWindowController ()
 
 @end
 
+static NSPoint specialPoint = {0,0};
+
 @implementation RMMapStatWindowController
+
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -52,6 +58,22 @@
     self.latitude = self.location.latitude;
     self.longitude = self.location.longitude;
     
+    RMProjectedPoint pp = [self.mapView pixelToProjectedPoint:mousePoint];
+    self.projectedX = pp.x;
+    self.projectedY = pp.y;
+    
+    self.centerPoint = [self.mapView centerProjectedPoint];
+    self.centerX = self.centerPoint.x;
+    self.centerY = self.centerPoint.y;
+    
     NSLog(@"eyeCenter: %@", NSStringFromPoint(mousePoint));
+}
+- (IBAction)center:(id)sender
+{
+    specialPoint.x++;
+    //[self.mapView scrollPoint:specialPoint];
+    [self.mapView test];
+    CLLocationCoordinate2D c = {-47.0, 95.0};
+   // [self.mapView setCenterCoordinate:c];
 }
 @end

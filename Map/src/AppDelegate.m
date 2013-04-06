@@ -30,7 +30,7 @@
    
     RMMapView *mapView = [[RMMapView alloc] initWithFrame:myView.bounds andTilesource:onlineSource];
 
-    mapView.debugTiles = YES;
+    mapView.debugTiles = NO;
     CGPoint point = {0,0};
     [myView addSubview:mapView];
     [mapView zoomByFactor:8 near:point animated:NO];

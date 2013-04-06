@@ -779,9 +779,9 @@
     normalizedProjectedPoint.x = (double)(center.x * _metersPerPixel) - fabs(planetBounds.origin.x);
     normalizedProjectedPoint.y = (center.y * _metersPerPixel) - fabs(planetBounds.origin.y);
     
-    RMLog(@"centerProjectedPoint3: {%f,%f}", normalizedProjectedPoint.x, normalizedProjectedPoint.y);
-    RMLog(@"contentOFfset: %f, %f", _mapScrollView.contentOffset.x, _mapScrollView.contentOffset.y);
-    RMLog(@"contentSize: %f, %f", _mapScrollView.contentSize.width, _mapScrollView.contentSize.height);
+//    RMLog(@"centerProjectedPoint3: {%f,%f}", normalizedProjectedPoint.x, normalizedProjectedPoint.y);
+//    RMLog(@"contentOFfset: %f, %f", _mapScrollView.contentOffset.x, _mapScrollView.contentOffset.y);
+//    RMLog(@"contentSize: %f, %f", _mapScrollView.contentSize.width, _mapScrollView.contentSize.height);
     return normalizedProjectedPoint;
 }
 
@@ -1101,7 +1101,7 @@
     RMUIScrollView *scrollView = (RMUIScrollView *)[clipView superview];
     
     CGPoint contentOffset = [scrollView contentOffset];
-    RMLog(@"contentOffset: %f, %f", contentOffset.x, contentOffset.y);
+   // RMLog(@"contentOffset: %f, %f", contentOffset.x, contentOffset.y);
     [self contentOffsetChanged:contentOffset];
 }
 
@@ -1133,15 +1133,15 @@
     
     int tileSideLength = [_tileSourcesContainer tileSideLength];
     CGSize contentSize = CGSizeMake(tileSideLength, tileSideLength); // zoom level 1
-    contentSize.width = 1024;
-    contentSize.height  = 1024;
+    contentSize.width = 2048;
+    contentSize.height  = 2048;
     
     _mapScrollView = [[RMMapScrollView alloc] initWithFrame:[self bounds]];
     _mapScrollView.hasVerticalScroller = YES;
     _mapScrollView.hasHorizontalScroller = YES;
     
-//    [_mapScrollView setAutoresizesSubviews:YES];
-//    [_mapScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [_mapScrollView setAutoresizesSubviews:YES];
+    [_mapScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     //TODO: check
     /*
     _mapScrollView.delegate = self;
@@ -1164,6 +1164,9 @@
     _tiledLayersSuperview = [[NSView alloc] initWithFrame:CGRectMake(0.0, 0.0, contentSize.width, contentSize.height)];
     [_tiledLayersSuperview setAutoresizesSubviews:YES];
     [_tiledLayersSuperview setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    _tiledLayersSuperview.layer = [CALayer layer];
+    _tiledLayersSuperview.layer.masksToBounds = YES;
+    _tiledLayersSuperview.wantsLayer = YES;
 
     //    _tiledLayersSuperview = [[NSView alloc] initWithFrame:CGRectMake(0.0, 0.0, 512, 512)];
 //    _tiledLayersSuperview.userInteractionEnabled = NO;
@@ -1172,7 +1175,7 @@
     {
         RMMapTiledLayerView *tiledLayerView = [[RMMapTiledLayerView alloc] initWithFrame:CGRectMake(0.0, 0.0, contentSize.width, contentSize.height) mapView:self forTileSource:tileSource];
         
-        ((CATiledLayer *)tiledLayerView.layer).tileSize = CGSizeMake(tileSideLength, tileSideLength);
+ //       ((CATiledLayer *)tiledLayerView.layer).tileSize = CGSizeMake(tileSideLength, tileSideLength);
         
         [_tiledLayersSuperview addSubview:tiledLayerView];
     }
@@ -1457,8 +1460,8 @@
     [self updateMetersPerPixel];
     return;
     
-    RMLog(@"contentOffset: {%.0f,%.0f} -> {%.1f,%.1f} (%.0f,%.0f)", _lastContentOffset.x, _lastContentOffset.y, newContentOffset.x, newContentOffset.y, newContentOffset.x - _lastContentOffset.x, newContentOffset.y - _lastContentOffset.y);
-    RMLog(@"contentSize: {%.0f,%.0f} -> {%.0f,%.0f}", _lastContentSize.width, _lastContentSize.height, _mapScrollView.contentSize.width, _mapScrollView.contentSize.height);
+    //RMLog(@"contentOffset: {%.0f,%.0f} -> {%.1f,%.1f} (%.0f,%.0f)", _lastContentOffset.x, _lastContentOffset.y, newContentOffset.x, newContentOffset.y, newContentOffset.x - _lastContentOffset.x, newContentOffset.y - _lastContentOffset.y);
+    //RMLog(@"contentSize: {%.0f,%.0f} -> {%.0f,%.0f}", _lastContentSize.width, _lastContentSize.height, _mapScrollView.contentSize.width, _mapScrollView.contentSize.height);
     //    RMLog(@"isZooming: %d, scrollview.zooming: %d", _mapScrollViewIsZooming, mapScrollView.zooming);
     
      /*
@@ -2102,7 +2105,8 @@
     RMSphericalTrapezium bounds = [_tileSourcesContainer latitudeLongitudeBoundingBox];
     
     _constrainMovement = !(bounds.northEast.latitude == 90.0 && bounds.northEast.longitude == 180.0 && bounds.southWest.latitude == -90.0 && bounds.southWest.longitude == -180.0);
-    
+    bounds.southWest.longitude = -125;
+    bounds.northEast.longitude = -65;
     if (_constrainMovement)
         _constrainingProjectedBounds = (RMProjectedRect)[self projectedRectFromLatitudeLongitudeBounds:bounds];
     else
