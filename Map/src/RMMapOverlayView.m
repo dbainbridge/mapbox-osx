@@ -56,6 +56,7 @@
 
 - (void)moveLayersBy:(CGPoint)delta
 {
+    NSLog(@"moveLayersBy: %@", NSStringFromCGPoint(delta));
     [self.layer scrollPoint:CGPointMake(-delta.x, -delta.y)];
 }
 

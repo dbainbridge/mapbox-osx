@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46062E74171132DF00C0E429 /* LoadingTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230916D2B1E300879171 /* LoadingTile.png */; };
+		46062E751711331D00C0E429 /* TrackingDot.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230D16D2B1E300879171 /* TrackingDot.png */; };
+		46062E761711331D00C0E429 /* TrackingDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230E16D2B1E300879171 /* TrackingDot@2x.png */; };
+		46062E771711331D00C0E429 /* TrackingDotHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230F16D2B1E300879171 /* TrackingDotHalo.png */; };
+		46062E781711331D00C0E429 /* TrackingDotHalo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231016D2B1E300879171 /* TrackingDotHalo@2x.png */; };
+		46062E791711331D00C0E429 /* TrackingHeading.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231116D2B1E300879171 /* TrackingHeading.png */; };
+		46062E7A1711331D00C0E429 /* TrackingHeading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231216D2B1E300879171 /* TrackingHeading@2x.png */; };
+		46062E7B1711331D00C0E429 /* TrackingLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231316D2B1E300879171 /* TrackingLocation.png */; };
+		46062E7C1711331D00C0E429 /* TrackingLocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231416D2B1E300879171 /* TrackingLocation@2x.png */; };
 		4697997816D47FC90026A2C1 /* libMacProj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C6230016D2B18D00879171 /* libMacProj4.a */; };
 		46A602F716D2AD29006A4081 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A602F616D2AD29006A4081 /* Cocoa.framework */; };
 		46A6030116D2AD29006A4081 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 46A602FF16D2AD29006A4081 /* InfoPlist.strings */; };
@@ -87,18 +96,9 @@
 		46C6231816D2B1E300879171 /* HeadingAngleMedium@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230616D2B1E300879171 /* HeadingAngleMedium@2x.png */; };
 		46C6231916D2B1E300879171 /* HeadingAngleSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230716D2B1E300879171 /* HeadingAngleSmall.png */; };
 		46C6231A16D2B1E300879171 /* HeadingAngleSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230816D2B1E300879171 /* HeadingAngleSmall@2x.png */; };
-		46C6231B16D2B1E300879171 /* LoadingTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230916D2B1E300879171 /* LoadingTile.png */; };
 		46C6231C16D2B1E300879171 /* LoadingTileZoom.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230A16D2B1E300879171 /* LoadingTileZoom.png */; };
 		46C6231D16D2B1E300879171 /* mapbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230B16D2B1E300879171 /* mapbox.png */; };
 		46C6231E16D2B1E300879171 /* mapbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230C16D2B1E300879171 /* mapbox@2x.png */; };
-		46C6231F16D2B1E300879171 /* TrackingDot.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230D16D2B1E300879171 /* TrackingDot.png */; };
-		46C6232016D2B1E300879171 /* TrackingDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230E16D2B1E300879171 /* TrackingDot@2x.png */; };
-		46C6232116D2B1E300879171 /* TrackingDotHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230F16D2B1E300879171 /* TrackingDotHalo.png */; };
-		46C6232216D2B1E300879171 /* TrackingDotHalo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231016D2B1E300879171 /* TrackingDotHalo@2x.png */; };
-		46C6232316D2B1E300879171 /* TrackingHeading.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231116D2B1E300879171 /* TrackingHeading.png */; };
-		46C6232416D2B1E300879171 /* TrackingHeading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231216D2B1E300879171 /* TrackingHeading@2x.png */; };
-		46C6232516D2B1E300879171 /* TrackingLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231316D2B1E300879171 /* TrackingLocation.png */; };
-		46C6232616D2B1E300879171 /* TrackingLocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231416D2B1E300879171 /* TrackingLocation@2x.png */; };
 		46C6232A16D2CBB800879171 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C6232916D2CBB800879171 /* TestView.m */; };
 		46DA7E7A16D93B2E00FA1A10 /* RMMapStatWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA7E7816D93B2E00FA1A10 /* RMMapStatWindowController.m */; };
 		46DA7E7B16D93B2E00FA1A10 /* RMMapStatWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46DA7E7916D93B2E00FA1A10 /* RMMapStatWindow.xib */; };
@@ -609,6 +609,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46062E751711331D00C0E429 /* TrackingDot.png in Resources */,
+				46062E761711331D00C0E429 /* TrackingDot@2x.png in Resources */,
+				46062E771711331D00C0E429 /* TrackingDotHalo.png in Resources */,
+				46062E781711331D00C0E429 /* TrackingDotHalo@2x.png in Resources */,
+				46062E791711331D00C0E429 /* TrackingHeading.png in Resources */,
+				46062E7A1711331D00C0E429 /* TrackingHeading@2x.png in Resources */,
+				46062E7B1711331D00C0E429 /* TrackingLocation.png in Resources */,
+				46062E7C1711331D00C0E429 /* TrackingLocation@2x.png in Resources */,
+				46062E74171132DF00C0E429 /* LoadingTile.png in Resources */,
 				46A6030116D2AD29006A4081 /* InfoPlist.strings in Resources */,
 				46A6030716D2AD29006A4081 /* Credits.rtf in Resources */,
 				46A6030D16D2AD29006A4081 /* MainMenu.xib in Resources */,
@@ -618,18 +627,9 @@
 				46C6231816D2B1E300879171 /* HeadingAngleMedium@2x.png in Resources */,
 				46C6231916D2B1E300879171 /* HeadingAngleSmall.png in Resources */,
 				46C6231A16D2B1E300879171 /* HeadingAngleSmall@2x.png in Resources */,
-				46C6231B16D2B1E300879171 /* LoadingTile.png in Resources */,
 				46C6231C16D2B1E300879171 /* LoadingTileZoom.png in Resources */,
 				46C6231D16D2B1E300879171 /* mapbox.png in Resources */,
 				46C6231E16D2B1E300879171 /* mapbox@2x.png in Resources */,
-				46C6231F16D2B1E300879171 /* TrackingDot.png in Resources */,
-				46C6232016D2B1E300879171 /* TrackingDot@2x.png in Resources */,
-				46C6232116D2B1E300879171 /* TrackingDotHalo.png in Resources */,
-				46C6232216D2B1E300879171 /* TrackingDotHalo@2x.png in Resources */,
-				46C6232316D2B1E300879171 /* TrackingHeading.png in Resources */,
-				46C6232416D2B1E300879171 /* TrackingHeading@2x.png in Resources */,
-				46C6232516D2B1E300879171 /* TrackingLocation.png in Resources */,
-				46C6232616D2B1E300879171 /* TrackingLocation@2x.png in Resources */,
 				46DA7E7B16D93B2E00FA1A10 /* RMMapStatWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

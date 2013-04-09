@@ -847,6 +847,8 @@
     normalizedProjectedRect.origin.y = (bottomLeft.y * _metersPerPixel) - fabs(planetBounds.origin.y);
     normalizedProjectedRect.size.width = _mapScrollView.bounds.size.width * _metersPerPixel;
     normalizedProjectedRect.size.height = _mapScrollView.bounds.size.height * _metersPerPixel;
+//    normalizedProjectedRect.size.width = _mapScrollView.contentView.frame.size.width * _metersPerPixel;
+//    normalizedProjectedRect.size.height = _mapScrollView.contentView.frame.size.height * _metersPerPixel;
     
     return normalizedProjectedRect;
 }
@@ -1101,7 +1103,7 @@
     RMUIScrollView *scrollView = (RMUIScrollView *)[clipView superview];
     
     CGPoint contentOffset = [scrollView contentOffset];
-   // RMLog(@"contentOffset: %f, %f", contentOffset.x, contentOffset.y);
+    RMLog(@"contentOffset: %f, %f", contentOffset.x, contentOffset.y);
     [self contentOffsetChanged:contentOffset];
 }
 
@@ -1133,8 +1135,8 @@
     
     int tileSideLength = [_tileSourcesContainer tileSideLength];
     CGSize contentSize = CGSizeMake(tileSideLength, tileSideLength); // zoom level 1
-    contentSize.width = 2048;
-    contentSize.height  = 2048;
+//    contentSize.width = 2048;
+//    contentSize.height  = 2048;
     
     _mapScrollView = [[RMMapScrollView alloc] initWithFrame:[self bounds]];
     _mapScrollView.hasVerticalScroller = YES;
@@ -1196,7 +1198,9 @@
                                                  name:NSViewBoundsDidChangeNotification
                                                object:_mapScrollView.contentView];
     
-    [_mapScrollView addObserver:self forKeyPath:@"contentOffset" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:NULL];
+//    [_mapScrollView addObserver:self forKeyPath:@"contentOffset" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:NULL];
+    [self updateMetersPerPixel];
+    
     _mapScrollView.mapScrollViewDelegate = self;
     
     _mapScrollView.zoomScale = exp2f([self zoom]);
@@ -1432,43 +1436,38 @@
 //- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)change context:(void *)context
 - (void)contentOffsetChanged:(CGPoint)newContentOffset
 {
-    CGSize aSize = _mapScrollView.contentSize;
-//    if ( newContentOffset.x == 0)
-//        return;
-    /*
-    NSValue *oldValue = [change objectForKey:NSKeyValueChangeOldKey],
+ /*   NSValue *oldValue = [change objectForKey:NSKeyValueChangeOldKey],
     *newValue = [change objectForKey:NSKeyValueChangeNewKey];
     
     CGPoint oldContentOffset = [oldValue CGPointValue],
     newContentOffset = [newValue CGPointValue];
-    
-    if (CGPointEqualToPoint(oldContentOffset, newContentOffset))
+  */  
+    if (CGPointEqualToPoint(_lastContentOffset, newContentOffset))
         return;
     
     // The first offset during zooming out (animated) is always garbage
     if (_mapScrollViewIsZooming == YES &&
         _mapScrollView.zooming == NO &&
         _lastContentSize.width > _mapScrollView.contentSize.width &&
-        (newContentOffset.y - oldContentOffset.y) == 0.0)
+        (newContentOffset.y - _lastContentOffset.y) == 0.0)
     {
         _lastContentOffset = _mapScrollView.contentOffset;
         _lastContentSize = _mapScrollView.contentSize;
-     
+        
         return;
     }
-*/
-    [self updateMetersPerPixel];
-    return;
     
-    //RMLog(@"contentOffset: {%.0f,%.0f} -> {%.1f,%.1f} (%.0f,%.0f)", _lastContentOffset.x, _lastContentOffset.y, newContentOffset.x, newContentOffset.y, newContentOffset.x - _lastContentOffset.x, newContentOffset.y - _lastContentOffset.y);
-    //RMLog(@"contentSize: {%.0f,%.0f} -> {%.0f,%.0f}", _lastContentSize.width, _lastContentSize.height, _mapScrollView.contentSize.width, _mapScrollView.contentSize.height);
+    //    RMLog(@"contentOffset: {%.0f,%.0f} -> {%.1f,%.1f} (%.0f,%.0f)", oldContentOffset.x, oldContentOffset.y, newContentOffset.x, newContentOffset.y, newContentOffset.x - oldContentOffset.x, newContentOffset.y - oldContentOffset.y);
+    //    RMLog(@"contentSize: {%.0f,%.0f} -> {%.0f,%.0f}", _lastContentSize.width, _lastContentSize.height, mapScrollView.contentSize.width, mapScrollView.contentSize.height);
     //    RMLog(@"isZooming: %d, scrollview.zooming: %d", _mapScrollViewIsZooming, mapScrollView.zooming);
     
-     /*
+    RMProjectedRect planetBounds = _projection.planetBounds;
+    _metersPerPixel = planetBounds.size.width / _mapScrollView.contentSize.width;
+    
     _zoom = log2f(_mapScrollView.zoomScale);
     _zoom = (_zoom > _maxZoom) ? _maxZoom : _zoom;
     _zoom = (_zoom < _minZoom) ? _minZoom : _zoom;
-    */
+    
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(correctPositionOfAllAnnotations) object:nil];
     
     if (_zoom == _lastZoom)
@@ -1495,12 +1494,12 @@
     {
         [self correctPositionOfAllAnnotationsIncludingInvisibles:NO animated:(_mapScrollViewIsZooming && !_mapScrollView.zooming)];
         
+#warning fixme
+        /*
         if (_currentAnnotation && ! [_currentAnnotation isKindOfClass:[RMMarker class]])
         {
             // adjust shape annotation callouts for frame changes during zoom
             //
-            //TODO: fix me
-            /*
             _currentCallout.delegate = nil;
             
             [_currentCallout presentCalloutFromRect:_currentAnnotation.layer.bounds
@@ -1510,9 +1509,8 @@
                                            animated:NO];
             
             _currentCallout.delegate = self;
-             */
         }
-        
+        */
         _lastZoom = _zoom;
     }
     
@@ -2731,6 +2729,7 @@
 	normalizedProjectedPoint.x = annotation.projectedLocation.x + fabs(planetBounds.origin.x);
 	normalizedProjectedPoint.y = annotation.projectedLocation.y + fabs(planetBounds.origin.y);
     
+    CGPoint contentOffset = _mapScrollView.contentOffset;
     CGPoint newPosition = CGPointMake((normalizedProjectedPoint.x / _metersPerPixel) - _mapScrollView.contentOffset.x,
                                       _mapScrollView.contentSize.height - (normalizedProjectedPoint.y / _metersPerPixel) - _mapScrollView.contentOffset.y);
     

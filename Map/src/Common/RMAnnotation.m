@@ -115,11 +115,10 @@
 - (void)setPosition:(CGPoint)aPosition animated:(BOOL)animated
 {
     position = aPosition;
-#warning fix me
-    /*
+    
     if (layer)
         [layer setPosition:aPosition animated:animated];
-     */
+     
 }
 
 - (void)setPosition:(CGPoint)aPosition
@@ -147,12 +146,9 @@
     if (aLayer)
     {
         layer = aLayer;
-#warning fix me
-        /*
         layer.annotation = self;
         [superLayer addSublayer:layer];
         [layer setPosition:self.position animated:NO];
-         */
     }
 }
 

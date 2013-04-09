@@ -9,7 +9,7 @@
 #import "RMUIScrollView.h"
 
 @implementation RMUIScrollView
-@synthesize contentOffset ;
+//@synthesize contentOffset ;
 //@synthesize contentSize;
 
 - (id)initWithFrame:(NSRect)frame
@@ -56,7 +56,7 @@
 
 - (CGPoint)contentOffset
 {
-    NSRect frame = [[self documentView] frame];
+//    NSRect frame = [[self documentView] frame];
 //    NSLog(@"---- contentOFfset y: %f", [self contentView].bounds.origin.y);
     return [self contentView].bounds.origin;
     //return [self documentVisibleRect].origin;
@@ -79,17 +79,18 @@
         [self _setScrollAnimation:animation];
         [animation release];
     } else*/ {
-        contentOffset.x = round(theOffset.x);
-        contentOffset.y = round(theOffset.y);
+        CGPoint offset;
+        offset.x = round(theOffset.x);
+        offset.y = round(theOffset.y);
         
-        NSLog(@"===== scrollPoint: %f %f: ", contentOffset.x, contentOffset.y);
+        NSLog(@"===== scrollPoint: %f %f: ", offset.x, offset.y);
         /*
         CGRect bounds = self.bounds;
         bounds.origin.x = contentOffset.x+_contentInset.left;
         bounds.origin.y = contentOffset.y+_contentInset.top;
         self.bounds = bounds;
         */
-        [[self documentView] scrollPoint:contentOffset];
+        [[self documentView] scrollPoint:offset];
         
        // [self _updateScrollers];
         //[self setNeedsLayout];
