@@ -19,6 +19,7 @@
 - (CGSize)contentSize;
 - (void)setContentSize:(CGSize)theContentSize;
 - (void)zoomWithFactor:(float)zoomFactor;
+- (void)zoomToScale:(float)zoomScale;
 - (void)scrollPointToCentre:(NSPoint)aPoint;
 
 

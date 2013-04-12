@@ -947,6 +947,8 @@
     {
 //        [self centerMapAtPixelPoint:pivot];
         [_mapScrollView zoomWithFactor:zoomFactor];
+//        [_mapScrollView zoomToScale:targetZoom];
+        [self setZoom:targetZoom];
         [self updateMetersPerPixel];
     }
     else
@@ -1136,7 +1138,7 @@
     int tileSideLength = [_tileSourcesContainer tileSideLength];
     CGSize contentSize = CGSizeMake(tileSideLength, tileSideLength); // zoom level 1
 //    contentSize.width = 2048;
-//    contentSize.height  = 2048;
+ //   contentSize.height  = 2048;
     
     _mapScrollView = [[RMMapScrollView alloc] initWithFrame:[self bounds]];
     _mapScrollView.hasVerticalScroller = YES;
@@ -1144,6 +1146,8 @@
     
     [_mapScrollView setAutoresizesSubviews:YES];
     [_mapScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+ 
+
     //TODO: check
     /*
     _mapScrollView.delegate = self;
@@ -1176,8 +1180,11 @@
     for (id <RMTileSource> tileSource in _tileSourcesContainer.tileSources)
     {
         RMMapTiledLayerView *tiledLayerView = [[RMMapTiledLayerView alloc] initWithFrame:CGRectMake(0.0, 0.0, contentSize.width, contentSize.height) mapView:self forTileSource:tileSource];
-        
- //       ((CATiledLayer *)tiledLayerView.layer).tileSize = CGSizeMake(tileSideLength, tileSideLength);
+       
+//        tiledLayerView.layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+//        sublayer.layoutManager = [CAConstraintLayoutManager layoutManager];
+
+        //       ((CATiledLayer *)tiledLayerView.layer).tileSize = CGSizeMake(tileSideLength, tileSideLength);
         
         [_tiledLayersSuperview addSubview:tiledLayerView];
     }
@@ -1185,7 +1192,7 @@
     // dbainbridge UI/NSScrollView difference
     [_mapScrollView setDocumentView:_tiledLayersSuperview];
     //[_mapScrollView addSubview:_tiledLayersSuperview];
-    
+  
     _lastZoom = [self zoom];
     _lastContentOffset = _mapScrollView.contentOffset;
     _accumulatedDelta = CGPointMake(0.0, 0.0);
@@ -1262,6 +1269,8 @@
     // pan recognizer of the scrollview
     [_mapScrollView addGestureRecognizer:panGestureRecognizer];
 #endif
+    [self setZoom:1];
+    [_mapScrollView zoomToScale:[self zoom]];
     [_visibleAnnotations removeAllObjects];
     [self correctPositionOfAllAnnotations];
 }
@@ -1430,7 +1439,8 @@
 - (void)updateMetersPerPixel
 {
     RMProjectedRect planetBounds = _projection.planetBounds;
-    _metersPerPixel = planetBounds.size.width / _mapScrollView.contentSize.width;    
+    _metersPerPixel = (2 * M_PI * 6378137) / (256 * pow(2, _zoom - 1));
+//    _metersPerPixel = planetBounds.size.width / _mapScrollView.contentSize.width;
 }
 
 //- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)change context:(void *)context
@@ -1461,8 +1471,7 @@
     //    RMLog(@"contentSize: {%.0f,%.0f} -> {%.0f,%.0f}", _lastContentSize.width, _lastContentSize.height, mapScrollView.contentSize.width, mapScrollView.contentSize.height);
     //    RMLog(@"isZooming: %d, scrollview.zooming: %d", _mapScrollViewIsZooming, mapScrollView.zooming);
     
-    RMProjectedRect planetBounds = _projection.planetBounds;
-    _metersPerPixel = planetBounds.size.width / _mapScrollView.contentSize.width;
+    [self updateMetersPerPixel];
     
     _zoom = log2f(_mapScrollView.zoomScale);
     _zoom = (_zoom > _maxZoom) ? _maxZoom : _zoom;
