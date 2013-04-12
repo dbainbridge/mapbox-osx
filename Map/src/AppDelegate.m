@@ -37,12 +37,12 @@
     CGPoint point = {0,0};
     [myView addSubview:mapView];
 //    [mapView zoomByFactor:8 near:point animated:NO];
-
+/*
     self.statWindowController = [[RMMapStatWindowController alloc] init];
     [self.statWindowController showWindow:nil];
     self.statWindowController.mapView = mapView;
     [self.statWindowController startTrackingMap];
-    
+    */
     RMAnnotation* annotation = [[RMAnnotation alloc] initWithMapView: mapView
                                                           coordinate: CLLocationCoordinate2DMake(-47.38344955, -95.23297119)
                                                             andTitle: @""];

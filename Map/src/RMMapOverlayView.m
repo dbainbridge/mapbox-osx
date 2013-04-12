@@ -14,15 +14,13 @@
 
 @implementation RMMapOverlayView
 
-+ (Class)layerClass
-{
-    return [CAScrollLayer class];
-}
-
 - (id)initWithFrame:(CGRect)frame
 {
     if (!(self = [super initWithFrame:frame]))
         return nil;
+    
+    [self setLayer:[CAScrollLayer layer]];
+    [self setWantsLayer:YES];
     
     self.layer.masksToBounds = NO;
     
@@ -57,7 +55,7 @@
 - (void)moveLayersBy:(CGPoint)delta
 {
     NSLog(@"moveLayersBy: %@", NSStringFromCGPoint(delta));
-    [self.layer scrollPoint:CGPointMake(-delta.x, -delta.y)];
+    [(CAScrollLayer *)self.layer scrollToPoint:CGPointMake(-delta.x, -delta.y)];
 }
 
 - (CALayer *)overlayHitTest:(CGPoint)point

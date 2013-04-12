@@ -2407,6 +2407,7 @@
         RMLog(@"New zoom:%f", _zoom);
     
     _mapScrollView.zoomScale = exp2f(_zoom);
+    [self updateMetersPerPixel];
     
     [self completeZoomEventAfterDelay:0];
 }
@@ -2739,6 +2740,7 @@
 	normalizedProjectedPoint.y = annotation.projectedLocation.y + fabs(planetBounds.origin.y);
     
     CGPoint contentOffset = _mapScrollView.contentOffset;
+    
     CGPoint newPosition = CGPointMake((normalizedProjectedPoint.x / _metersPerPixel) - _mapScrollView.contentOffset.x,
                                       _mapScrollView.contentSize.height - (normalizedProjectedPoint.y / _metersPerPixel) - _mapScrollView.contentOffset.y);
     
@@ -2749,6 +2751,7 @@
 
 - (void)correctPositionOfAllAnnotationsIncludingInvisibles:(BOOL)correctAllAnnotations animated:(BOOL)animated
 {
+    NSLog(@"correctPositionOfAllAnnotationsIncludingInvisibles %d", animated);
     // Prevent blurry movements
     [CATransaction begin];
     
