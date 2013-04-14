@@ -1227,7 +1227,8 @@
    
 //    _overlayView.userInteractionEnabled = NO;
     
-    [self insertSubview:_overlayView aboveSubview:_mapScrollView];
+    [_tiledLayersSuperview.layer addSublayer:_overlayView.layer];
+    //[self insertSubview:_overlayView aboveSubview:_mapScrollView];
        
     // add gesture recognizers
 #if 0
@@ -2740,9 +2741,10 @@
 	normalizedProjectedPoint.y = annotation.projectedLocation.y + fabs(planetBounds.origin.y);
     
     CGPoint contentOffset = _mapScrollView.contentOffset;
+    CGSize contentSize = _mapScrollView.contentSize;
     
     CGPoint newPosition = CGPointMake((normalizedProjectedPoint.x / _metersPerPixel) - _mapScrollView.contentOffset.x,
-                                      _mapScrollView.contentSize.height - (normalizedProjectedPoint.y / _metersPerPixel) - _mapScrollView.contentOffset.y);
+                                       (normalizedProjectedPoint.y / _metersPerPixel) - _mapScrollView.contentOffset.y);
     
     RMLog(@"Change annotation at {%f,%f} in mapView {%f,%f}", annotation.position.x, annotation.position.y, _mapScrollView.contentSize.width, _mapScrollView.contentSize.height);
     

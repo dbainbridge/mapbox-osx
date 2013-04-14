@@ -237,7 +237,8 @@
             }
             else
             {
-                NSUInteger currentTileDepth = 1, currentZoom = zoom - currentTileDepth;
+                NSUInteger currentTileDepth = 1;
+                NSUInteger currentZoom = zoom - currentTileDepth;
                 
                 // tries to return lower zoom level tiles if a tile cannot be found
                 while ( !tileImage && currentZoom >= _tileSource.minZoom && currentTileDepth <= _mapView.missingTilesDepth)

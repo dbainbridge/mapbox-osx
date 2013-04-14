@@ -19,7 +19,7 @@
     if (!(self = [super initWithFrame:frame]))
         return nil;
     
-    [self setLayer:[CAScrollLayer layer]];
+    [self setLayer:[CALayer layer]];
     [self setWantsLayer:YES];
     
     self.layer.masksToBounds = NO;
@@ -55,7 +55,7 @@
 - (void)moveLayersBy:(CGPoint)delta
 {
     NSLog(@"moveLayersBy: %@", NSStringFromCGPoint(delta));
-    [(CAScrollLayer *)self.layer scrollToPoint:CGPointMake(-delta.x, -delta.y)];
+//    [self.layer scrollPoint:CGPointMake(-delta.x, -delta.y)];
 }
 
 - (CALayer *)overlayHitTest:(CGPoint)point

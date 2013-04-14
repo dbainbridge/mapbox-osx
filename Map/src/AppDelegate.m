@@ -44,7 +44,7 @@
     [self.statWindowController startTrackingMap];
     */
     RMAnnotation* annotation = [[RMAnnotation alloc] initWithMapView: mapView
-                                                          coordinate: CLLocationCoordinate2DMake(-47.38344955, -95.23297119)
+                                                          coordinate: CLLocationCoordinate2DMake(47.38344955, -95.23297119)
                                                             andTitle: @""];
     [mapView addAnnotation: annotation];
 }
