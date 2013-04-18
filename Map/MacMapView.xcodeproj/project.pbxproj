@@ -410,7 +410,6 @@
 		46A602FC16D2AD29006A4081 /* MacMapView */ = {
 			isa = PBXGroup;
 			children = (
-				46A606CD16D2AFD9006A4081 /* src */,
 				46A6036716D2AE5A006A4081 /* Common */,
 				46A6033E16D2AE12006A4081 /* NSView+UIView.h */,
 				46A6033F16D2AE12006A4081 /* NSView+UIView.m */,
@@ -534,7 +533,7 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		46A606CD16D2AFD9006A4081 /* src */ = {
+		46A606CD16D2AFD9006A4081 /* FMDB */ = {
 			isa = PBXGroup;
 			children = (
 				46A606CE16D2AFD9006A4081 /* FMDatabase.h */,
@@ -548,6 +547,7 @@
 				46A606D716D2AFD9006A4081 /* FMResultSet.h */,
 				46A606D816D2AFD9006A4081 /* FMResultSet.m */,
 			);
+			name = FMDB;
 			path = src;
 			sourceTree = "<group>";
 		};
@@ -579,6 +579,7 @@
 		46D5C3B6172037AC00C87E2C /* 3rd Party */ = {
 			isa = PBXGroup;
 			children = (
+				46A606CD16D2AFD9006A4081 /* FMDB */,
 				46C6230016D2B18D00879171 /* libMacProj4.a */,
 				46A6031316D2AD94006A4081 /* Chameleon */,
 			);
