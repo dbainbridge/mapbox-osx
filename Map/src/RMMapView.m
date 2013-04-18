@@ -238,7 +238,7 @@
     
     // TODO: FIXME
     //_screenScale = [UIScreen mainScreen].scale;
-    _screenScale = 1.0;
+    _screenScale = 2.0;
     
     _adjustTilesForRetinaDisplay = NO;
     _missingTilesDepth = 1;
@@ -839,14 +839,14 @@
 
 - (RMProjectedRect)projectedBounds
 {
-    CGPoint bottomLeft = CGPointMake(_mapScrollView.contentOffset.x, _mapScrollView.contentSize.height - (_mapScrollView.contentOffset.y + _mapScrollView.bounds.size.height));
+    CGPoint bottomLeft = CGPointMake(_mapScrollView.contentOffset.x,  (_mapScrollView.contentOffset.y));
     
     RMProjectedRect planetBounds = _projection.planetBounds;
     RMProjectedRect normalizedProjectedRect;
     normalizedProjectedRect.origin.x = (bottomLeft.x * _metersPerPixel) - fabs(planetBounds.origin.x);
     normalizedProjectedRect.origin.y = (bottomLeft.y * _metersPerPixel) - fabs(planetBounds.origin.y);
-    normalizedProjectedRect.size.width = _mapScrollView.bounds.size.width * _metersPerPixel;
-    normalizedProjectedRect.size.height = _mapScrollView.bounds.size.height * _metersPerPixel;
+    normalizedProjectedRect.size.width = [self mapWidth];
+    normalizedProjectedRect.size.height = [self mapWidth];
 //    normalizedProjectedRect.size.width = _mapScrollView.contentView.frame.size.width * _metersPerPixel;
 //    normalizedProjectedRect.size.height = _mapScrollView.contentView.frame.size.height * _metersPerPixel;
     
@@ -946,10 +946,10 @@
     if ([self shouldZoomToTargetZoom:targetZoom withZoomFactor:zoomFactor])
     {
 //        [self centerMapAtPixelPoint:pivot];
-        [_mapScrollView zoomWithFactor:zoomFactor];
 //        [_mapScrollView zoomToScale:targetZoom];
         [self setZoom:targetZoom];
-        [self updateMetersPerPixel];
+        [_mapScrollView zoomWithFactor:zoomFactor];
+        //[self updateMetersPerPixel];
     }
     else
     {
@@ -1227,8 +1227,8 @@
    
 //    _overlayView.userInteractionEnabled = NO;
     
-    [_tiledLayersSuperview.layer addSublayer:_overlayView.layer];
-    //[self insertSubview:_overlayView aboveSubview:_mapScrollView];
+    //[_tiledLayersSuperview.layer addSublayer:_overlayView.layer];
+    [self insertSubview:_overlayView aboveSubview:_mapScrollView];
        
     // add gesture recognizers
 #if 0
@@ -1437,6 +1437,10 @@
     *aContentSize = CGSizeMake((*aContentSize).width * factor, (*aContentSize).height * factor);
 }
 
+- (float)mapWidth
+{
+    return (256 * pow(2, _zoom - 1));
+}
 - (void)updateMetersPerPixel
 {
     RMProjectedRect planetBounds = _projection.planetBounds;
@@ -2745,7 +2749,7 @@
     
     CGPoint newPosition = CGPointMake((normalizedProjectedPoint.x / _metersPerPixel) - _mapScrollView.contentOffset.x,
                                        (normalizedProjectedPoint.y / _metersPerPixel) - _mapScrollView.contentOffset.y);
-    
+        
     RMLog(@"Change annotation at {%f,%f} in mapView {%f,%f}", annotation.position.x, annotation.position.y, _mapScrollView.contentSize.width, _mapScrollView.contentSize.height);
     
     [annotation setPosition:newPosition animated:animated];
@@ -2765,7 +2769,7 @@
     }
     else
     {
-        [CATransaction setDisableActions:YES];
+        [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
     }
     
     _accumulatedDelta.x = 0.0;

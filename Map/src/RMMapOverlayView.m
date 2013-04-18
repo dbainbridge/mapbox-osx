@@ -19,11 +19,21 @@
     if (!(self = [super initWithFrame:frame]))
         return nil;
     
-    [self setLayer:[CALayer layer]];
+    [self setLayer:[CAScrollLayer layer]];
     [self setWantsLayer:YES];
     
     self.layer.masksToBounds = NO;
-    
+
+    NSMutableDictionary *newActions = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSNull null], @"onOrderIn",
+                                       [NSNull null], @"onOrderOut",
+                                       [NSNull null], @"sublayers",
+                                       [NSNull null], @"contents",
+                                       [NSNull null], @"bounds",
+                                       [NSNull null], @"position",
+                                       [NSNull null], @"sublayers",
+                                       nil];
+    self.layer.actions = newActions;
+
     return self;
 }
 
@@ -55,7 +65,8 @@
 - (void)moveLayersBy:(CGPoint)delta
 {
     NSLog(@"moveLayersBy: %@", NSStringFromCGPoint(delta));
-//    [self.layer scrollPoint:CGPointMake(-delta.x, -delta.y)];
+    [self.layer scrollPoint:CGPointMake(-delta.x, -delta.y)];
+//    [self.layer scrollPoint:CGPointMake(0,0)];
 }
 
 - (CALayer *)overlayHitTest:(CGPoint)point
