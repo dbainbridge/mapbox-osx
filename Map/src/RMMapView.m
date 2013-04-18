@@ -103,33 +103,35 @@
 @implementation RMMapView
 {
     id <RMMapViewDelegate> _delegate;
-    
-    BOOL _delegateHasBeforeMapMove;
-    BOOL _delegateHasAfterMapMove;
-    BOOL _delegateHasBeforeMapZoom;
-    BOOL _delegateHasAfterMapZoom;
-    BOOL _delegateHasMapViewRegionDidChange;
-    BOOL _delegateHasDoubleTapOnMap;
-    BOOL _delegateHasSingleTapOnMap;
-    BOOL _delegateHasSingleTapTwoFingersOnMap;
-    BOOL _delegateHasLongPressOnMap;
-    BOOL _delegateHasTapOnAnnotation;
-    BOOL _delegateHasDoubleTapOnAnnotation;
-    BOOL _delegateHasLongPressOnAnnotation;
-    BOOL _delegateHasTapOnCalloutAccessoryControlForAnnotation;
-    BOOL _delegateHasTapOnLabelForAnnotation;
-    BOOL _delegateHasDoubleTapOnLabelForAnnotation;
-    BOOL _delegateHasShouldDragMarker;
-    BOOL _delegateHasDidDragMarker;
-    BOOL _delegateHasDidEndDragMarker;
-    BOOL _delegateHasLayerForAnnotation;
-    BOOL _delegateHasWillHideLayerForAnnotation;
-    BOOL _delegateHasDidHideLayerForAnnotation;
-    BOOL _delegateHasWillStartLocatingUser;
-    BOOL _delegateHasDidStopLocatingUser;
-    BOOL _delegateHasDidUpdateUserLocation;
-    BOOL _delegateHasDidFailToLocateUserWithError;
-    BOOL _delegateHasDidChangeUserTrackingMode;
+    struct {
+        unsigned int beforeMapMove:1;
+        unsigned int afterMapMove:1;
+        unsigned int beforeMapZoom:1;
+        unsigned int afterMapZoom:1;
+        unsigned int mapViewRegionDidChange:1;
+        unsigned int doubleTapOnMap:1;
+        unsigned int singleTapOnMap:1;
+        unsigned int singleTapTwoFingersOnMap:1;
+        unsigned int longPressOnMap:1;
+        unsigned int tapOnAnnotation:1;
+        unsigned int doubleTapOnAnnotation:1;
+        unsigned int longPressOnAnnotation:1;
+        unsigned int tapOnCalloutAccessoryControlForAnnotation:1;
+        unsigned int tapOnLabelForAnnotation:1;
+        unsigned int doubleTapOnLabelForAnnotation:1;
+        unsigned int shouldDragMarker:1;
+        unsigned int didDragMarker:1;
+        unsigned int didEndDragMarker:1;
+        unsigned int layerForAnnotation:1;
+        unsigned int willHideLayerForAnnotation:1;
+        unsigned int didHideLayerForAnnotation:1;
+        unsigned int willStartLocatingUser:1;
+        unsigned int didStopLocatingUser:1;
+        unsigned int didUpdateUserLocation:1;
+        unsigned int didFailToLocateUserWithError:1;
+        unsigned int didChangeUserTrackingMode:1;
+        
+    } delegateRespondsTo;
     
     NSView *_backgroundView;
     RMMapScrollView *_mapScrollView;
@@ -522,39 +524,39 @@
     
     _delegate = aDelegate;
     
-    _delegateHasBeforeMapMove = [_delegate respondsToSelector:@selector(beforeMapMove:byUser:)];
-    _delegateHasAfterMapMove  = [_delegate respondsToSelector:@selector(afterMapMove:byUser:)];
+    delegateRespondsTo.beforeMapMove = [_delegate respondsToSelector:@selector(beforeMapMove:byUser:)];
+    delegateRespondsTo.afterMapMove  = [_delegate respondsToSelector:@selector(afterMapMove:byUser:)];
     
-    _delegateHasBeforeMapZoom = [_delegate respondsToSelector:@selector(beforeMapZoom:byUser:)];
-    _delegateHasAfterMapZoom  = [_delegate respondsToSelector:@selector(afterMapZoom:byUser:)];
+    delegateRespondsTo.beforeMapZoom = [_delegate respondsToSelector:@selector(beforeMapZoom:byUser:)];
+    delegateRespondsTo.afterMapZoom  = [_delegate respondsToSelector:@selector(afterMapZoom:byUser:)];
     
-    _delegateHasMapViewRegionDidChange = [_delegate respondsToSelector:@selector(mapViewRegionDidChange:)];
+    delegateRespondsTo.mapViewRegionDidChange = [_delegate respondsToSelector:@selector(mapViewRegionDidChange:)];
     
-    _delegateHasDoubleTapOnMap = [_delegate respondsToSelector:@selector(doubleTapOnMap:at:)];
-    _delegateHasSingleTapOnMap = [_delegate respondsToSelector:@selector(singleTapOnMap:at:)];
-    _delegateHasSingleTapTwoFingersOnMap = [_delegate respondsToSelector:@selector(singleTapTwoFingersOnMap:at:)];
-    _delegateHasLongPressOnMap = [_delegate respondsToSelector:@selector(longPressOnMap:at:)];
+    delegateRespondsTo.doubleTapOnMap = [_delegate respondsToSelector:@selector(doubleTapOnMap:at:)];
+    delegateRespondsTo.singleTapOnMap = [_delegate respondsToSelector:@selector(singleTapOnMap:at:)];
+    delegateRespondsTo.singleTapTwoFingersOnMap = [_delegate respondsToSelector:@selector(singleTapTwoFingersOnMap:at:)];
+    delegateRespondsTo.longPressOnMap = [_delegate respondsToSelector:@selector(longPressOnMap:at:)];
     
-    _delegateHasTapOnAnnotation = [_delegate respondsToSelector:@selector(tapOnAnnotation:onMap:)];
-    _delegateHasDoubleTapOnAnnotation = [_delegate respondsToSelector:@selector(doubleTapOnAnnotation:onMap:)];
-    _delegateHasLongPressOnAnnotation = [_delegate respondsToSelector:@selector(longPressOnAnnotation:onMap:)];
-    _delegateHasTapOnCalloutAccessoryControlForAnnotation = [_delegate respondsToSelector:@selector(tapOnCalloutAccessoryControl:forAnnotation:onMap:)];
-    _delegateHasTapOnLabelForAnnotation = [_delegate respondsToSelector:@selector(tapOnLabelForAnnotation:onMap:)];
-    _delegateHasDoubleTapOnLabelForAnnotation = [_delegate respondsToSelector:@selector(doubleTapOnLabelForAnnotation:onMap:)];
+    delegateRespondsTo.tapOnAnnotation = [_delegate respondsToSelector:@selector(tapOnAnnotation:onMap:)];
+    delegateRespondsTo.doubleTapOnAnnotation = [_delegate respondsToSelector:@selector(doubleTapOnAnnotation:onMap:)];
+    delegateRespondsTo.longPressOnAnnotation = [_delegate respondsToSelector:@selector(longPressOnAnnotation:onMap:)];
+    delegateRespondsTo.tapOnCalloutAccessoryControlForAnnotation = [_delegate respondsToSelector:@selector(tapOnCalloutAccessoryControl:forAnnotation:onMap:)];
+    delegateRespondsTo.tapOnLabelForAnnotation = [_delegate respondsToSelector:@selector(tapOnLabelForAnnotation:onMap:)];
+    delegateRespondsTo.doubleTapOnLabelForAnnotation = [_delegate respondsToSelector:@selector(doubleTapOnLabelForAnnotation:onMap:)];
     
-    _delegateHasShouldDragMarker = [_delegate respondsToSelector:@selector(mapView:shouldDragAnnotation:)];
-    _delegateHasDidDragMarker = [_delegate respondsToSelector:@selector(mapView:didDragAnnotation:withDelta:)];
-    _delegateHasDidEndDragMarker = [_delegate respondsToSelector:@selector(mapView:didEndDragAnnotation:)];
+    delegateRespondsTo.shouldDragMarker = [_delegate respondsToSelector:@selector(mapView:shouldDragAnnotation:)];
+    delegateRespondsTo.didDragMarker = [_delegate respondsToSelector:@selector(mapView:didDragAnnotation:withDelta:)];
+    delegateRespondsTo.didEndDragMarker = [_delegate respondsToSelector:@selector(mapView:didEndDragAnnotation:)];
     
-    _delegateHasLayerForAnnotation = [_delegate respondsToSelector:@selector(mapView:layerForAnnotation:)];
-    _delegateHasWillHideLayerForAnnotation = [_delegate respondsToSelector:@selector(mapView:willHideLayerForAnnotation:)];
-    _delegateHasDidHideLayerForAnnotation = [_delegate respondsToSelector:@selector(mapView:didHideLayerForAnnotation:)];
+    delegateRespondsTo.layerForAnnotation = [_delegate respondsToSelector:@selector(mapView:layerForAnnotation:)];
+    delegateRespondsTo.willHideLayerForAnnotation = [_delegate respondsToSelector:@selector(mapView:willHideLayerForAnnotation:)];
+    delegateRespondsTo.didHideLayerForAnnotation = [_delegate respondsToSelector:@selector(mapView:didHideLayerForAnnotation:)];
     
-    _delegateHasWillStartLocatingUser = [_delegate respondsToSelector:@selector(mapViewWillStartLocatingUser:)];
-    _delegateHasDidStopLocatingUser = [_delegate respondsToSelector:@selector(mapViewDidStopLocatingUser:)];
-    _delegateHasDidUpdateUserLocation = [_delegate respondsToSelector:@selector(mapView:didUpdateUserLocation:)];
-    _delegateHasDidFailToLocateUserWithError = [_delegate respondsToSelector:@selector(mapView:didFailToLocateUserWithError:)];
-    _delegateHasDidChangeUserTrackingMode = [_delegate respondsToSelector:@selector(mapView:didChangeUserTrackingMode:animated:)];
+    delegateRespondsTo.willStartLocatingUser = [_delegate respondsToSelector:@selector(mapViewWillStartLocatingUser:)];
+    delegateRespondsTo.didStopLocatingUser = [_delegate respondsToSelector:@selector(mapViewDidStopLocatingUser:)];
+    delegateRespondsTo.didUpdateUserLocation = [_delegate respondsToSelector:@selector(mapView:didUpdateUserLocation:)];
+    delegateRespondsTo.didFailToLocateUserWithError = [_delegate respondsToSelector:@selector(mapView:didFailToLocateUserWithError:)];
+    delegateRespondsTo.didChangeUserTrackingMode = [_delegate respondsToSelector:@selector(mapView:didChangeUserTrackingMode:animated:)];
 }
 
 - (void)registerMoveEventByUser:(BOOL)wasUserEvent
@@ -567,7 +569,7 @@
         {
             dispatch_async(dispatch_get_main_queue(), ^(void)
                            {
-                               if (_delegateHasBeforeMapMove)
+                               if (delegateRespondsTo.beforeMapMove)
                                    [_delegate beforeMapMove:self byUser:flag];
                            });
         }
@@ -580,7 +582,7 @@
              {
                  dispatch_async(dispatch_get_main_queue(), ^(void)
                                 {
-                                    if (_delegateHasAfterMapMove)
+                                    if (delegateRespondsTo.afterMapMove)
                                         [_delegate afterMapMove:self byUser:flag];
                                 });
              }];
@@ -603,7 +605,7 @@
         {
             dispatch_async(dispatch_get_main_queue(), ^(void)
                            {
-                               if (_delegateHasBeforeMapZoom)
+                               if (delegateRespondsTo.beforeMapZoom)
                                    [_delegate beforeMapZoom:self byUser:flag];
                            });
         }
@@ -616,7 +618,7 @@
              {
                  dispatch_async(dispatch_get_main_queue(), ^(void)
                                 {
-                                    if (_delegateHasAfterMapZoom)
+                                    if (delegateRespondsTo.afterMapZoom)
                                         [_delegate afterMapZoom:self byUser:flag];
                                 });
              }];
@@ -1531,7 +1533,7 @@
     _lastContentOffset = _mapScrollView.contentOffset;
     _lastContentSize = _mapScrollView.contentSize;
     
-    if (_delegateHasMapViewRegionDidChange)
+    if (delegateRespondsTo.mapViewRegionDidChange)
         [_delegate mapViewRegionDidChange:self];
 }
 
@@ -1601,7 +1603,7 @@
         }
     }
     
-    if (_delegateHasDoubleTapOnMap)
+    if (delegateRespondsTo.doubleTapOnMap)
         [_delegate doubleTapOnMap:self at:aPoint];
 }
 
@@ -1624,7 +1626,7 @@
 
 - (void)singleTapAtPoint:(CGPoint)aPoint
 {
-    if (_delegateHasSingleTapOnMap)
+    if (delegateRespondsTo.singleTapOnMap)
         [_delegate singleTapOnMap:self at:aPoint];
 }
 
@@ -1710,7 +1712,7 @@
         [self zoomOutToNextNativeZoomAt:centerPoint animated:YES];
     }
     
-    if (_delegateHasSingleTapTwoFingersOnMap)
+    if (delegateRespondsTo.singleTapTwoFingersOnMap)
         [_delegate singleTapTwoFingersOnMap:self at:[recognizer locationInView:self]];
 }
 
@@ -1719,7 +1721,7 @@
     if (recognizer.state != UIGestureRecognizerStateBegan)
         return;
     
-    if ( ! _delegateHasLongPressOnMap && ! _delegateHasLongPressOnAnnotation)
+    if ( ! delegateRespondsTo.longPressOnMap && ! delegateRespondsTo.delegateHasLongPressOnAnnotation)
         return;
     
     CALayer *hit = [_overlayView overlayHitTest:[recognizer locationInView:self]];
@@ -1727,10 +1729,10 @@
     if (_currentAnnotation && [hit isEqual:_currentAnnotation.layer])
         [self deselectAnnotation:_currentAnnotation animated:NO];
     
-    if ([hit isKindOfClass:[RMMapLayer class]] && _delegateHasLongPressOnAnnotation)
+    if ([hit isKindOfClass:[RMMapLayer class]] && delegateRespondsTo.longPressOnAnnotation)
         [_delegate longPressOnAnnotation:[((RMMapLayer *)hit) annotation] onMap:self];
     
-    else if (_delegateHasLongPressOnMap)
+    else if (delegateRespondsTo.longPressOnMap)
         [_delegate longPressOnMap:self at:[recognizer locationInView:self]];
 }
 
@@ -1806,13 +1808,13 @@
         [self performSelector:@selector(popupCalloutViewForAnnotation:) withObject:anAnnotation afterDelay:1.0/3.0]; // allows for MapKit-like delay
     }
     
-    if (_delegateHasTapOnAnnotation && anAnnotation)
+    if (delegateRespondsTo.tapOnAnnotation && anAnnotation)
     {
         [_delegate tapOnAnnotation:anAnnotation onMap:self];
     }
     else
     {
-        if (_delegateHasSingleTapOnMap)
+        if (delegateRespondsTo.singleTapOnMap)
             [_delegate singleTapOnMap:self at:aPoint];
     }
 }
@@ -1933,13 +1935,13 @@
 
 - (void)tapOnCalloutAccessoryWithGestureRecognizer:(UIGestureRecognizer *)recognizer
 {
-    if (_delegateHasTapOnCalloutAccessoryControlForAnnotation)
+    if (delegateRespondsTo.tapOnCalloutAccessoryControlForAnnotation)
         [_delegate tapOnCalloutAccessoryControl:(UIControl *)recognizer.view forAnnotation:_currentAnnotation onMap:self];
 }
 
 - (void)doubleTapOnAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
 {
-    if (_delegateHasDoubleTapOnAnnotation && anAnnotation)
+    if (delegateRespondsTo.doubleTapOnAnnotation && anAnnotation)
     {
         [_delegate doubleTapOnAnnotation:anAnnotation onMap:self];
     }
@@ -1951,28 +1953,28 @@
 
 - (void)tapOnLabelForAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
 {
-    if (_delegateHasTapOnLabelForAnnotation && anAnnotation)
+    if (delegateRespondsTo.tapOnLabelForAnnotation && anAnnotation)
     {
         [_delegate tapOnLabelForAnnotation:anAnnotation onMap:self];
     }
-    else if (_delegateHasTapOnAnnotation && anAnnotation)
+    else if (delegateRespondsTo.tapOnAnnotation && anAnnotation)
     {
         [_delegate tapOnAnnotation:anAnnotation onMap:self];
     }
     else
     {
-        if (_delegateHasSingleTapOnMap)
+        if (delegateRespondsTo.singleTapOnMap)
             [_delegate singleTapOnMap:self at:aPoint];
     }
 }
 
 - (void)doubleTapOnLabelForAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
 {
-    if (_delegateHasDoubleTapOnLabelForAnnotation && anAnnotation)
+    if (delegateRespondsTo.doubleTapOnLabelForAnnotation && anAnnotation)
     {
         [_delegate doubleTapOnLabelForAnnotation:anAnnotation onMap:self];
     }
-    else if (_delegateHasDoubleTapOnAnnotation && anAnnotation)
+    else if (delegateRespondsTo.doubleTapOnAnnotation && anAnnotation)
     {
         [_delegate doubleTapOnAnnotation:anAnnotation onMap:self];
     }
@@ -1984,7 +1986,7 @@
 
 - (BOOL)shouldDragAnnotation:(RMAnnotation *)anAnnotation
 {
-    if (_delegateHasShouldDragMarker)
+    if (delegateRespondsTo.shouldDragMarker)
         return [_delegate mapView:self shouldDragAnnotation:anAnnotation];
     else
         return NO;
@@ -1992,13 +1994,13 @@
 
 - (void)didDragAnnotation:(RMAnnotation *)anAnnotation withDelta:(CGPoint)delta
 {
-    if (_delegateHasDidDragMarker)
+    if (delegateRespondsTo.didDragMarker)
         [_delegate mapView:self didDragAnnotation:anAnnotation withDelta:delta];
 }
 
 - (void)didEndDragAnnotation:(RMAnnotation *)anAnnotation
 {
-    if (_delegateHasDidEndDragMarker)
+    if (delegateRespondsTo.didEndDragMarker)
         [_delegate mapView:self didEndDragAnnotation:anAnnotation];
 }
 #endif
@@ -2807,7 +2809,7 @@
         
         for (RMAnnotation *annotation in annotationsToCorrect)
         {
-            if (annotation.layer == nil && _delegateHasLayerForAnnotation)
+            if (annotation.layer == nil && delegateRespondsTo.layerForAnnotation)
                 annotation.layer = [_delegate mapView:self layerForAnnotation:annotation];
             
             if (annotation.layer == nil)
@@ -2832,12 +2834,12 @@
         {
             if ( ! annotation.isUserLocationAnnotation)
             {
-                if (_delegateHasWillHideLayerForAnnotation)
+                if (delegateRespondsTo.willHideLayerForAnnotation)
                     [_delegate mapView:self willHideLayerForAnnotation:annotation];
                 
                 annotation.layer = nil;
                 
-                if (_delegateHasDidHideLayerForAnnotation)
+                if (delegateRespondsTo.didHideLayerForAnnotation)
                     [_delegate mapView:self didHideLayerForAnnotation:annotation];
                 
                 [_visibleAnnotations removeObject:annotation];
@@ -2862,7 +2864,7 @@
                     
                     if ([annotation isAnnotationWithinBounds:[self bounds]])
                     {
-                        if (annotation.layer == nil && _delegateHasLayerForAnnotation)
+                        if (annotation.layer == nil && delegateRespondsTo.layerForAnnotation)
                             annotation.layer = [_delegate mapView:self layerForAnnotation:annotation];
                         
                         if (annotation.layer == nil)
@@ -2887,13 +2889,13 @@
                     {
                         if ( ! annotation.isUserLocationAnnotation)
                         {
-                            if (_delegateHasWillHideLayerForAnnotation)
+                            if (delegateRespondsTo.willHideLayerForAnnotation)
                                 [_delegate mapView:self willHideLayerForAnnotation:annotation];
                             
                             annotation.layer = nil;
                             [_visibleAnnotations removeObject:annotation];
                             
-                            if (_delegateHasDidHideLayerForAnnotation)
+                            if (delegateRespondsTo.didHideLayerForAnnotation)
                                 [_delegate mapView:self didHideLayerForAnnotation:annotation];
                         }
                     }
@@ -3004,7 +3006,7 @@
     {
         [self correctScreenPosition:annotation animated:NO];
         
-        if (annotation.layer == nil && [annotation isAnnotationOnScreen] && _delegateHasLayerForAnnotation)
+        if (annotation.layer == nil && [annotation isAnnotationOnScreen] && delegateRespondsTo.layerForAnnotation)
             annotation.layer = [_delegate mapView:self layerForAnnotation:annotation];
         
         if (annotation.layer)
@@ -3084,7 +3086,7 @@
     
     if (newShowsUserLocation)
     {
-        if (_delegateHasWillStartLocatingUser)
+        if (delegateRespondsTo.willStartLocatingUser)
             [_delegate mapViewWillStartLocatingUser:self];
         
         self.userLocation = [RMUserLocation annotationWithMapView:self coordinate:CLLocationCoordinate2DMake(MAXFLOAT, MAXFLOAT) andTitle:nil];
@@ -3101,7 +3103,7 @@
         _locationManager.delegate = nil;
         _locationManager = nil;
         
-        if (_delegateHasDidStopLocatingUser)
+        if (delegateRespondsTo.didStopLocatingUser)
             [_delegate mapViewDidStopLocatingUser:self];
         
         [self setUserTrackingMode:RMUserTrackingModeNone animated:YES];
@@ -3307,7 +3309,7 @@
         }
     }
 #endif
-    if (_delegateHasDidChangeUserTrackingMode)
+    if (delegateRespondsTo.didChangeUserTrackingMode)
         [_delegate mapView:self didChangeUserTrackingMode:_userTrackingMode animated:animated];
 }
 
@@ -3322,7 +3324,7 @@
     {
         self.userLocation.location = newLocation;
         
-        if (_delegateHasDidUpdateUserLocation)
+        if (delegateRespondsTo.didUpdateUserLocation)
             [_delegate mapView:self didUpdateUserLocation:self.userLocation];
     }
     
@@ -3508,7 +3510,7 @@
     
     self.userLocation.heading = newHeading;
     
-    if (_delegateHasDidUpdateUserLocation)
+    if (delegateRespondsTo.didUpdateUserLocation)
         [_delegate mapView:self didUpdateUserLocation:self.userLocation];
     
     if (newHeading.trueHeading != 0 && self.userTrackingMode == RMUserTrackingModeFollowWithHeading)
@@ -3561,7 +3563,7 @@
         self.userTrackingMode  = RMUserTrackingModeNone;
         self.showsUserLocation = NO;
         
-        if (_delegateHasDidFailToLocateUserWithError)
+        if (delegateRespondsTo.didFailToLocateUserWithError)
             [_delegate mapView:self didFailToLocateUserWithError:error];
     }
 }
