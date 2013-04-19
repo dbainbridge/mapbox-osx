@@ -170,7 +170,6 @@
 		46A6035216D2AE12006A4081 /* RMMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapViewDelegate.h; sourceTree = "<group>"; };
 		46A6035316D2AE12006A4081 /* RMMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMarker.h; sourceTree = "<group>"; };
 		46A6035416D2AE12006A4081 /* RMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMarker.m; sourceTree = "<group>"; };
-		46A6035516D2AE12006A4081 /* RMQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMQuadTree.h; sourceTree = "<group>"; };
 		46A6035616D2AE12006A4081 /* RMShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMShape.h; sourceTree = "<group>"; };
 		46A6035716D2AE12006A4081 /* RMShape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMShape.m; sourceTree = "<group>"; };
 		46A6035816D2AE12006A4081 /* RMUIScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMUIScrollView.h; sourceTree = "<group>"; };
@@ -179,8 +178,8 @@
 		46A6052416D2AE5B006A4081 /* RMAbstractMercatorTileSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAbstractMercatorTileSource.m; sourceTree = "<group>"; };
 		46A6052516D2AE5B006A4081 /* RMAbstractWebMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbstractWebMapSource.h; sourceTree = "<group>"; };
 		46A6052616D2AE5B006A4081 /* RMAbstractWebMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAbstractWebMapSource.m; sourceTree = "<group>"; };
-		46A6052716D2AE5B006A4081 /* RMAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAnnotation.h; sourceTree = "<group>"; };
-		46A6052816D2AE5B006A4081 /* RMAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAnnotation.m; sourceTree = "<group>"; };
+		46A6052716D2AE5B006A4081 /* RMAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMAnnotation.h; path = Common/RMAnnotation.h; sourceTree = "<group>"; };
+		46A6052816D2AE5B006A4081 /* RMAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMAnnotation.m; path = Common/RMAnnotation.m; sourceTree = "<group>"; };
 		46A6052916D2AE5B006A4081 /* RMBingSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMBingSource.h; sourceTree = "<group>"; };
 		46A6052A16D2AE5B006A4081 /* RMBingSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMBingSource.m; sourceTree = "<group>"; };
 		46A6052B16D2AE5B006A4081 /* RMCacheObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCacheObject.h; sourceTree = "<group>"; };
@@ -222,12 +221,12 @@
 		46A6054F16D2AE5C006A4081 /* RMOpenStreetMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMOpenStreetMapSource.m; sourceTree = "<group>"; };
 		46A6055016D2AE5C006A4081 /* RMPixel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMPixel.c; sourceTree = "<group>"; };
 		46A6055116D2AE5C006A4081 /* RMPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPixel.h; sourceTree = "<group>"; };
-		46A6055216D2AE5C006A4081 /* RMPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPointAnnotation.h; sourceTree = "<group>"; };
-		46A6055316D2AE5C006A4081 /* RMPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPointAnnotation.m; sourceTree = "<group>"; };
+		46A6055216D2AE5C006A4081 /* RMPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMPointAnnotation.h; path = Common/RMPointAnnotation.h; sourceTree = "<group>"; };
+		46A6055316D2AE5C006A4081 /* RMPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMPointAnnotation.m; path = Common/RMPointAnnotation.m; sourceTree = "<group>"; };
 		46A6055416D2AE5C006A4081 /* RMProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMProjection.h; sourceTree = "<group>"; };
 		46A6055516D2AE5C006A4081 /* RMProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMProjection.m; sourceTree = "<group>"; };
-		46A6055616D2AE5C006A4081 /* RMQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMQuadTree.h; sourceTree = "<group>"; };
-		46A6055716D2AE5C006A4081 /* RMQuadTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMQuadTree.m; sourceTree = "<group>"; };
+		46A6055616D2AE5C006A4081 /* RMQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMQuadTree.h; path = Common/RMQuadTree.h; sourceTree = "<group>"; };
+		46A6055716D2AE5C006A4081 /* RMQuadTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMQuadTree.m; path = Common/RMQuadTree.m; sourceTree = "<group>"; };
 		46A6055816D2AE5C006A4081 /* RMTile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMTile.c; sourceTree = "<group>"; };
 		46A6055916D2AE5C006A4081 /* RMTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTile.h; sourceTree = "<group>"; };
 		46A6055A16D2AE5C006A4081 /* RMTileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileCache.h; sourceTree = "<group>"; };
@@ -417,12 +416,9 @@
 				46A6034116D2AE12006A4081 /* RMAppDelegate.m */,
 				46A6034216D2AE12006A4081 /* RMAttributionViewController.h */,
 				46A6034316D2AE12006A4081 /* RMAttributionViewController.m */,
-				46A6034416D2AE12006A4081 /* RMCircle.h */,
-				46A6034516D2AE12006A4081 /* RMCircle.m */,
 				46A6034616D2AE12006A4081 /* RMLoadingTileView.h */,
 				46A6034716D2AE12006A4081 /* RMLoadingTileView.m */,
-				46A6034816D2AE12006A4081 /* RMMapLayer.h */,
-				46A6034916D2AE12006A4081 /* RMMapLayer.m */,
+				46D5C3BE1720AA1100C87E2C /* Annotation Layers */,
 				46A6034A16D2AE12006A4081 /* RMMapOverlayView.h */,
 				46A6034B16D2AE12006A4081 /* RMMapOverlayView.m */,
 				46A6034C16D2AE12006A4081 /* RMMapScrollView.h */,
@@ -432,11 +428,6 @@
 				46A6035016D2AE12006A4081 /* RMMapView.h */,
 				46A6035116D2AE12006A4081 /* RMMapView.m */,
 				46A6035216D2AE12006A4081 /* RMMapViewDelegate.h */,
-				46A6035316D2AE12006A4081 /* RMMarker.h */,
-				46A6035416D2AE12006A4081 /* RMMarker.m */,
-				46A6035516D2AE12006A4081 /* RMQuadTree.h */,
-				46A6035616D2AE12006A4081 /* RMShape.h */,
-				46A6035716D2AE12006A4081 /* RMShape.m */,
 				46A6035816D2AE12006A4081 /* RMUIScrollView.h */,
 				46A6035916D2AE12006A4081 /* RMUIScrollView.m */,
 				46A6030816D2AD29006A4081 /* AppDelegate.h */,
@@ -506,8 +497,6 @@
 			children = (
 				46189D3D17203522001AD0DA /* Tile Sources */,
 				46189D3F172035CF001AD0DA /* Tile Cache */,
-				46A6052716D2AE5B006A4081 /* RMAnnotation.h */,
-				46A6052816D2AE5B006A4081 /* RMAnnotation.m */,
 				46A6052F16D2AE5B006A4081 /* RMConfiguration.h */,
 				46A6053016D2AE5B006A4081 /* RMConfiguration.m */,
 				46A6053716D2AE5B006A4081 /* RMFoundation.c */,
@@ -517,12 +506,8 @@
 				46A6053D16D2AE5C006A4081 /* RMGlobalConstants.h */,
 				46A6055016D2AE5C006A4081 /* RMPixel.c */,
 				46A6055116D2AE5C006A4081 /* RMPixel.h */,
-				46A6055216D2AE5C006A4081 /* RMPointAnnotation.h */,
-				46A6055316D2AE5C006A4081 /* RMPointAnnotation.m */,
 				46A6055416D2AE5C006A4081 /* RMProjection.h */,
 				46A6055516D2AE5C006A4081 /* RMProjection.m */,
-				46A6055616D2AE5C006A4081 /* RMQuadTree.h */,
-				46A6055716D2AE5C006A4081 /* RMQuadTree.m */,
 				46A6055816D2AE5C006A4081 /* RMTile.c */,
 				46A6055916D2AE5C006A4081 /* RMTile.h */,
 				46A6055E16D2AE5C006A4081 /* RMTileImage.h */,
@@ -585,6 +570,27 @@
 			);
 			name = "3rd Party";
 			path = src;
+			sourceTree = "<group>";
+		};
+		46D5C3BE1720AA1100C87E2C /* Annotation Layers */ = {
+			isa = PBXGroup;
+			children = (
+				46A6034916D2AE12006A4081 /* RMMapLayer.m */,
+				46A6034816D2AE12006A4081 /* RMMapLayer.h */,
+				46A6055716D2AE5C006A4081 /* RMQuadTree.m */,
+				46A6055616D2AE5C006A4081 /* RMQuadTree.h */,
+				46A6052716D2AE5B006A4081 /* RMAnnotation.h */,
+				46A6052816D2AE5B006A4081 /* RMAnnotation.m */,
+				46A6055216D2AE5C006A4081 /* RMPointAnnotation.h */,
+				46A6055316D2AE5C006A4081 /* RMPointAnnotation.m */,
+				46A6034416D2AE12006A4081 /* RMCircle.h */,
+				46A6034516D2AE12006A4081 /* RMCircle.m */,
+				46A6035616D2AE12006A4081 /* RMShape.h */,
+				46A6035716D2AE12006A4081 /* RMShape.m */,
+				46A6035316D2AE12006A4081 /* RMMarker.h */,
+				46A6035416D2AE12006A4081 /* RMMarker.m */,
+			);
+			name = "Annotation Layers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
