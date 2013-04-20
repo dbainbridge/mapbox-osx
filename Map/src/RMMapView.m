@@ -881,8 +881,8 @@
     RMProjectedRect normalizedProjectedRect;
     normalizedProjectedRect.origin.x = (bottomLeft.x * _metersPerPixel) - fabs(planetBounds.origin.x);
     normalizedProjectedRect.origin.y = (bottomLeft.y * _metersPerPixel) - fabs(planetBounds.origin.y);
-    normalizedProjectedRect.size.width = [self mapWidth];
-    normalizedProjectedRect.size.height = [self mapWidth];
+    normalizedProjectedRect.size.width = [self mapSize:_zoom - 1];
+    normalizedProjectedRect.size.height = [self mapSize:_zoom - 1];
 //    normalizedProjectedRect.size.width = _mapScrollView.contentView.frame.size.width * _metersPerPixel;
 //    normalizedProjectedRect.size.height = _mapScrollView.contentView.frame.size.height * _metersPerPixel;
     
@@ -1473,10 +1473,11 @@
     *aContentSize = CGSizeMake((*aContentSize).width * factor, (*aContentSize).height * factor);
 }
 
-- (float)mapWidth
+- (NSUInteger)mapSize:(int)levelOfDetail
 {
-    return (256 * pow(2, _zoom - 1));
+    return (NSUInteger) 256 << levelOfDetail;
 }
+
 - (void)updateMetersPerPixel
 {
     RMProjectedRect planetBounds = _projection.planetBounds;
