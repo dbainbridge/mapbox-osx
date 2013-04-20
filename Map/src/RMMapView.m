@@ -146,9 +146,9 @@
     NSMutableSet *_annotations;
     NSMutableSet *_visibleAnnotations;
     
-    BOOL _constrainMovement;
-    RMProjectedRect _constrainingProjectedBounds;
-    
+    BOOL _constrainMovement, _constrainMovementByUser;
+    RMProjectedRect _constrainingProjectedBounds, _constrainingProjectedBoundsByUser;
+  
     double _metersPerPixel;
     float _zoom, _lastZoom;
     CGPoint _lastContentOffset, _accumulatedDelta;
@@ -195,6 +195,7 @@
 @synthesize quadTree = _quadTree;
 @synthesize clusteringEnabled = _clusteringEnabled;
 @synthesize positionClusterMarkersAtTheGravityCenter = _positionClusterMarkersAtTheGravityCenter;
+@synthesize orderMarkersByYPosition = _orderMarkersByYPosition;
 @synthesize orderClusterMarkersAboveOthers = _orderClusterMarkersAboveOthers;
 @synthesize clusterMarkerSize = _clusterMarkerSize, clusterAreaSize = _clusterAreaSize;
 @synthesize adjustTilesForRetinaDisplay = _adjustTilesForRetinaDisplay;
@@ -218,7 +219,7 @@
                                minZoomLevel:(float)initialTileSourceMinZoomLevel
                             backgroundImage:(UIImage *)backgroundImage
 {
-    _constrainMovement = _bouncingEnabled = _zoomingInPivotsAroundCenter = NO;
+    _constrainMovement = _constrainMovementByUser = _bouncingEnabled = _zoomingInPivotsAroundCenter = NO;
     _draggingEnabled = YES;
     
     _lastDraggingTranslation = CGPointZero;
@@ -246,6 +247,9 @@
     _missingTilesDepth = 1;
     _debugTiles = NO;
     
+    _orderMarkersByYPosition = YES;
+    _orderClusterMarkersAboveOthers = YES;
+
     _annotations = [NSMutableSet new];
     _visibleAnnotations = [NSMutableSet new];
     [self setQuadTree:[[RMQuadTree alloc] initWithMapView:self]];
@@ -741,8 +745,38 @@
 
 - (void)setProjectedConstraintsSouthWest:(RMProjectedPoint)southWest northEast:(RMProjectedPoint)northEast
 {
-    _constrainMovement = YES;
+    _constrainMovement = _constrainMovementByUser = YES;
     _constrainingProjectedBounds = RMProjectedRectMake(southWest.x, southWest.y, northEast.x - southWest.x, northEast.y - southWest.y);
+    _constrainingProjectedBoundsByUser = RMProjectedRectMake(southWest.x, southWest.y, northEast.x - southWest.x, northEast.y - southWest.y);
+}
+
+- (void)setTileSourcesConstraintsFromLatitudeLongitudeBoundingBox:(RMSphericalTrapezium)bounds
+{
+    BOOL tileSourcesConstrainMovement = !(bounds.northEast.latitude == 90.0 && bounds.northEast.longitude == 180.0 && bounds.southWest.latitude == -90.0 && bounds.southWest.longitude == -180.0);
+    
+    if (tileSourcesConstrainMovement)
+    {
+        _constrainMovement = YES;
+        RMProjectedRect tileSourcesConstrainingProjectedBounds = [self projectedRectFromLatitudeLongitudeBounds:bounds];
+        
+        if (_constrainMovementByUser)
+        {
+            _constrainingProjectedBounds = RMProjectedRectIntersection(_constrainingProjectedBoundsByUser, tileSourcesConstrainingProjectedBounds);
+            
+            if (RMProjectedRectIsZero(_constrainingProjectedBounds))
+                RMLog(@"The constraining bounds from tilesources and user don't intersect!");
+        }
+        else
+            _constrainingProjectedBounds = tileSourcesConstrainingProjectedBounds;
+    }
+    else if (_constrainMovementByUser)
+    {
+        _constrainingProjectedBounds = _constrainingProjectedBoundsByUser;
+    }
+    else
+    {
+        _constrainingProjectedBounds = _projection.planetBounds;
+    }
 }
 
 #pragma mark -
@@ -1142,7 +1176,7 @@
 //    contentSize.width = 2048;
  //   contentSize.height  = 2048;
     
-    _mapScrollView = [[RMMapScrollView alloc] initWithFrame:[self bounds]];
+    _mapScrollView = [[RMMapScrollView alloc] initWithFrame:self.bounds];
     _mapScrollView.hasVerticalScroller = YES;
     _mapScrollView.hasHorizontalScroller = YES;
     
@@ -2078,15 +2112,7 @@
     
     _mercatorToTileProjection = [_tileSourcesContainer mercatorToTileProjection];
     
-    RMSphericalTrapezium bounds = [_tileSourcesContainer latitudeLongitudeBoundingBox];
-    
-    _constrainMovement = !(bounds.northEast.latitude == 90.0 && bounds.northEast.longitude == 180.0 && bounds.southWest.latitude == -90.0 && bounds.southWest.longitude == -180.0);
-    
-    if (_constrainMovement)
-        _constrainingProjectedBounds = (RMProjectedRect)[self projectedRectFromLatitudeLongitudeBounds:bounds];
-    else
-        _constrainingProjectedBounds = _projection.planetBounds;
-    
+    [self setTileSourcesConstraintsFromLatitudeLongitudeBoundingBox:[_tileSourcesContainer latitudeLongitudeBoundingBox]];
     [self setTileSourcesMinZoom:_tileSourcesContainer.minZoom];
     [self setTileSourcesMaxZoom:_tileSourcesContainer.maxZoom];
     [self setZoom:[self zoom]]; // setZoom clamps zoom level to min/max limits
@@ -2116,16 +2142,8 @@
     
     _mercatorToTileProjection = [_tileSourcesContainer mercatorToTileProjection];
     
-    RMSphericalTrapezium bounds = [_tileSourcesContainer latitudeLongitudeBoundingBox];
-    
-    _constrainMovement = !(bounds.northEast.latitude == 90.0 && bounds.northEast.longitude == 180.0 && bounds.southWest.latitude == -90.0 && bounds.southWest.longitude == -180.0);
-    bounds.southWest.longitude = -125;
-    bounds.northEast.longitude = -65;
-    if (_constrainMovement)
-        _constrainingProjectedBounds = (RMProjectedRect)[self projectedRectFromLatitudeLongitudeBounds:bounds];
-    else
-        _constrainingProjectedBounds = _projection.planetBounds;
-    
+    [self setTileSourcesConstraintsFromLatitudeLongitudeBoundingBox:[_tileSourcesContainer latitudeLongitudeBoundingBox]];
+
     [self setTileSourcesMinZoom:_tileSourcesContainer.minZoom];
     [self setTileSourcesMaxZoom:_tileSourcesContainer.maxZoom];
     [self setZoom:[self zoom]]; // setZoom clamps zoom level to min/max limits
@@ -2165,6 +2183,10 @@
     {
         _constrainMovement = NO;
     }
+    else
+    {
+        [self setTileSourcesConstraintsFromLatitudeLongitudeBoundingBox:[_tileSourcesContainer latitudeLongitudeBoundingBox]];
+    }
     
     // Remove the map layer
     RMMapTiledLayerView *tileSourceTiledLayerView = nil;
@@ -2193,6 +2215,10 @@
     if ([_tileSourcesContainer.tileSources count] == 0)
     {
         _constrainMovement = NO;
+    }
+    else
+    {
+        [self setTileSourcesConstraintsFromLatitudeLongitudeBoundingBox:[_tileSourcesContainer latitudeLongitudeBoundingBox]];
     }
     
     // Remove the map layer
@@ -2295,6 +2321,19 @@
     [self insertSubview:_backgroundView atIndex:0];
 }
 
+- (void)setBackgroundImage:(UIImage *)backgroundImage
+{
+    if (backgroundImage)
+    {
+        [self setBackgroundView:[[NSView alloc] initWithFrame:self.bounds]];
+        self.backgroundView.layer.contents = (id)backgroundImage.CGImage;
+    }
+    else
+    {
+        [self setBackgroundView:nil];
+    }
+}
+
 - (double)metersPerPixel
 {
     return _metersPerPixel;
@@ -2348,6 +2387,9 @@
         
         if (newMinZoom < clampedMinZoom)
             newMinZoom = clampedMinZoom;
+        
+        if (newMinZoom < 0.0)
+            newMinZoom = 0.0;
     }
     _minZoom = newMinZoom;
     
@@ -2406,6 +2448,9 @@
 // if #zoom is outside of range #minZoom to #maxZoom, zoom level is clamped to that range.
 - (void)setZoom:(float)newZoom
 {
+    if (_zoom == newZoom)
+        return;
+    
     [self registerZoomEventByUser:NO];
     
     _zoom = (newZoom > _maxZoom) ? _maxZoom : newZoom;
@@ -2579,7 +2624,7 @@
     RMProjectedRect planetBounds = _projection.planetBounds;
     RMProjectedPoint normalizedProjectedPoint;
     normalizedProjectedPoint.x = ((pixelCoordinate.x + _mapScrollView.contentOffset.x) * _metersPerPixel) - fabs(planetBounds.origin.x);
-    normalizedProjectedPoint.y = ((_mapScrollView.contentSize.height - _mapScrollView.contentOffset.y - pixelCoordinate.y) * _metersPerPixel) - fabs(planetBounds.origin.y);
+//    normalizedProjectedPoint.y = ((_mapScrollView.contentSize.height - _mapScrollView.contentOffset.y - pixelCoordinate.y) * _metersPerPixel) - fabs(planetBounds.origin.y);
     normalizedProjectedPoint.y = ((pixelCoordinate.y + _mapScrollView.contentOffset.y ) * _metersPerPixel) - fabs(planetBounds.origin.y);
     
     //normalizedProjectedPoint.y = -normalizedProjectedPoint.y;
@@ -2924,6 +2969,9 @@
 
 - (void)correctOrderingOfAllAnnotations
 {
+    if ( ! _orderMarkersByYPosition)
+        return;
+
     // sort annotation layer z-indexes so that they overlap properly
     //
     NSMutableArray *sortedAnnotations = [NSMutableArray arrayWithArray:[_visibleAnnotations allObjects]];

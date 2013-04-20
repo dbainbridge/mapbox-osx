@@ -135,12 +135,12 @@
 
 - (NSString *)shortAttribution
 {
-	return @"Copyright © 2012 Microsoft";
+	return @"Copyright © 2013 Microsoft";
 }
 
 - (NSString *)longAttribution
 {
-	return @"Copyright © 2012 Microsoft and its suppliers. All rights reserved. This API cannot be accessed and the content and any results may not be used, reproduced or transmitted in any manner without express written permission from Microsoft Corporation.";
+	return @"Copyright © 2013 Microsoft and its suppliers. All rights reserved. This API cannot be accessed and the content and any results may not be used, reproduced or transmitted in any manner without express written permission from Microsoft Corporation.";
 }
 
 @end
