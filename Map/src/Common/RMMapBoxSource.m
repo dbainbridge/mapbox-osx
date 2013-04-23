@@ -288,6 +288,10 @@
             },
         };
 
+        if ((int)bounds.southWest.latitude == -85) {
+            bounds.southWest.latitude = -85.05112878;
+            bounds.northEast.latitude = 85.05112878;
+        }
         return bounds;
     }
 
