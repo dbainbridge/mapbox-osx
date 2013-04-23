@@ -151,33 +151,21 @@
 }
 - (void)zoomWithFactor:(float)zoomFactor
 {
-//    if (self.zoomScale > [sender floatValue]) // then we are zooming in
-//    {
-        //float zoomFactor = 1 + self.zoomScale - [sender floatValue];
-        //float zoomFactor = 2.0;
-        
-        //oldZoomValue = [sender floatValue];
-        
-        NSRect visible = [self documentVisibleRect];
-        NSRect newrect = NSInsetRect(visible, NSWidth(visible)*(1 - 1/zoomFactor)/2.0, NSHeight(visible)*(1 - 1/zoomFactor)/2.0);
-        NSRect frame = [self.documentView frame];
-        
-        [self.documentView scaleUnitSquareToSize:NSMakeSize(zoomFactor, zoomFactor)];
-        [self.documentView setFrame:NSMakeRect(0, 0, frame.size.width * zoomFactor, frame.size.height * zoomFactor)];
+    NSRect visible = [self documentVisibleRect];
+    NSRect newrect = NSInsetRect(visible, NSWidth(visible)*(1 - 1/zoomFactor)/2.0, NSHeight(visible)*(1 - 1/zoomFactor)/2.0);
+    NSRect frame = [self.documentView frame];
+    
+    NSLog(@"newRect: %@", NSStringFromRect(newrect));
+    NSLog(@"frame: %@", NSStringFromRect(frame));
+    
+    [self.documentView scaleUnitSquareToSize:NSMakeSize(zoomFactor, zoomFactor)];
+    [self.documentView setFrame:NSMakeRect(0, 0, frame.size.width * zoomFactor, frame.size.height * zoomFactor)];
     NSRect contentBounds = self.contentView.bounds;
     contentBounds.origin.x *=  zoomFactor;
     contentBounds.origin.y *=  zoomFactor;
-    NSPoint newPoint = NSMakePoint(visible.origin.x * zoomFactor, visible.origin.y * zoomFactor);
-    
-    NSRect visible2 = [self documentVisibleRect];
-    
-    //[self.contentView setBoundsOrigin:contentBounds.origin];
-    //[self reflectScrolledClipView:self.contentView];
-    visible.origin.x += visible.size.width/4.0;
-    visible.origin.y += visible.size.height/4.0;
-        [[self documentView] scrollPoint:visible.origin];
-//    }
+    [[self documentView] scrollPoint:newrect.origin];
 }
+
 - (void)scrollPointToCentre:(NSPoint) aPoint
 {
 	// given a point in view coordinates, the view is scrolled so that the point is centred in the
