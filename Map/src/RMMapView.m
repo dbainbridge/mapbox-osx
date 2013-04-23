@@ -1611,6 +1611,12 @@
     [_mapScrollView reflectScrolledClipView:clipView];
 }
 
+- (void)magnifyWithEvent:(NSEvent *)theEvent
+{
+    float magnification = exp2f([theEvent magnification]);
+    
+    [self zoomByFactor:magnification near:CGPointZero animated:NO];
+}
 
 - (void)doubleTapAtPoint:(CGPoint)aPoint
 {
@@ -2458,7 +2464,8 @@
     _zoom = (_zoom < _minZoom) ? _minZoom : _zoom;
     
         RMLog(@"New zoom:%f", _zoom);
-    
+    if (_zoom > 0.99999)
+        NSLog(@"problem");
     _mapScrollView.zoomScale = exp2f(_zoom);
     [self updateMetersPerPixel];
     
