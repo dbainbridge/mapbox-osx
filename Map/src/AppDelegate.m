@@ -54,7 +54,7 @@
 {
     NSImage *image = [NSImage imageNamed:@"TrackingDot"];
     RMMapLayer* mapLayer = [[RMMapLayer alloc] init];
-    mapLayer.anchorPoint = CGPointZero;
+//    mapLayer.anchorPoint = CGPointZero;
     mapLayer.bounds = CGRectMake(0, 0, image.size.width, image.size.height);
     mapLayer.position = CGPointZero;
     mapLayer.contents = (__bridge id)([image CGImageForProposedRect:NULL context:NULL hints:NULL]);
