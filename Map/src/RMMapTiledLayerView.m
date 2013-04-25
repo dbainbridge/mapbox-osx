@@ -116,8 +116,11 @@
     CGRect rect   = CGContextGetClipBoundingBox(context);
     CGRect bounds = self.bounds;
 //    short zoom    = log2(bounds.size.width / rect.size.width);
-    short zoom    = _mapView.zoom;
+    float zoom    = _mapView.zoom;
     
+    //  what is with this???  if I don't do this the gesture zoom is messed up 
+    if (zoom > 1.0)
+        zoom++;
 //    NSLog(@"drawLayer: {{%f,%f},{%f,%f}}", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 //    NSLog(@"drawLayer Zoom: %d", zoom);
 
