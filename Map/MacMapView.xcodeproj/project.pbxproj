@@ -105,6 +105,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		460669CC172EFDC300E81EC3 /* RMTileCacheProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileCacheProtocol.h; sourceTree = "<group>"; };
 		46A602F316D2AD29006A4081 /* MacMapView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacMapView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46A602F616D2AD29006A4081 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		46A602F916D2AD29006A4081 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -359,6 +360,7 @@
 				46A6054716D2AE5C006A4081 /* RMMemoryCache.m */,
 				46A6055A16D2AE5C006A4081 /* RMTileCache.h */,
 				46A6055B16D2AE5C006A4081 /* RMTileCache.m */,
+				460669CC172EFDC300E81EC3 /* RMTileCacheProtocol.h */,
 				46A6055C16D2AE5C006A4081 /* RMTileCacheDownloadOperation.h */,
 				46A6055D16D2AE5C006A4081 /* RMTileCacheDownloadOperation.m */,
 			);
