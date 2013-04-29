@@ -41,7 +41,9 @@
 
 @property (nonatomic, strong) NSDictionary *infoDictionary;
 @property (nonatomic, strong) NSString *tileJSON;
-
+@property (nonatomic, assign) BOOL tms;
+@property (nonatomic, copy) NSString *tileURLString;
+@property (nonatomic, copy) NSString *cacheKey;
 @end
 
 #pragma mark -
@@ -65,6 +67,21 @@
     return [self initWithTileJSON:tileJSON enablingDataOnMapView:nil];
 }
 
+- (void)_updateDataFromDictionary
+{
+    if ([self.infoDictionary objectForKey:@"scheme"] && [[self.infoDictionary objectForKey:@"scheme"] isEqual:@"tms"])
+        self.tms = YES;
+ 
+    if ([self.infoDictionary objectForKey:@"tiles"])
+        self.tileURLString = [[self.infoDictionary objectForKey:@"tiles"] objectAtIndex:0];
+    
+    else
+        self.tileURLString = [self.infoDictionary objectForKey:@"tileURL"];
+
+    self.cacheKey = [NSString stringWithFormat:@"MapBox-%@", [self.infoDictionary objectForKey:@"id"]];
+
+}
+
 - (id)initWithTileJSON:(NSString *)tileJSON enablingDataOnMapView:(RMMapView *)mapView
 {
     if (self = [super init])
@@ -74,7 +91,8 @@
         _infoDictionary = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:[tileJSON dataUsingEncoding:NSUTF8StringEncoding]
                                                                           options:0
                                                                             error:nil];
-
+        [self _updateDataFromDictionary];
+        
         _tileJSON = tileJSON;
 
         id dataObject = nil;
@@ -180,21 +198,16 @@
     NSInteger x    = tile.x;
     NSInteger y    = tile.y;
 
-    if ([self.infoDictionary objectForKey:@"scheme"] && [[self.infoDictionary objectForKey:@"scheme"] isEqual:@"tms"])
+    if (_tms)
         y = pow(2, zoom) - tile.y - 1;
 
-    NSString *tileURLString = nil;
-
-    if ([self.infoDictionary objectForKey:@"tiles"])
-        tileURLString = [[self.infoDictionary objectForKey:@"tiles"] objectAtIndex:0];
-
-    else
-        tileURLString = [self.infoDictionary objectForKey:@"tileURL"];
+    NSString *tileURLString = _tileURLString;
 
     tileURLString = [tileURLString stringByReplacingOccurrencesOfString:@"{z}" withString:[[NSNumber numberWithInteger:zoom] stringValue]];
     tileURLString = [tileURLString stringByReplacingOccurrencesOfString:@"{x}" withString:[[NSNumber numberWithInteger:x]    stringValue]];
     tileURLString = [tileURLString stringByReplacingOccurrencesOfString:@"{y}" withString:[[NSNumber numberWithInteger:y]    stringValue]];
-
+    NSLog(@"%@", tileURLString);
+    
     if (_imageQuality != RMMapBoxSourceQualityFull)
     {
         NSString *qualityExtension = nil;
@@ -338,7 +351,7 @@
 
 - (NSString *)uniqueTilecacheKey
 {
-    return [NSString stringWithFormat:@"MapBox-%@-%@", [self.infoDictionary objectForKey:@"id"], [self.infoDictionary objectForKey:@"version"]];
+    return self.cacheKey;
 }
 
 - (NSString *)shortName
