@@ -2388,10 +2388,10 @@
 - (void)setMinZoom:(float)newMinZoom
 {
     float boundingDimension = fmaxf(self.bounds.size.width, self.bounds.size.height);
-    float tileSideLength    = _tileSourcesContainer.tileSideLength;
+    float tileSideLength    = _tileSourcesContainer.tileSideLength / 2;
     if (tileSideLength != 0) {
         float clampedMinZoom    = log2(boundingDimension / tileSideLength);
-        
+        clampedMinZoom = ceilf(clampedMinZoom);
         if (newMinZoom < clampedMinZoom)
             newMinZoom = clampedMinZoom;
         
