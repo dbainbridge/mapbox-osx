@@ -38,8 +38,8 @@
 
 @interface RMTileCache (Configuration)
 
-- (id <RMTileCache>)memoryCacheWithConfig:(NSDictionary *)cfg;
-- (id <RMTileCache>)databaseCacheWithConfig:(NSDictionary *)cfg;
+- (id <RMTileCacheProtocol>)memoryCacheWithConfig:(NSDictionary *)cfg;
+- (id <RMTileCacheProtocol>)databaseCacheWithConfig:(NSDictionary *)cfg;
 
 @end
 
@@ -85,7 +85,7 @@
 
     for (id cfg in cacheCfg)
     {
-        id <RMTileCache> newCache = nil;
+        id <RMTileCacheProtocol> newCache = nil;
 
         @try {
 
@@ -118,7 +118,7 @@
 {
     if (!(self = [self initWithExpiryPeriod:0]))
         return nil;
-
+    
     return self;
 }
 
@@ -133,14 +133,14 @@
     });
 }
 
-- (void)addCache:(id <RMTileCache>)cache
+- (void)addCache:(id <RMTileCacheProtocol>)cache
 {
     dispatch_barrier_async(_tileCacheQueue, ^{
         [_tileCaches addObject:cache];
     });
 }
 
-- (void)insertCache:(id <RMTileCache>)cache atIndex:(NSUInteger)index
+- (void)insertCache:(id <RMTileCacheProtocol>)cache atIndex:(NSUInteger)index
 {
     dispatch_barrier_async(_tileCacheQueue, ^{
         if (index >= [_tileCaches count])
@@ -170,7 +170,7 @@
 
     dispatch_sync(_tileCacheQueue, ^{
 
-        for (id <RMTileCache> cache in _tileCaches)
+        for (id <RMTileCacheProtocol> cache in _tileCaches)
         {
             image = [cache cachedImage:tile withCacheKey:aCacheKey];
 
@@ -195,7 +195,7 @@
 
     dispatch_sync(_tileCacheQueue, ^{
 
-        for (id <RMTileCache> cache in _tileCaches)
+        for (id <RMTileCacheProtocol> cache in _tileCaches)
         {	
             if ([cache respondsToSelector:@selector(addImage:forTile:withCacheKey:)])
                 [cache addImage:image forTile:tile withCacheKey:aCacheKey];
@@ -212,7 +212,7 @@
 
     dispatch_sync(_tileCacheQueue, ^{
 
-        for (id<RMTileCache> cache in _tileCaches)
+        for (id<RMTileCacheProtocol> cache in _tileCaches)
         {
             [cache didReceiveMemoryWarning];
         }
@@ -226,7 +226,7 @@
 
     dispatch_sync(_tileCacheQueue, ^{
 
-        for (id<RMTileCache> cache in _tileCaches)
+        for (id<RMTileCacheProtocol> cache in _tileCaches)
         {
             [cache removeAllCachedImages];
         }
@@ -240,7 +240,7 @@
 
     dispatch_sync(_tileCacheQueue, ^{
 
-        for (id<RMTileCache> cache in _tileCaches)
+        for (id<RMTileCacheProtocol> cache in _tileCaches)
         {
             [cache removeAllCachedImagesForCacheKey:cacheKey];
         }
@@ -420,7 +420,7 @@ static NSMutableDictionary *predicateValues = nil;
     return predicateValues;
 }
 
-- (id <RMTileCache>)memoryCacheWithConfig:(NSDictionary *)cfg
+- (id <RMTileCacheProtocol>)memoryCacheWithConfig:(NSDictionary *)cfg
 {
     NSUInteger capacity = 32;
 
@@ -454,7 +454,7 @@ static NSMutableDictionary *predicateValues = nil;
 	return [[RMMemoryCache alloc] initWithCapacity:capacity];
 }
 
-- (id <RMTileCache>)databaseCacheWithConfig:(NSDictionary *)cfg
+- (id <RMTileCacheProtocol>)databaseCacheWithConfig:(NSDictionary *)cfg
 {
     BOOL useCacheDir = NO;
     RMCachePurgeStrategy strategy = RMCachePurgeStrategyFIFO;

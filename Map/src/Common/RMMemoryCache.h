@@ -30,7 +30,7 @@
 #import "RMTileCache.h"
 
 /** An RMMemoryCache object represents memory-based caching of map tile images. Since memory is constrained in the iOS environment, this cache is relatively small, but useful for increasing performance. */
-@interface RMMemoryCache : NSObject <RMTileCache>
+@interface RMMemoryCache : NSObject <RMTileCacheProtocol>
 
 /** @name Initializing Memory Caches */
 

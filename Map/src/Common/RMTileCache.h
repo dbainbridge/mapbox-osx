@@ -40,7 +40,7 @@ typedef enum : short {
 #pragma mark -
 
 /** The RMTileCache protocol describes behaviors that tile caches should implement. */
-@protocol RMTileCache <NSObject>
+@protocol RMTileCacheProtocol <NSObject>
 
 /** @name Querying the Cache */
 
@@ -109,7 +109,7 @@ typedef enum : short {
 *   An RMTileCache is a key component of offline map use. All tile requests pass through the tile cache and are served from cache if available, avoiding network operation. If tiles exist in cache already, a tile source that is instantiated when offline will still be able to serve tile imagery to the map renderer for areas that have been previously cached. This can occur either from normal map use, since all tiles are cached after being retrieved, or from proactive caching ahead of time using the beginBackgroundCacheForTileSource:southWest:northEast:minZoom:maxZoom: method. 
 *
 *   @see [RMDatabaseCache initUsingCacheDir:] */
-@interface RMTileCache : NSObject <RMTileCache>
+@interface RMTileCache : NSObject <RMTileCacheProtocol>
 
 /** @name Initializing a Cache Manager */
 
@@ -134,8 +134,8 @@ typedef enum : short {
 /** Adds a given cache to the cache management system.
 *
 *   @param cache A memory-based or disk-based cache. */
-- (void)addCache:(id <RMTileCache>)cache;
-- (void)insertCache:(id <RMTileCache>)cache atIndex:(NSUInteger)index;
+- (void)addCache:(id <RMTileCacheProtocol>)cache;
+- (void)insertCache:(id <RMTileCacheProtocol>)cache atIndex:(NSUInteger)index;
 
 /** The list of caches managed by a cache manager. This could include memory-based, disk-based, or other types of caches. */
 @property (nonatomic, readonly, strong) NSArray *tileCaches;
