@@ -59,7 +59,7 @@
     return kDefaultLatLonBoundingBox;
 }
 
-- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCache *)tileCache
+- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
 {
     @throw [NSException exceptionWithName:@"RMAbstractMethodInvocation"
                                    reason:@"imageForTile:inCache: invoked on RMAbstractMercatorTileSource. Override this method when instantiating an abstract class."

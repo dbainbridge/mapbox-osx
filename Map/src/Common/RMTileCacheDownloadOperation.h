@@ -29,10 +29,10 @@
 
 #import "RMTile.h"
 #import "RMTileSource.h"
-#import "RMTileCache.h"
+#import "RMTileCacheMulti.h"
 
 @interface RMTileCacheDownloadOperation : NSOperation
 
-- (id)initWithTile:(RMTile)tile forTileSource:(id <RMTileSource>)source usingCache:(RMTileCache *)cache;
+- (id)initWithTile:(RMTile)tile forTileSource:(id <RMTileSource>)source usingCache:(RMTileCacheBase *)cache;
 
 @end

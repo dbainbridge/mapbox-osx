@@ -29,14 +29,10 @@
 #import "RMTile.h"
 #import "RMTileSource.h"
 #import "RMCacheObject.h"
-#import "RMTileCacheProtocol.h"
+#import "RMTileCacheBase.h"
 
 @class RMTileImage, RMMemoryCache;
 
-typedef enum : short {
-	RMCachePurgeStrategyLRU,
-	RMCachePurgeStrategyFIFO,
-} RMCachePurgeStrategy;
 
 
 #pragma mark -
@@ -50,22 +46,22 @@ typedef enum : short {
 *   @param tileCache The tile cache. 
 *   @param tileCount The total number of tiles required for coverage of the desired geographic area. 
 *   @param tileSource The tile source providing the tiles. */
-- (void)tileCache:(RMTileCache *)tileCache didBeginBackgroundCacheWithCount:(int)tileCount forTileSource:(id <RMTileSource>)tileSource;
+- (void)tileCache:(RMTileCacheBase *)tileCache didBeginBackgroundCacheWithCount:(int)tileCount forTileSource:(id <RMTileSource>)tileSource;
 
 /** Sent upon caching of each tile in a background cache operation.
 *   @param tileCache The tile cache. 
 *   @param tile A structure representing the tile in question. 
 *   @param tileIndex The index of the tile in question, beginning with `1` and ending with totalTileCount. 
 *   @param totalTileCount The total number of of tiles required for coverage of the desired geographic area. */
-- (void)tileCache:(RMTileCache *)tileCache didBackgroundCacheTile:(RMTile)tile withIndex:(int)tileIndex ofTotalTileCount:(int)totalTileCount;
+- (void)tileCache:(RMTileCacheBase *)tileCache didBackgroundCacheTile:(RMTile)tile withIndex:(int)tileIndex ofTotalTileCount:(int)totalTileCount;
 
 /** Sent when all tiles have completed downloading and caching. 
 *   @param tileCache The tile cache. */
-- (void)tileCacheDidFinishBackgroundCache:(RMTileCache *)tileCache;
+- (void)tileCacheDidFinishBackgroundCache:(RMTileCacheBase *)tileCache;
 
 /** Sent when the cache download operation has completed cancellation and the cache object is safe to dispose of. 
 *   @param tileCache The tile cache. */
-- (void)tileCacheDidCancelBackgroundCache:(RMTileCache *)tileCache;
+- (void)tileCacheDidCancelBackgroundCache:(RMTileCacheBase *)tileCache;
 
 @end
 
@@ -78,7 +74,7 @@ typedef enum : short {
 *   An RMTileCache is a key component of offline map use. All tile requests pass through the tile cache and are served from cache if available, avoiding network operation. If tiles exist in cache already, a tile source that is instantiated when offline will still be able to serve tile imagery to the map renderer for areas that have been previously cached. This can occur either from normal map use, since all tiles are cached after being retrieved, or from proactive caching ahead of time using the beginBackgroundCacheForTileSource:southWest:northEast:minZoom:maxZoom: method. 
 *
 *   @see [RMDatabaseCache initUsingCacheDir:] */
-@interface RMTileCache : NSObject <RMTileCacheProtocol>
+@interface RMTileCacheMulti : RMTileCacheBase
 
 /** @name Initializing a Cache Manager */
 
@@ -90,21 +86,14 @@ typedef enum : short {
 *   @return An initialized cache object or `nil` if the object couldn't be created. */
 - (id)initWithExpiryPeriod:(NSTimeInterval)period;
 
-/** @name Identifying Cache Objects */
-
-/** Return an identifying hash number for the specified tile.
-*
-*   @param tile A tile image to hash.
-*   @return A unique number for the specified tile. */
-+ (NSNumber *)tileHash:(RMTile)tile;
 
 /** @name Adding Caches to the Cache Manager */
 
 /** Adds a given cache to the cache management system.
 *
 *   @param cache A memory-based or disk-based cache. */
-- (void)addCache:(id <RMTileCacheProtocol>)cache;
-- (void)insertCache:(id <RMTileCacheProtocol>)cache atIndex:(NSUInteger)index;
+- (void)addCache:(RMTileCacheBase *)cache;
+- (void)insertCache:(RMTileCacheBase *)cache atIndex:(NSUInteger)index;
 
 /** The list of caches managed by a cache manager. This could include memory-based, disk-based, or other types of caches. */
 @property (nonatomic, readonly, strong) NSArray *tileCaches;

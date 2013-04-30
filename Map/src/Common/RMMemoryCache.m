@@ -27,6 +27,7 @@
 
 #import "RMMemoryCache.h"
 #import "RMTileImage.h"
+#import "RMCacheObject.h"
 
 @implementation RMMemoryCache
 {
@@ -78,16 +79,16 @@
 - (void)removeTile:(RMTile)tile
 {
     dispatch_barrier_async(_memoryCacheQueue, ^{
-        [_memoryCache removeObjectForKey:[RMTileCache tileHash:tile]];
+        [_memoryCache removeObjectForKey:RMTileCacheHash(tile)];
     });
 }
 
 - (UIImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)aCacheKey
 {
-//    RMLog(@"Memory cache check  tile %d %d %d (%@)", tile.x, tile.y, tile.zoom, [RMTileCache tileHash:tile]);
+//    RMLog(@"Memory cache check  tile %d %d %d (%@)", tile.x, tile.y, tile.zoom, RMTileCacheHash(tile));
 
     __block RMCacheObject *cachedObject = nil;
-    NSNumber *tileHash = [RMTileCache tileHash:tile];
+    NSNumber *tileHash = RMTileCacheHash(tile);
 
     dispatch_sync(_memoryCacheQueue, ^{
 
@@ -111,7 +112,7 @@
 
     });
 
-//    RMLog(@"Memory cache hit    tile %d %d %d (%@)", tile.x, tile.y, tile.zoom, [RMTileCache tileHash:tile]);
+//    RMLog(@"Memory cache hit    tile %d %d %d (%@)", tile.x, tile.y, tile.zoom, RMTileCacheHash(tile));
 
     return [cachedObject cachedObject];
 }
@@ -151,7 +152,7 @@
             if (oldestImage)
             {
                 // RMLog(@"Memory cache delete tile %d %d %d (%@)", oldestImage.tile.x, oldestImage.tile.y, oldestImage.tile.zoom, [RMTileCache tileHash:oldestImage.tile]);
-                [_memoryCache removeObjectForKey:[RMTileCache tileHash:oldestImage.tile]];
+                [_memoryCache removeObjectForKey:RMTileCacheHash(oldestImage.tile)];
             }
         }
 
@@ -160,12 +161,12 @@
 
 - (void)addImage:(UIImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)aCacheKey
 {
-//    RMLog(@"Memory cache insert tile %d %d %d (%@)", tile.x, tile.y, tile.zoom, [RMTileCache tileHash:tile]);
+//    RMLog(@"Memory cache insert tile %d %d %d (%@)", tile.x, tile.y, tile.zoom, RMTileCacheHash(tile));
 
 	[self makeSpaceInCache];
 
     dispatch_barrier_async(_memoryCacheQueue, ^{
-        [_memoryCache setObject:[RMCacheObject cacheObject:image forTile:tile withCacheKey:aCacheKey] forKey:[RMTileCache tileHash:tile]];
+        [_memoryCache setObject:[RMCacheObject cacheObject:image forTile:tile withCacheKey:aCacheKey] forKey:RMTileCacheHash(tile)];
     });
 }
 

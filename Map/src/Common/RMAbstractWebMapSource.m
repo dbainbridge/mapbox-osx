@@ -27,7 +27,7 @@
 
 #import "RMAbstractWebMapSource.h"
 
-#import "RMTileCache.h"
+#import "RMTileCacheMulti.h"
 #import "RMConfiguration.h"
 
 #define HTTP_404_NOT_FOUND 404
@@ -59,7 +59,7 @@
     return [NSArray arrayWithObjects:[self URLForTile:tile], nil];
 }
 
-- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCache *)tileCache
+- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
 {
     __block UIImage *image = nil;
     RMTile originalTile = tile;

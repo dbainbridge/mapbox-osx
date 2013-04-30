@@ -11,7 +11,7 @@
 #import "RMMapView.h"
 #import "RMTileSource.h"
 #import "RMTileImage.h"
-#import "RMTileCache.h"
+#import "RMTileCacheMulti.h"
 #import "RMMBTilesSource.h"
 #import "RMDBMapSource.h"
 #import "RMAbstractWebMapSource.h"
@@ -182,7 +182,7 @@
         {
             RMDatabaseCache *databaseCache = nil;
             
-            for (RMTileCache *componentCache in _mapView.tileCache.tileCaches)
+            for (RMTileCacheBase *componentCache in _mapView.tileCache.tileCaches)
                 if ([componentCache isKindOfClass:[RMDatabaseCache class]])
                     databaseCache = (RMDatabaseCache *)componentCache;
             

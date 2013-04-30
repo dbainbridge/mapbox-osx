@@ -20,7 +20,7 @@
 
 #import "RMFractalTileProjection.h"
 
-#import "RMTileCache.h"
+#import "RMTileCacheMulti.h"
 #import "RMTileSource.h"
 #import "RMMapBoxSource.h"
 
@@ -266,7 +266,7 @@
     _zoomDelegateQueue = [NSOperationQueue new];
     [_zoomDelegateQueue setMaxConcurrentOperationCount:1];
     
-    [self setTileCache:[RMTileCache new]];
+    [self setTileCache:[RMTileCacheMulti new]];
     
     if (backgroundImage)
     {

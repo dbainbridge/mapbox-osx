@@ -34,7 +34,7 @@
 #define RMTileRequested @"RMTileRequested"
 #define RMTileRetrieved @"RMTileRetrieved"
 
-@class RMFractalTileProjection, RMTileCache, RMProjection, RMTileImage, RMTileCache;
+@class RMFractalTileProjection, RMTileCacheBase, RMProjection, RMTileImage;
 
 @protocol RMMercatorToTileProjection;
 
@@ -97,7 +97,7 @@
 *   @param tile The map tile in question.
 *   @param tileCache A tile cache to check first when providing the image.
 *   @return An image to display. */
-- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCache *)tileCache;
+- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache;
 
 /** Check if the tile source can provide the requested tile.
  *  @param tile The map tile in question.

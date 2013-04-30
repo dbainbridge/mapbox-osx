@@ -27,10 +27,10 @@
 
 #import <Foundation/Foundation.h>
 #import "RMTile.h"
-#import "RMTileCache.h"
+#import "RMTileCacheBase.h"
 
 /** An RMMemoryCache object represents memory-based caching of map tile images. Since memory is constrained in the iOS environment, this cache is relatively small, but useful for increasing performance. */
-@interface RMMemoryCache : NSObject <RMTileCacheProtocol>
+@interface RMMemoryCache : RMTileCacheBase
 
 /** @name Initializing Memory Caches */
 

@@ -27,7 +27,7 @@
 
 #import <sys/utsname.h>
 
-#import "RMTileCache.h"
+#import "RMTileCacheMulti.h"
 #import "RMMemoryCache.h"
 #import "RMDatabaseCache.h"
 
@@ -36,14 +36,14 @@
 
 #import "RMTileCacheDownloadOperation.h"
 
-@interface RMTileCache (Configuration)
+@interface RMTileCacheMulti (Configuration)
 
-- (id <RMTileCacheProtocol>)memoryCacheWithConfig:(NSDictionary *)cfg;
-- (id <RMTileCacheProtocol>)databaseCacheWithConfig:(NSDictionary *)cfg;
+- (RMTileCacheBase *)memoryCacheWithConfig:(NSDictionary *)cfg;
+- (RMTileCacheBase *)databaseCacheWithConfig:(NSDictionary *)cfg;
 
 @end
 
-@implementation RMTileCache
+@implementation RMTileCacheMulti
 {
     NSMutableArray *_tileCaches;
 
@@ -85,7 +85,7 @@
 
     for (id cfg in cacheCfg)
     {
-        id <RMTileCacheProtocol> newCache = nil;
+        RMTileCacheBase *newCache = nil;
 
         @try {
 
@@ -133,14 +133,14 @@
     });
 }
 
-- (void)addCache:(id <RMTileCacheProtocol>)cache
+- (void)addCache:(RMTileCacheBase *)cache
 {
     dispatch_barrier_async(_tileCacheQueue, ^{
         [_tileCaches addObject:cache];
     });
 }
 
-- (void)insertCache:(id <RMTileCacheProtocol>)cache atIndex:(NSUInteger)index
+- (void)insertCache:(RMTileCacheBase *)cache atIndex:(NSUInteger)index
 {
     dispatch_barrier_async(_tileCacheQueue, ^{
         if (index >= [_tileCaches count])
@@ -155,11 +155,6 @@
     return [NSArray arrayWithArray:_tileCaches];
 }
 
-+ (NSNumber *)tileHash:(RMTile)tile
-{
-	return [NSNumber numberWithUnsignedLongLong:RMTileKey(tile)];
-}
-
 // Returns the cached image if it exists. nil otherwise.
 - (UIImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)aCacheKey
 {
@@ -170,7 +165,7 @@
 
     dispatch_sync(_tileCacheQueue, ^{
 
-        for (id <RMTileCacheProtocol> cache in _tileCaches)
+        for (RMTileCacheBase *cache in _tileCaches)
         {
             image = [cache cachedImage:tile withCacheKey:aCacheKey];
 
@@ -195,9 +190,9 @@
 
     dispatch_sync(_tileCacheQueue, ^{
 
-        for (id <RMTileCacheProtocol> cache in _tileCaches)
+        for (RMTileCacheBase *cache in _tileCaches)
         {	
-            if ([cache respondsToSelector:@selector(addImage:forTile:withCacheKey:)])
+            if (cache.repondsTo.addImageForTileWithCacheKey)
                 [cache addImage:image forTile:tile withCacheKey:aCacheKey];
         }
 
@@ -212,7 +207,7 @@
 
     dispatch_sync(_tileCacheQueue, ^{
 
-        for (id<RMTileCacheProtocol> cache in _tileCaches)
+        for (RMTileCacheBase *cache in _tileCaches)
         {
             [cache didReceiveMemoryWarning];
         }
@@ -226,7 +221,7 @@
 
     dispatch_sync(_tileCacheQueue, ^{
 
-        for (id<RMTileCacheProtocol> cache in _tileCaches)
+        for (RMTileCacheBase *cache in _tileCaches)
         {
             [cache removeAllCachedImages];
         }
@@ -240,7 +235,7 @@
 
     dispatch_sync(_tileCacheQueue, ^{
 
-        for (id<RMTileCacheProtocol> cache in _tileCaches)
+        for (RMTileCacheBase *cache in _tileCaches)
         {
             [cache removeAllCachedImagesForCacheKey:cacheKey];
         }
@@ -374,7 +369,7 @@
 
 #pragma mark -
 
-@implementation RMTileCache (Configuration)
+@implementation RMTileCacheMulti (Configuration)
 
 static NSMutableDictionary *predicateValues = nil;
 
@@ -420,7 +415,7 @@ static NSMutableDictionary *predicateValues = nil;
     return predicateValues;
 }
 
-- (id <RMTileCacheProtocol>)memoryCacheWithConfig:(NSDictionary *)cfg
+- (RMTileCacheBase *)memoryCacheWithConfig:(NSDictionary *)cfg
 {
     NSUInteger capacity = 32;
 
@@ -454,7 +449,7 @@ static NSMutableDictionary *predicateValues = nil;
 	return [[RMMemoryCache alloc] initWithCapacity:capacity];
 }
 
-- (id <RMTileCacheProtocol>)databaseCacheWithConfig:(NSDictionary *)cfg
+- (RMTileCacheBase *)databaseCacheWithConfig:(NSDictionary *)cfg
 {
     BOOL useCacheDir = NO;
     RMCachePurgeStrategy strategy = RMCachePurgeStrategyFIFO;

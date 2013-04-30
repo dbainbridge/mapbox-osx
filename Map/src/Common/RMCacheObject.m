@@ -26,7 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #import "RMCacheObject.h"
-#import "RMTileCache.h"
+#import "RMTileCacheMulti.h"
 
 @implementation RMCacheObject
 {
@@ -70,7 +70,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: tile='%d %d %d (%@)', cache key='%@'>", NSStringFromClass([self class]), _tile.x, _tile.y, _tile.zoom, [RMTileCache tileHash:_tile], _cacheKey];
+    return [NSString stringWithFormat:@"<%@: tile='%d %d %d (%@)', cache key='%@'>", NSStringFromClass([self class]), _tile.x, _tile.y, _tile.zoom, RMTileCacheHash(_tile), _cacheKey];
 }
 
 @end

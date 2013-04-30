@@ -31,10 +31,10 @@
 {
     RMTile _tile;
     id <RMTileSource>_source;
-    RMTileCache *_cache;
+    RMTileCacheBase *_cache;
 }
 
-- (id)initWithTile:(RMTile)tile forTileSource:(id <RMTileSource>)source usingCache:(RMTileCache *)cache
+- (id)initWithTile:(RMTile)tile forTileSource:(id <RMTileSource>)source usingCache:(RMTileCacheBase *)cache
 {
     if (!(self = [super init]))
         return nil;

@@ -28,7 +28,7 @@
 
 #import "RMCoordinateGridSource.h"
 
-#import "RMTileCache.h"
+#import "RMTileCacheMulti.h"
 
 #define kTileSidePadding 25.0 // px
 
@@ -109,7 +109,7 @@ static double coordinateGridSpacingDecimal[19] = {
     return self;
 }
 
-- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCache *)tileCache
+- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
 {
     if (tile.zoom < 0 || tile.zoom > 18)
         return nil;

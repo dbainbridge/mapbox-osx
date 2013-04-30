@@ -16,6 +16,7 @@
 		46062E7A1711331D00C0E429 /* TrackingHeading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231216D2B1E300879171 /* TrackingHeading@2x.png */; };
 		46062E7B1711331D00C0E429 /* TrackingLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231316D2B1E300879171 /* TrackingLocation.png */; };
 		46062E7C1711331D00C0E429 /* TrackingLocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231416D2B1E300879171 /* TrackingLocation@2x.png */; };
+		460669CF173050C800E81EC3 /* RMTileCacheBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 460669CE173050C800E81EC3 /* RMTileCacheBase.m */; };
 		4697997816D47FC90026A2C1 /* libMacProj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C6230016D2B18D00879171 /* libMacProj4.a */; };
 		46A602F716D2AD29006A4081 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A602F616D2AD29006A4081 /* Cocoa.framework */; };
 		46A6030116D2AD29006A4081 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 46A602FF16D2AD29006A4081 /* InfoPlist.strings */; };
@@ -76,7 +77,7 @@
 		46A6068B16D2AE5D006A4081 /* RMProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6055516D2AE5C006A4081 /* RMProjection.m */; };
 		46A6068C16D2AE5D006A4081 /* RMQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6055716D2AE5C006A4081 /* RMQuadTree.m */; };
 		46A6068D16D2AE5D006A4081 /* RMTile.c in Sources */ = {isa = PBXBuildFile; fileRef = 46A6055816D2AE5C006A4081 /* RMTile.c */; };
-		46A6068E16D2AE5D006A4081 /* RMTileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6055B16D2AE5C006A4081 /* RMTileCache.m */; };
+		46A6068E16D2AE5D006A4081 /* RMTileCacheMulti.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6055B16D2AE5C006A4081 /* RMTileCacheMulti.m */; };
 		46A6068F16D2AE5D006A4081 /* RMTileCacheDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6055D16D2AE5C006A4081 /* RMTileCacheDownloadOperation.m */; };
 		46A6069016D2AE5D006A4081 /* RMTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6055F16D2AE5C006A4081 /* RMTileImage.m */; };
 		46A6069116D2AE5D006A4081 /* RMTileMillSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6056116D2AE5C006A4081 /* RMTileMillSource.m */; };
@@ -105,7 +106,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		460669CC172EFDC300E81EC3 /* RMTileCacheProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileCacheProtocol.h; sourceTree = "<group>"; };
+		460669CD173050C700E81EC3 /* RMTileCacheBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileCacheBase.h; sourceTree = "<group>"; };
+		460669CE173050C800E81EC3 /* RMTileCacheBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTileCacheBase.m; sourceTree = "<group>"; };
 		46A602F316D2AD29006A4081 /* MacMapView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacMapView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46A602F616D2AD29006A4081 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		46A602F916D2AD29006A4081 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -230,8 +232,8 @@
 		46A6055716D2AE5C006A4081 /* RMQuadTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMQuadTree.m; path = Common/RMQuadTree.m; sourceTree = "<group>"; };
 		46A6055816D2AE5C006A4081 /* RMTile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMTile.c; sourceTree = "<group>"; };
 		46A6055916D2AE5C006A4081 /* RMTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTile.h; sourceTree = "<group>"; };
-		46A6055A16D2AE5C006A4081 /* RMTileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileCache.h; sourceTree = "<group>"; };
-		46A6055B16D2AE5C006A4081 /* RMTileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTileCache.m; sourceTree = "<group>"; };
+		46A6055A16D2AE5C006A4081 /* RMTileCacheMulti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileCacheMulti.h; sourceTree = "<group>"; };
+		46A6055B16D2AE5C006A4081 /* RMTileCacheMulti.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTileCacheMulti.m; sourceTree = "<group>"; };
 		46A6055C16D2AE5C006A4081 /* RMTileCacheDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileCacheDownloadOperation.h; sourceTree = "<group>"; };
 		46A6055D16D2AE5C006A4081 /* RMTileCacheDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTileCacheDownloadOperation.m; sourceTree = "<group>"; };
 		46A6055E16D2AE5C006A4081 /* RMTileImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileImage.h; sourceTree = "<group>"; };
@@ -358,9 +360,10 @@
 				46A6053416D2AE5B006A4081 /* RMDatabaseCache.m */,
 				46A6054616D2AE5C006A4081 /* RMMemoryCache.h */,
 				46A6054716D2AE5C006A4081 /* RMMemoryCache.m */,
-				46A6055A16D2AE5C006A4081 /* RMTileCache.h */,
-				46A6055B16D2AE5C006A4081 /* RMTileCache.m */,
-				460669CC172EFDC300E81EC3 /* RMTileCacheProtocol.h */,
+				46A6055A16D2AE5C006A4081 /* RMTileCacheMulti.h */,
+				46A6055B16D2AE5C006A4081 /* RMTileCacheMulti.m */,
+				460669CD173050C700E81EC3 /* RMTileCacheBase.h */,
+				460669CE173050C800E81EC3 /* RMTileCacheBase.m */,
 				46A6055C16D2AE5C006A4081 /* RMTileCacheDownloadOperation.h */,
 				46A6055D16D2AE5C006A4081 /* RMTileCacheDownloadOperation.m */,
 			);
@@ -732,7 +735,7 @@
 				46A6068B16D2AE5D006A4081 /* RMProjection.m in Sources */,
 				46A6068C16D2AE5D006A4081 /* RMQuadTree.m in Sources */,
 				46A6068D16D2AE5D006A4081 /* RMTile.c in Sources */,
-				46A6068E16D2AE5D006A4081 /* RMTileCache.m in Sources */,
+				46A6068E16D2AE5D006A4081 /* RMTileCacheMulti.m in Sources */,
 				46A6068F16D2AE5D006A4081 /* RMTileCacheDownloadOperation.m in Sources */,
 				46A6069016D2AE5D006A4081 /* RMTileImage.m in Sources */,
 				46A6069116D2AE5D006A4081 /* RMTileMillSource.m in Sources */,
@@ -745,6 +748,7 @@
 				46A606DE16D2AFD9006A4081 /* FMResultSet.m in Sources */,
 				46DA7E7A16D93B2E00FA1A10 /* RMMapStatWindowController.m in Sources */,
 				46DA7E8A16DAD1AD00FA1A10 /* DuxScrollViewAnimation.m in Sources */,
+				460669CF173050C800E81EC3 /* RMTileCacheBase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

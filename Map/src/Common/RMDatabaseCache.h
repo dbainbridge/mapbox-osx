@@ -30,12 +30,12 @@
 #else
 #import <Cocoa/Cocoa.h>
 #endif
-#import "RMTileCache.h"
+#import "RMTileCacheBase.h"
 
 /** An RMDatabaseCache object represents disk-based caching of map tile images. This cache is meant for longer-term storage than RMMemoryCache, potentially for long periods of time, allowing completely offline use of map view.
 *
 *   @warning The database cache is currently based on [SQLite](http://www.sqlite.org), a lightweight, cross-platform, file-based relational database system. The schema is indepenendent of and unrelated to the [MBTiles](http://mbtiles.org) file format or the RMMBTilesSource tile source. */
-@interface RMDatabaseCache : NSObject <RMTileCacheProtocol>
+@interface RMDatabaseCache : RMTileCacheBase
 
 /** @name Getting the Database Path */
 

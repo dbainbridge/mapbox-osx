@@ -70,7 +70,7 @@
 
 #import "RMDBMapSource.h"
 #import "RMTileImage.h"
-#import "RMTileCache.h"
+#import "RMTileCacheMulti.h"
 #import "RMFractalTileProjection.h"
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
@@ -191,7 +191,7 @@
 
 #pragma mark RMTileSource methods
 
-- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCache *)tileCache
+- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
 {
     __block UIImage *image = nil;
 

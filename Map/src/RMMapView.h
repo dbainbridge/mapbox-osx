@@ -21,7 +21,7 @@
 
 @class RMProjection;
 @class RMFractalTileProjection;
-@class RMTileCache;
+@class RMTileCacheMulti;
 @class RMMapLayer;
 @class RMMapTiledLayerView;
 @class RMMapScrollView;
@@ -398,7 +398,7 @@ typedef enum : NSUInteger {
 /** @name Managing Tile Caching Behavior */
 
 /** The tile cache for the map view, typically composed of both an in-memory RMMemoryCache and a disk-based RMDatabaseCache. */
-@property (nonatomic, strong)   RMTileCache *tileCache;
+@property (nonatomic, strong)   RMTileCacheMulti *tileCache;
 
 /** Clear all tile images from the caching system. */
 -(void)removeAllCachedImages;

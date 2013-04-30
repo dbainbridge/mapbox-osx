@@ -1,16 +1,32 @@
 //
-//  RMTileCacheProtocol.h
+//  RMTileCacheBase.h
 //  MacMapView
 //
-//  Created by David Bainbridge on 4/29/13.
+//  Created by David Bainbridge on 4/30/13.
 //  Copyright (c) 2013 David Bainbridge. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "RMTile.h"
 
-/** The RMTileCache protocol describes behaviors that tile caches should implement. */
-@protocol RMTileCacheProtocol <NSObject>
+typedef enum : short {
+	RMCachePurgeStrategyLRU,
+	RMCachePurgeStrategyFIFO,
+} RMCachePurgeStrategy;
 
+struct RMTileCacheRespondsTo{
+    unsigned int addImageForTileWithCacheKey:1;
+    unsigned int addImageDataForTileWithCacheKey:1;
+};
+
+typedef struct RMTileCacheRespondsTo RMTileCacheRespondsTo;
+
+NS_INLINE NSNumber *RMTileCacheHash(RMTile tile) {
+	return [NSNumber numberWithUnsignedLongLong:RMTileKey(tile)];
+}
+
+
+@interface RMTileCacheBase : NSObject
 /** @name Querying the Cache */
 
 /** Returns an image from the cache if it exists.
@@ -21,7 +37,6 @@
 
 - (void)didReceiveMemoryWarning;
 
-@optional
 
 /** @name Adding to the Cache */
 
@@ -36,5 +51,9 @@
 /** Removes all tile images from a cache. */
 - (void)removeAllCachedImages;
 - (void)removeAllCachedImagesForCacheKey:(NSString *)cacheKey;
+
+/** @name Identifying Cache Objects */
+
+@property (nonatomic, assign) RMTileCacheRespondsTo repondsTo;
 
 @end

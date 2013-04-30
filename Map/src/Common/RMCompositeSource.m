@@ -27,7 +27,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #import "RMCompositeSource.h"
-#import "RMTileCache.h"
+#import "RMTileCacheMulti.h"
 
 @implementation RMCompositeSource
 {
@@ -103,7 +103,7 @@
 	return @"n/a";
 }
 
-- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCache *)tileCache
+- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
 {
     UIImage *image = nil;
 
