@@ -16,7 +16,7 @@ typedef enum : short {
 
 struct RMTileCacheRespondsTo{
     unsigned int addImageForTileWithCacheKey:1;
-    unsigned int addImageDataForTileWithCacheKey:1;
+    unsigned int addImageForTileWithDataWithCacheKey:1;
 };
 
 typedef struct RMTileCacheRespondsTo RMTileCacheRespondsTo;
@@ -45,6 +45,8 @@ NS_INLINE NSNumber *RMTileCacheHash(RMTile tile) {
  *   @param tile The RMTile describing the map location of the image.
  *   @param cacheKey The key representing a certain cache. */
 - (void)addImage:(UIImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)cacheKey;
+
+- (void)addImage:(UIImage *)image forTile:(RMTile)tile withData:(NSData *)tileData withCacheKey:(NSString *)cacheKey;
 
 /** @name Clearing the Cache */
 

@@ -164,11 +164,10 @@
         return image;
 
     dispatch_sync(_tileCacheQueue, ^{
-
         for (RMTileCacheBase *cache in _tileCaches)
         {
             image = [cache cachedImage:tile withCacheKey:aCacheKey];
-
+            
             if (image != nil)
             {
                 [_memoryCache addImage:image forTile:tile withCacheKey:aCacheKey];
@@ -179,6 +178,27 @@
     });
 
 	return image;
+}
+
+- (void)addImage:(UIImage *)image forTile:(RMTile)tile withData:(NSData *)tileData withCacheKey:(NSString *)aCacheKey
+{
+    if (!image || !aCacheKey)
+        return;
+    
+    [_memoryCache addImage:image forTile:tile withCacheKey:aCacheKey];
+    
+    dispatch_sync(_tileCacheQueue, ^{
+        
+        for (RMTileCacheBase *cache in _tileCaches)
+        {
+            if (cache.repondsTo.addImageForTileWithDataWithCacheKey)
+                [cache addImage:image forTile:tile withData:tileData withCacheKey:aCacheKey];
+            else if (cache.repondsTo.addImageForTileWithCacheKey)
+                [cache addImage:image forTile:tile withCacheKey:aCacheKey];
+        }
+        
+    });
+    
 }
 
 - (void)addImage:(UIImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)aCacheKey

@@ -239,53 +239,59 @@
 	return cachedImage;
 }
 
-- (void)addImage:(UIImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)aCacheKey
+- (void)addImage:(UIImage *)image forTile:(RMTile)tile withData:(NSData *)tileData withCacheKey:(NSString *)aCacheKey
 {
-    // TODO: Converting the image here (again) is not so good...
-	NSData *data = UIImagePNGRepresentation(image);
-
+    if (!tileData)
+        tileData = UIImagePNGRepresentation(image);
+    
     if (_capacity != 0)
     {
         NSUInteger tilesInDb = [self count];
-
+        
         if (_capacity <= tilesInDb && _expiryPeriod == 0)
             [self purgeTiles:MAX(_minimalPurge, 1+tilesInDb-_capacity)];
-
-//        RMLog(@"DB cache     insert tile %d %d %d (%@)", tile.x, tile.y, tile.zoom, RMTileCacheHash(tile));
-
+        
+        //        RMLog(@"DB cache     insert tile %d %d %d (%@)", tile.x, tile.y, tile.zoom, RMTileCacheHash(tile));
+        
         // Don't add new images to the database while there are still more than kWriteQueueLimit
         // insert operations pending. This prevents some memory issues.
-
+        
         BOOL skipThisTile = NO;
-
+        
         [_writeQueueLock lock];
-
+        
         if ([_writeQueue operationCount] > kWriteQueueLimit)
             skipThisTile = YES;
-
+        
         [_writeQueueLock unlock];
-
+        
         if (skipThisTile)
             return;
-
+        
         [_writeQueue addOperationWithBlock:^{
             __block BOOL result = NO;
-
+            
             [_writeQueueLock lock];
-
+            
             [_queue inDatabase:^(FMDatabase *db)
              {
-                 result = [db executeUpdate:@"INSERT OR IGNORE INTO ZCACHE (tile_hash, cache_key, last_used, data) VALUES (?, ?, ?, ?)", RMTileCacheHash(tile), aCacheKey, [NSDate date], data];
+                 result = [db executeUpdate:@"INSERT OR IGNORE INTO ZCACHE (tile_hash, cache_key, last_used, data) VALUES (?, ?, ?, ?)", RMTileCacheHash(tile), aCacheKey, [NSDate date], tileData];
              }];
-
+            
             [_writeQueueLock unlock];
-
+            
             if (result == NO)
                 RMLog(@"Error occured adding data");
             else
                 _tileCount++;
         }];
 	}
+   
+}
+
+- (void)addImage:(UIImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)aCacheKey
+{
+    [self addImage:image forTile:tile withData:nil withCacheKey:aCacheKey];
 }
 
 #pragma mark -

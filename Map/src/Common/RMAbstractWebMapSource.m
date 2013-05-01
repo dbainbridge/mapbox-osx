@@ -88,6 +88,7 @@
 
     NSArray *URLs = [self URLsForTile:tile];
 
+    
     if ([URLs count] > 1)
     {
         // fill up collection array with placeholders
@@ -152,23 +153,33 @@
                 }
             }
         }
-    }
+        
+        if (image && self.isCacheable)
+            [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
+   }
     else
     {
+        NSData *tileData;
         for (NSUInteger try = 0; image == nil && try < self.retryCount; ++try)
         {
             NSHTTPURLResponse *response = nil;
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[URLs objectAtIndex:0]];
             [request setTimeoutInterval:(self.requestTimeoutSeconds / (CGFloat)self.retryCount)];
-            image = [UIImage imageWithData:[NSURLConnection sendBrandedSynchronousRequest:request returningResponse:&response error:nil]];
+            tileData = [NSURLConnection sendBrandedSynchronousRequest:request returningResponse:&response error:nil];
+            image = [UIImage imageWithData:tileData];
 
             if (response.statusCode == HTTP_404_NOT_FOUND)
                 break;
-        }
+            
+            if (image && self.isCacheable) {
+                if (tileCache.repondsTo.addImageForTileWithDataWithCacheKey)
+                    [tileCache addImage:image forTile:tile withData:tileData withCacheKey:[self uniqueTilecacheKey]];
+                else
+                    [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
+            }
+       }
     }
 
-    if (image && self.isCacheable)
-        [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
 
     dispatch_async(dispatch_get_main_queue(), ^(void)
     {

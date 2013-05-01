@@ -29,6 +29,8 @@
 #endif
 
 
+#define RM_INLINE static __inline__ __attribute__((always_inline))
+
 #if ! __has_feature(objc_arc)
 
 #define RMDispatchQueueRelease(__v) (dispatch_release(__v));
