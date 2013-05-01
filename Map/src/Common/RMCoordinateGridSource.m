@@ -103,8 +103,8 @@ static double coordinateGridSpacingDecimal[19] = {
 
     self.gridMode = GridModeGeographicDecimal;
     self.minorLabelColor = self.majorLabelColor = [UIColor colorWithWhite:0.1 alpha:0.7];
-    self.minorLabelFont = [UIFont boldSystemFontOfSize:14.0];
-    self.majorLabelFont = [UIFont boldSystemFontOfSize:11.0];
+    self.minorLabelFont = [NSFont boldSystemFontOfSize:14.0];
+    self.majorLabelFont = [NSFont boldSystemFontOfSize:11.0];
 
     return self;
 }

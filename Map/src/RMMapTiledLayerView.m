@@ -317,7 +317,7 @@
                     
                     [flippedImage drawInRect:debugRect];
                     
-                    UIFont *font = [UIFont systemFontOfSize:32.0];
+                    NSFont *font = [NSFont systemFontOfSize:32.0];
                     
                     CGContextSetStrokeColorWithColor(debugContext, [UIColor whiteColor].CGColor);
                     CGContextSetLineWidth(debugContext, 2.0);

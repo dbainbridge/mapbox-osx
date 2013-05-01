@@ -8,11 +8,12 @@
 
 #import "UIColor.h"
 #import "UIGraphics.h"
-#import "UIFont.h"
-#import "UIStringDrawing.h"
+//#import "UIFont.h"
+//#import "UIStringDrawing.h"
 #import "UIDevice.h"
 #import "UIScreen.h"
 #import "NSImage+iOS.h"
+#import "NSString+iOS.h"
 #endif
 
 #if DEBUG
