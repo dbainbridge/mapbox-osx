@@ -133,20 +133,21 @@
 
         // composite the collected images together
         //
-#pragma warning NSImage fix me 
-        /*
+        
         for (NSData *tileData in tilesData)
         {
             if (tileData && [tileData isKindOfClass:[NSData class]] && [tileData length])
             {
                 if (image != nil)
                 {
-                    UIGraphicsBeginImageContext(image.size);
-                    [image drawAtPoint:CGPointMake(0,0)];
+                    [image lockFocus];
+                    
+                    //UIGraphicsBeginImageContext(image.size);
+                    //[image drawAtPoint:CGPointMake(0,0)];
                     [[NSImage imageWithData:tileData] drawAtPoint:CGPointMake(0,0)];
-
-                    image = UIGraphicsGetImageFromCurrentImageContext();
-                    UIGraphicsEndImageContext();
+                    [image unlockFocus];
+                    //image = UIGraphicsGetImageFromCurrentImageContext();
+                    //UIGraphicsEndImageContext();
                 }
                 else
                 {
@@ -154,7 +155,7 @@
                 }
             }
         }
-        */
+        
         if (image && self.isCacheable)
             [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
    }
