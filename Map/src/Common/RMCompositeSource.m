@@ -154,12 +154,14 @@
 
         if (image != nil)
         {
-            UIGraphicsBeginImageContext(image.size);
-            [image drawAtPoint:CGPointMake(0,0)];
+            [image lockFocus];
+            //UIGraphicsBeginImageContext(image.size);
+            //[image drawAtPoint:CGPointMake(0,0)];
             [tileImage drawAtPoint:CGPointMake(0,0)];
 
-            image = UIGraphicsGetCGImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
+            //image = UIGraphicsGetCGImageFromCurrentImageContext();
+            //UIGraphicsEndImageContext();
+            [image unlockFocus];
         }
         else
         {
