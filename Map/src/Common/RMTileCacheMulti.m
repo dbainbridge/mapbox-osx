@@ -38,8 +38,8 @@
 
 @interface RMTileCacheMulti (Configuration)
 
-- (RMTileCacheBase *)memoryCacheWithConfig:(NSDictionary *)cfg;
-- (RMTileCacheBase *)databaseCacheWithConfig:(NSDictionary *)cfg;
+- (RMMemoryCache *)memoryCacheWithConfig:(NSDictionary *)cfg;
+- (RMDatabaseCache *)databaseCacheWithConfig:(NSDictionary *)cfg;
 
 @end
 
@@ -435,7 +435,7 @@ static NSMutableDictionary *predicateValues = nil;
     return predicateValues;
 }
 
-- (RMTileCacheBase *)memoryCacheWithConfig:(NSDictionary *)cfg
+- (RMMemoryCache *)memoryCacheWithConfig:(NSDictionary *)cfg
 {
     NSUInteger capacity = 32;
 
@@ -464,12 +464,12 @@ static NSMutableDictionary *predicateValues = nil;
         }
     }
 
-    RMLog(@"Memory cache configuration: {capacity : %d}", capacity);
+    RMLog(@"Memory cache configuration: {capacity : %ld}", (NSUInteger)capacity);
 
 	return [[RMMemoryCache alloc] initWithCapacity:capacity];
 }
 
-- (RMTileCacheBase *)databaseCacheWithConfig:(NSDictionary *)cfg
+- (RMDatabaseCache *)databaseCacheWithConfig:(NSDictionary *)cfg
 {
     BOOL useCacheDir = NO;
     RMCachePurgeStrategy strategy = RMCachePurgeStrategyFIFO;
@@ -534,7 +534,7 @@ static NSMutableDictionary *predicateValues = nil;
         }
         else
         {
-            RMLog(@"illegal value for capacity: %d", value);
+            RMLog(@"illegal value for capacity: %ld", (NSInteger)value);
         }
     }
 
@@ -564,7 +564,7 @@ static NSMutableDictionary *predicateValues = nil;
     if (expiryPeriodNumber != nil)
         _expiryPeriod = [expiryPeriodNumber doubleValue];
 
-    RMLog(@"Database cache configuration: {capacity : %d, strategy : %@, minimalPurge : %d, expiryPeriod: %.0f, useCacheDir : %@}", capacity, strategyStr, minimalPurge, _expiryPeriod, useCacheDir ? @"YES" : @"NO");
+    RMLog(@"Database cache configuration: {capacity : %ld, strategy : %@, minimalPurge : %ld, expiryPeriod: %.0f, useCacheDir : %@}", (NSUInteger)capacity, strategyStr, (NSUInteger)minimalPurge, _expiryPeriod, useCacheDir ? @"YES" : @"NO");
 
     RMDatabaseCache *dbCache = [[RMDatabaseCache alloc] initUsingCacheDir:useCacheDir];
     [dbCache setCapacity:capacity];

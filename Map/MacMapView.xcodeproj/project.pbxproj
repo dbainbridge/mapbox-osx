@@ -857,8 +857,6 @@
 				INFOPLIST_FILE = "src/MacMapView-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/src/Common/GRMustache/lib\"",
-					"\"$(SRCROOT)../Proj4\"",
 					"\"$(SRCROOT)/../Proj4\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -876,8 +874,6 @@
 				INFOPLIST_FILE = "src/MacMapView-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/src/Common/GRMustache/lib\"",
-					"\"$(SRCROOT)../Proj4\"",
 					"\"$(SRCROOT)/../Proj4\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";

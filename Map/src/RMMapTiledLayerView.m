@@ -117,7 +117,7 @@
     CGRect bounds = self.bounds;
     NSLog(@"%@", NSStringFromCGRect(rect));
 //    short zoom    = log2(bounds.size.width / rect.size.width);
-    float zoom    = _mapView.zoom;
+    short zoom    = _mapView.zoom;
     
     //  what is with this???  if I don't do this the gesture zoom is messed up 
     if (zoom > 1.0)

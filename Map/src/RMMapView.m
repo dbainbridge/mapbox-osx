@@ -2164,7 +2164,7 @@
     }
     else
     {
-        int tileSideLength = [_tileSourcesContainer tileSideLength];
+        NSUInteger tileSideLength = [_tileSourcesContainer tileSideLength];
         CGSize contentSize = CGSizeMake(tileSideLength, tileSideLength); // zoom level 1
         
         RMMapTiledLayerView *tiledLayerView = [[RMMapTiledLayerView alloc] initWithFrame:CGRectMake(0.0, 0.0, contentSize.width, contentSize.height) mapView:self forTileSource:newTileSource];

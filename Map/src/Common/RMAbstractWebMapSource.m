@@ -62,7 +62,6 @@
 - (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
 {
     __block NSImage *image = nil;
-    RMTile originalTile = tile;
 	tile = [[self mercatorToTileProjection] normaliseTile:tile];
 
     if (tile.zoom == -1) {
