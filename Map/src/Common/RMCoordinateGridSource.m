@@ -97,12 +97,12 @@ static double coordinateGridSpacingDecimal[19] = {
 
     self.opaque = NO;
 
-    self.gridColor = [UIColor colorWithWhite:0.1 alpha:0.6];
+    self.gridColor = [NSColor colorWithDeviceWhite:0.1 alpha:0.6];
     self.gridLineWidth = 2.0;
     self.gridLabelInterval = 1;
 
     self.gridMode = GridModeGeographicDecimal;
-    self.minorLabelColor = self.majorLabelColor = [UIColor colorWithWhite:0.1 alpha:0.7];
+    self.minorLabelColor = self.majorLabelColor = [NSColor colorWithDeviceWhite:0.1 alpha:0.7];
     self.minorLabelFont = [NSFont boldSystemFontOfSize:14.0];
     self.majorLabelFont = [NSFont boldSystemFontOfSize:11.0];
 
@@ -237,7 +237,7 @@ static double coordinateGridSpacingDecimal[19] = {
                 CGFloat upperBorder = yCoordinate - MAX((label1Size.height / 2.0), (label2Size.height / 2.0));
                 CGRect labelBackgroundRect = CGRectMake(xCoordinate - label1Size.width - 3.0, upperBorder - 1.0, label1Size.width + label2Size.width + 8.0, MAX(label1Size.height, label2Size.height) + 2.0);
 
-                CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+                CGContextSetFillColorWithColor(context, [NSColor clearColor].CGColor);
                 UIRectFill(labelBackgroundRect);
 
                 CGContextSetFillColorWithColor(context, self.majorLabelColor.CGColor);
@@ -287,7 +287,7 @@ static double coordinateGridSpacingDecimal[19] = {
                 CGFloat upperBorder = yCoordinate - MAX((label1Size.height / 2.0), (label2Size.height / 2.0));
                 CGRect labelBackgroundRect = CGRectMake(xCoordinate - label1Size.width - 3.0, upperBorder - 1.0, label1Size.width + label2Size.width + 8.0, MAX(label1Size.height, label2Size.height) + 2.0);
 
-                CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+                CGContextSetFillColorWithColor(context, [NSColor clearColor].CGColor);
                 UIRectFill(labelBackgroundRect);
 
                 CGContextSetFillColorWithColor(context, self.majorLabelColor.CGColor);

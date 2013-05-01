@@ -319,13 +319,13 @@
                     
                     NSFont *font = [NSFont systemFontOfSize:32.0];
                     
-                    CGContextSetStrokeColorWithColor(debugContext, [UIColor whiteColor].CGColor);
+                    CGContextSetStrokeColorWithColor(debugContext, [NSColor whiteColor].CGColor);
                     CGContextSetLineWidth(debugContext, 2.0);
-                    CGContextSetShadowWithColor(debugContext, CGSizeMake(0.0, 0.0), 5.0, [UIColor blackColor].CGColor);
+                    CGContextSetShadowWithColor(debugContext, CGSizeMake(0.0, 0.0), 5.0, [NSColor blackColor].CGColor);
                     
                     CGContextStrokeRect(debugContext, debugRect);
                     
-                    CGContextSetFillColorWithColor(debugContext, [UIColor whiteColor].CGColor);
+                    CGContextSetFillColorWithColor(debugContext, [NSColor whiteColor].CGColor);
                     
                     NSString *debugString = [NSString stringWithFormat:@"Zoom %d", zoom];
                     CGSize debugSize1 = [debugString sizeWithFont:font];

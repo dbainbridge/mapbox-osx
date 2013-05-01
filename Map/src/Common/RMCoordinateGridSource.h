@@ -41,13 +41,13 @@ typedef enum : short {
 
 @property (nonatomic, assign) CoordinateGridMode gridMode;
 
-@property (nonatomic, strong) UIColor *gridColor;
+@property (nonatomic, strong) NSColor *gridColor;
 @property (nonatomic, assign) CGFloat  gridLineWidth;
 @property (nonatomic, assign) NSUInteger gridLabelInterval;
 
-@property (nonatomic, strong) UIColor *minorLabelColor;
+@property (nonatomic, strong) NSColor *minorLabelColor;
 @property (nonatomic, strong) NSFont  *minorLabelFont;
-@property (nonatomic, strong) UIColor *majorLabelColor;
+@property (nonatomic, strong) NSColor *majorLabelColor;
 @property (nonatomic, strong) NSFont  *majorLabelFont;
 
 @end
