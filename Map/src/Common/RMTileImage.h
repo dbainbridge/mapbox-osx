@@ -27,10 +27,10 @@
 
 @interface RMTileImage : NSObject
 
-+ (UIImage *)errorTile;
-+ (UIImage *)missingTile;
++ (NSImage *)errorTile;
++ (NSImage *)missingTile;
 
-+ (void)setErrorTile:(UIImage *)newErrorTile;
-+ (void)setMissingTile:(UIImage *)newMissingTile;
++ (void)setErrorTile:(NSImage *)newErrorTile;
++ (void)setMissingTile:(NSImage *)newMissingTile;
 
 @end

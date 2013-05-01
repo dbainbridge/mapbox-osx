@@ -36,21 +36,21 @@
     
 }
 
-- (UIImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)cacheKey
+- (NSImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)cacheKey
 {
     @throw [NSException exceptionWithName:[NSString stringWithFormat:@"%@", [self class]]
                                    reason:[NSString stringWithFormat:@"%s: invoked on %@. Override this method when instantiating an abstract class.", __PRETTY_FUNCTION__, [self class]]
                                  userInfo:nil];
 }
 
-- (void)addImage:(UIImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)cacheKey
+- (void)addImage:(NSImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)cacheKey
 {
     @throw [NSException exceptionWithName:[NSString stringWithFormat:@"%@", [self class]]
                                    reason:[NSString stringWithFormat:@"%s: invoked on %@. Override this method when instantiating an abstract class.", __PRETTY_FUNCTION__, [self class]]
                                  userInfo:nil];    
 }
 
-- (void)addImage:(UIImage *)image forTile:(RMTile)tile withData:(NSData *)tileData withCacheKey:(NSString *)cacheKey
+- (void)addImage:(NSImage *)image forTile:(RMTile)tile withData:(NSData *)tileData withCacheKey:(NSString *)cacheKey
 {
     @throw [NSException exceptionWithName:[NSString stringWithFormat:@"%@", [self class]]
                                    reason:[NSString stringWithFormat:@"%s: invoked on %@. Override this method when instantiating an abstract class.", __PRETTY_FUNCTION__, [self class]]

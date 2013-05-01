@@ -191,9 +191,9 @@
 
 #pragma mark RMTileSource methods
 
-- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
+- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
 {
-    __block UIImage *image = nil;
+    __block NSImage *image = nil;
 
 	tile = [[self mercatorToTileProjection] normaliseTile:tile];
 
@@ -217,7 +217,7 @@
             NSLog(@"DB error %d on line %d: %@", [db lastErrorCode], __LINE__, [db lastErrorMessage]);
 
         if ([result next])
-            image = [[UIImage alloc] initWithData:[result dataForColumnIndex:0]];
+            image = [[NSImage alloc] initWithData:[result dataForColumnIndex:0]];
         else
             image = [RMTileImage missingTile];
 

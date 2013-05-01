@@ -178,11 +178,11 @@
     srand(time(NULL));
 }
 
-- (UIImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)aCacheKey
+- (NSImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)aCacheKey
 {
 //	RMLog(@"DB cache check for tile %d %d %d", tile.x, tile.y, tile.zoom);
 
-    __block UIImage *cachedImage = nil;
+    __block NSImage *cachedImage = nil;
 
     [_writeQueueLock lock];
 
@@ -201,7 +201,7 @@
          if ([results next])
          {
              data = [results dataForColumnIndex:0];
-             if (data) cachedImage = [UIImage imageWithData:data];
+             if (data) cachedImage = [NSImage imageWithData:data];
          }
 
          [results close];
@@ -239,10 +239,10 @@
 	return cachedImage;
 }
 
-- (void)addImage:(UIImage *)image forTile:(RMTile)tile withData:(NSData *)tileData withCacheKey:(NSString *)aCacheKey
+- (void)addImage:(NSImage *)image forTile:(RMTile)tile withData:(NSData *)tileData withCacheKey:(NSString *)aCacheKey
 {
     if (!tileData)
-        tileData = UIImagePNGRepresentation(image);
+        tileData = NSImagePNGRepresentation(image);
     
     if (_capacity != 0)
     {
@@ -289,7 +289,7 @@
    
 }
 
-- (void)addImage:(UIImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)aCacheKey
+- (void)addImage:(NSImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)aCacheKey
 {
     [self addImage:image forTile:tile withData:nil withCacheKey:aCacheKey];
 }

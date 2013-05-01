@@ -217,7 +217,7 @@
                                   zoomLevel:(float)initialTileSourceZoomLevel
                                maxZoomLevel:(float)initialTileSourceMaxZoomLevel
                                minZoomLevel:(float)initialTileSourceMinZoomLevel
-                            backgroundImage:(UIImage *)backgroundImage
+                            backgroundImage:(NSImage *)backgroundImage
 {
     _constrainMovement = _constrainMovementByUser = _bouncingEnabled = _zoomingInPivotsAroundCenter = NO;
     _draggingEnabled = YES;
@@ -365,7 +365,7 @@
           zoomLevel:(float)initialZoomLevel
        maxZoomLevel:(float)maxZoomLevel
        minZoomLevel:(float)minZoomLevel
-    backgroundImage:(UIImage *)backgroundImage
+    backgroundImage:(NSImage *)backgroundImage
 {
     if (!newTilesource || !(self = [super initWithFrame:frame]))
         return nil;
@@ -407,7 +407,7 @@
     }
 }
 
-+ (UIImage *)resourceImageNamed:(NSString *)imageName
++ (NSImage *)resourceImageNamed:(NSString *)imageName
 {
     /*
     NSAssert([[NSBundle mainBundle] pathForResource:@"MapBox" ofType:@"bundle"], @"Resource bundle not found in application.");
@@ -420,7 +420,7 @@
      */
     NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageName ofType:nil];
     
-    return [UIImage imageWithContentsOfFile:imagePath];
+    return [NSImage imageWithContentsOfFile:imagePath];
 }
 
 - (void)dealloc
@@ -2051,7 +2051,7 @@
 
 //TODO: fix me
 #if 0
-- (UIImage *)takeSnapshotAndIncludeOverlay:(BOOL)includeOverlay
+- (NSImage *)takeSnapshotAndIncludeOverlay:(BOOL)includeOverlay
 {
     _overlayView.hidden = !includeOverlay;
     
@@ -2065,7 +2065,7 @@
     for (RMMapTiledLayerView *tiledLayerView in _tiledLayersSuperview.subviews)
         tiledLayerView.useSnapshotRenderer = NO;
     
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    NSImage *image = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
     
@@ -2074,7 +2074,7 @@
     return image;
 }
 
-- (UIImage *)takeSnapshot
+- (NSImage *)takeSnapshot
 {
     return [self takeSnapshotAndIncludeOverlay:YES];
 }
@@ -2328,7 +2328,7 @@
     [self insertSubview:_backgroundView atIndex:0];
 }
 
-- (void)setBackgroundImage:(UIImage *)backgroundImage
+- (void)setBackgroundImage:(NSImage *)backgroundImage
 {
     if (backgroundImage)
     {
@@ -3303,7 +3303,7 @@
             
             self.userLocation.layer.hidden = YES;
             
-            _userHaloTrackingView = [[UIImageView alloc] initWithImage:[RMMapView resourceImageNamed:@"TrackingDotHalo.png"]];
+            _userHaloTrackingView = [[NSImageView alloc] initWithImage:[RMMapView resourceImageNamed:@"TrackingDotHalo.png"]];
             
             _userHaloTrackingView.center = CGPointMake(round([self bounds].size.width  / 2),
                                                        round([self bounds].size.height / 2));
@@ -3315,7 +3315,7 @@
             
             [self insertSubview:_userHaloTrackingView belowSubview:_overlayView];
             
-            _userHeadingTrackingView = [[UIImageView alloc] initWithImage:[RMMapView resourceImageNamed:@"HeadingAngleLarge.png"]];
+            _userHeadingTrackingView = [[NSImageView alloc] initWithImage:[RMMapView resourceImageNamed:@"HeadingAngleLarge.png"]];
             
             _userHeadingTrackingView.frame = CGRectMake((self.bounds.size.width  / 2) - (_userHeadingTrackingView.bounds.size.width / 2),
                                                         (self.bounds.size.height / 2) - _userHeadingTrackingView.bounds.size.height,
@@ -3333,9 +3333,9 @@
             
             [self insertSubview:_userHeadingTrackingView belowSubview:_overlayView];
             
-            _userLocationTrackingView = [[UIImageView alloc] initWithImage:[UIImage imageWithCGImage:(CGImageRef)self.userLocation.layer.contents
+            _userLocationTrackingView = [[NSImageView alloc] initWithImage:[NSImage imageWithCGImage:(CGImageRef)self.userLocation.layer.contents
                                                                                                scale:self.userLocation.layer.contentsScale
-                                                                                         orientation:UIImageOrientationUp]];
+                                                                                         orientation:NSImageOrientationUp]];
             
             _userLocationTrackingView.center = CGPointMake(round([self bounds].size.width  / 2),
                                                            round([self bounds].size.height / 2));
@@ -3483,7 +3483,7 @@
         
         // create image marker
         //
-        _trackingHaloAnnotation.layer = [[RMMarker alloc] initWithUIImage:[RMMapView resourceImageNamed:@"TrackingDotHalo.png"]];
+        _trackingHaloAnnotation.layer = [[RMMarker alloc] initWithNSImage:[RMMapView resourceImageNamed:@"TrackingDotHalo.png"]];
         _trackingHaloAnnotation.layer.zPosition = -MAXFLOAT + 1;
         _trackingHaloAnnotation.isUserLocationAnnotation = YES;
         

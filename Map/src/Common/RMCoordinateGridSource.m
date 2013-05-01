@@ -109,12 +109,12 @@ static double coordinateGridSpacingDecimal[19] = {
     return self;
 }
 
-- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
+- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
 {
     if (tile.zoom < 0 || tile.zoom > 18)
         return nil;
 
-    UIImage *image = nil;
+    NSImage *image = nil;
 
 	tile = [[self mercatorToTileProjection] normaliseTile:tile];
     image = [tileCache cachedImage:tile withCacheKey:[self uniqueTilecacheKey]];
@@ -301,11 +301,11 @@ static double coordinateGridSpacingDecimal[19] = {
 
     // Image
 
-    image = UIGraphicsGetImageFromCurrentImageContext();
+    image = UIGraphicsGetCGImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(kTileSidePadding, kTileSidePadding, self.tileSideLength, self.tileSideLength));
-    image = [UIImage imageWithCGImage:imageRef];
+    image = [NSImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
 
     if (image)

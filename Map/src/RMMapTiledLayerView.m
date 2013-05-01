@@ -17,7 +17,7 @@
 #import "RMAbstractWebMapSource.h"
 #import "RMDatabaseCache.h"
 
-#define IS_VALID_TILE_IMAGE(image) (image != nil && [image isKindOfClass:[UIImage class]])
+#define IS_VALID_TILE_IMAGE(image) (image != nil && [image isKindOfClass:[NSImage class]])
 
 @interface FastCATiledLayer : CATiledLayer
 @end
@@ -115,6 +115,7 @@
 {
     CGRect rect   = CGContextGetClipBoundingBox(context);
     CGRect bounds = self.bounds;
+    NSLog(@"%@", NSStringFromCGRect(rect));
 //    short zoom    = log2(bounds.size.width / rect.size.width);
     float zoom    = _mapView.zoom;
     
@@ -145,7 +146,7 @@
             {
                 for (int y=y1; y<=y2; ++y)
                 {
-                    UIImage *tileImage = [_tileSource imageForTile:RMTileMake(x, y, zoom) inCache:[_mapView tileCache]];
+                    NSImage *tileImage = [_tileSource imageForTile:RMTileMake(x, y, zoom) inCache:[_mapView tileCache]];
                     
                     if (IS_VALID_TILE_IMAGE(tileImage))
                         [tileImage drawInRect:CGRectMake(x * rectSize, y * rectSize, rectSize, rectSize)];
@@ -176,7 +177,7 @@
         [NSGraphicsContext saveGraphicsState];
         [NSGraphicsContext setCurrentContext:nsGraphicsContext];
         
-        UIImage *tileImage = nil;
+        NSImage *tileImage = nil;
         
         if (zoom >= _tileSource.minZoom && zoom <= _tileSource.maxZoom)
         {
@@ -264,7 +265,7 @@
                                                        tileImage.size.height * cropSize);
                         
                         CGImageRef imageRef = CGImageCreateWithImageInRect([tileImage CGImage], cropBounds);
-                        tileImage = [UIImage imageWithCGImage:imageRef];
+                        tileImage = [NSImage imageWithCGImage:imageRef];
                         CGImageRelease(imageRef);
                         
                         break;
@@ -294,10 +295,19 @@
                                                tileImage.size.height * 0.5);
                 
                 CGImageRef imageRef = CGImageCreateWithImageInRect([tileImage CGImage], cropBounds);
-                tileImage = [UIImage imageWithCGImage:imageRef];
+                tileImage = [NSImage imageWithCGImage:imageRef];
                 CGImageRelease(imageRef);
             }
-            
+
+#pragma warn Figure out where we need to flip this NSImage/context so we do not have to flip again 
+            // Need to fix this!
+            NSImage *flippedImage = [NSImage imageWithSize:tileImage.size flipped:YES drawingHandler:^BOOL(NSRect dstRect) {
+                CGRect debugRect = CGRectMake(0, 0, tileImage.size.width, tileImage.size.height);
+                
+                [tileImage drawInRect:debugRect];
+                return YES;
+            }];
+
             if (_mapView.debugTiles)
             {
 
@@ -305,7 +315,7 @@
                     CGContextRef debugContext = [[NSGraphicsContext currentContext] graphicsPort];
                     CGRect debugRect = CGRectMake(0, 0, tileImage.size.width, tileImage.size.height);
                     
-                    [tileImage drawInRect:debugRect];
+                    [flippedImage drawInRect:debugRect];
                     
                     UIFont *font = [UIFont systemFontOfSize:32.0];
                     
@@ -331,7 +341,7 @@
                 }];
                 [newTile drawInRect:rect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:0.5];
             } else {
-                [tileImage drawInRect:rect];
+                [flippedImage drawInRect:rect];
                 
             }
             

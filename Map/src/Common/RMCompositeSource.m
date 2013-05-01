@@ -103,9 +103,9 @@
 	return @"n/a";
 }
 
-- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
+- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
 {
-    UIImage *image = nil;
+    NSImage *image = nil;
 
 	tile = [[self mercatorToTileProjection] normaliseTile:tile];
 
@@ -134,7 +134,7 @@
         if (tile.zoom < tileSource.minZoom || tile.zoom > tileSource.maxZoom || ![tileSource tileSourceHasTile:tile])
             continue;
 
-        UIImage *tileImage = [tileSource imageForTile:tile inCache:tileCache];
+        NSImage *tileImage = [tileSource imageForTile:tile inCache:tileCache];
 
         if (tileImage)
         {
@@ -147,9 +147,9 @@
 
     // composite the collected images together
     //
-    for (UIImage *tileImage in tileImages)
+    for (NSImage *tileImage in tileImages)
     {
-        if ( ! [tileImage isKindOfClass:[UIImage class]])
+        if ( ! [tileImage isKindOfClass:[NSImage class]])
             continue;
 
         if (image != nil)
@@ -158,7 +158,7 @@
             [image drawAtPoint:CGPointMake(0,0)];
             [tileImage drawAtPoint:CGPointMake(0,0)];
 
-            image = UIGraphicsGetImageFromCurrentImageContext();
+            image = UIGraphicsGetCGImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
         }
         else

@@ -50,7 +50,7 @@
     // provided for storage of arbitrary user data
     id userInfo;
     NSString *annotationType;
-    UIImage  *annotationIcon, *badgeIcon;
+    NSImage  *annotationIcon, *badgeIcon;
     CGPoint   anchorPoint;
 }
 
@@ -72,8 +72,8 @@
 @property (nonatomic, strong) NSString *annotationType;
 
 /** An arbitrary icon image for the annotation. Useful to pass an image at annotation creation time for use in the layer at a later time. */
-@property (nonatomic, strong) UIImage *annotationIcon;
-@property (nonatomic, strong) UIImage *badgeIcon;
+@property (nonatomic, strong) NSImage *annotationIcon;
+@property (nonatomic, strong) NSImage *badgeIcon;
 @property (nonatomic, assign) CGPoint anchorPoint;
 
 /** The annotation's current location on screen. Do not set this directly unless during temporary operations like annotation drags, but rather use the coordinate property to permanently change the annotation's location on the map. */

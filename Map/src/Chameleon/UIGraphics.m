@@ -115,6 +115,21 @@ UIImage *UIGraphicsGetImageFromCurrentImageContext()
     }
 }
 
+NSImage *UIGraphicsGetCGImageFromCurrentImageContext()
+{
+    if ([imageContextStack lastObject]) {
+        const CGFloat scale = [[imageContextStack lastObject] floatValue];
+        CGImageRef theCGImage = CGBitmapContextCreateImage(UIGraphicsGetCurrentContext());
+        //UIImage *image = [UIImage imageWithCGImage:theCGImage scale:scale orientation:UIImageOrientationUp];
+        NSSize size = NSMakeSize(CGImageGetWidth(theCGImage), CGImageGetHeight(theCGImage));
+        NSImage *image = [[NSImage alloc] initWithCGImage:theCGImage size:size];
+        CGImageRelease(theCGImage);
+        return image;
+    } else {
+        return nil;
+    }
+}
+
 void UIGraphicsEndImageContext()
 {
     if ([imageContextStack lastObject]) {

@@ -29,12 +29,12 @@
 
 static BOOL _didLoadErrorTile = NO;
 static BOOL _didLoadMissingTile = NO;
-static UIImage *_errorTile = nil;
-static UIImage *_missingTile = nil;
+static NSImage *_errorTile = nil;
+static NSImage *_missingTile = nil;
 
 @implementation RMTileImage
 
-+ (UIImage *)errorTile
++ (NSImage *)errorTile
 {
     if (_errorTile)
         return _errorTile;
@@ -42,20 +42,20 @@ static UIImage *_missingTile = nil;
     if (_didLoadErrorTile)
         return nil;
 
-    _errorTile = [UIImage imageNamed:@"error.png"];
+    _errorTile = [NSImage imageNamed:@"error.png"];
     _didLoadErrorTile = YES;
 
     return _errorTile;
 }
 
-+ (void)setErrorTile:(UIImage *)newErrorTile
++ (void)setErrorTile:(NSImage *)newErrorTile
 {
     if (_errorTile == newErrorTile) return;
     _errorTile = newErrorTile;
     _didLoadErrorTile = YES;
 }
 
-+ (UIImage *)missingTile
++ (NSImage *)missingTile
 {
     if (_missingTile)
         return _missingTile;
@@ -63,13 +63,13 @@ static UIImage *_missingTile = nil;
     if (_didLoadMissingTile)
         return nil;
 
-    _missingTile = [UIImage imageNamed:@"missing.png"];
+    _missingTile = [NSImage imageNamed:@"missing.png"];
     _didLoadMissingTile = YES;
 
     return _missingTile;
 }
 
-+ (void)setMissingTile:(UIImage *)newMissingTile
++ (void)setMissingTile:(NSImage *)newMissingTile
 {
     if (_missingTile == newMissingTile) return;
     _missingTile = newMissingTile;

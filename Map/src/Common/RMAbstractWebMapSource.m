@@ -59,9 +59,9 @@
     return [NSArray arrayWithObjects:[self URLForTile:tile], nil];
 }
 
-- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
+- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
 {
-    __block UIImage *image = nil;
+    __block NSImage *image = nil;
     RMTile originalTile = tile;
 	tile = [[self mercatorToTileProjection] normaliseTile:tile];
 
@@ -71,7 +71,7 @@
     // Return NSNull here so that the RMMapTiledLayerView will try to
     // fetch another tile if missingTilesDepth > 0
     if ( ! [self tileSourceHasTile:tile])
-        return (UIImage *)[NSNull null];
+        return (NSImage *)[NSNull null];
 
     if (self.isCacheable)
     {
@@ -134,6 +134,8 @@
 
         // composite the collected images together
         //
+#pragma warning NSImage fix me 
+        /*
         for (NSData *tileData in tilesData)
         {
             if (tileData && [tileData isKindOfClass:[NSData class]] && [tileData length])
@@ -142,18 +144,18 @@
                 {
                     UIGraphicsBeginImageContext(image.size);
                     [image drawAtPoint:CGPointMake(0,0)];
-                    [[UIImage imageWithData:tileData] drawAtPoint:CGPointMake(0,0)];
+                    [[NSImage imageWithData:tileData] drawAtPoint:CGPointMake(0,0)];
 
                     image = UIGraphicsGetImageFromCurrentImageContext();
                     UIGraphicsEndImageContext();
                 }
                 else
                 {
-                    image = [UIImage imageWithData:tileData];
+                    image = [NSImage imageWithData:tileData];
                 }
             }
         }
-        
+        */
         if (image && self.isCacheable)
             [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
    }
@@ -166,7 +168,7 @@
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[URLs objectAtIndex:0]];
             [request setTimeoutInterval:(self.requestTimeoutSeconds / (CGFloat)self.retryCount)];
             tileData = [NSURLConnection sendBrandedSynchronousRequest:request returningResponse:&response error:nil];
-            image = [UIImage imageWithData:tileData];
+            image = [NSImage imageWithData:tileData];
 
             if (response.statusCode == HTTP_404_NOT_FOUND)
                 break;

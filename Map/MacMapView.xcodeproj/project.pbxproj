@@ -17,6 +17,7 @@
 		46062E7B1711331D00C0E429 /* TrackingLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231316D2B1E300879171 /* TrackingLocation.png */; };
 		46062E7C1711331D00C0E429 /* TrackingLocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6231416D2B1E300879171 /* TrackingLocation@2x.png */; };
 		460669CF173050C800E81EC3 /* RMTileCacheBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 460669CE173050C800E81EC3 /* RMTileCacheBase.m */; };
+		460669D517317F2600E81EC3 /* NSImage+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 460669D417317F2400E81EC3 /* NSImage+iOS.m */; };
 		4697997816D47FC90026A2C1 /* libMacProj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C6230016D2B18D00879171 /* libMacProj4.a */; };
 		46A602F716D2AD29006A4081 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A602F616D2AD29006A4081 /* Cocoa.framework */; };
 		46A6030116D2AD29006A4081 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 46A602FF16D2AD29006A4081 /* InfoPlist.strings */; };
@@ -108,6 +109,8 @@
 /* Begin PBXFileReference section */
 		460669CD173050C700E81EC3 /* RMTileCacheBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileCacheBase.h; sourceTree = "<group>"; };
 		460669CE173050C800E81EC3 /* RMTileCacheBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTileCacheBase.m; sourceTree = "<group>"; };
+		460669D317317F2200E81EC3 /* NSImage+iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+iOS.h"; sourceTree = "<group>"; };
+		460669D417317F2400E81EC3 /* NSImage+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+iOS.m"; sourceTree = "<group>"; };
 		46A602F316D2AD29006A4081 /* MacMapView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacMapView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46A602F616D2AD29006A4081 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		46A602F916D2AD29006A4081 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -417,6 +420,8 @@
 				46A6036716D2AE5A006A4081 /* Common */,
 				46A6033E16D2AE12006A4081 /* NSView+UIView.h */,
 				46A6033F16D2AE12006A4081 /* NSView+UIView.m */,
+				460669D317317F2200E81EC3 /* NSImage+iOS.h */,
+				460669D417317F2400E81EC3 /* NSImage+iOS.m */,
 				46A6034016D2AE12006A4081 /* RMAppDelegate.h */,
 				46A6034116D2AE12006A4081 /* RMAppDelegate.m */,
 				46A6034216D2AE12006A4081 /* RMAttributionViewController.h */,
@@ -749,6 +754,7 @@
 				46DA7E7A16D93B2E00FA1A10 /* RMMapStatWindowController.m in Sources */,
 				46DA7E8A16DAD1AD00FA1A10 /* DuxScrollViewAnimation.m in Sources */,
 				460669CF173050C800E81EC3 /* RMTileCacheBase.m in Sources */,
+				460669D517317F2600E81EC3 /* NSImage+iOS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

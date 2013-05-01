@@ -156,9 +156,9 @@
 }
 
 // Returns the cached image if it exists. nil otherwise.
-- (UIImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)aCacheKey
+- (NSImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)aCacheKey
 {
-    __block UIImage *image = [_memoryCache cachedImage:tile withCacheKey:aCacheKey];
+    __block NSImage *image = [_memoryCache cachedImage:tile withCacheKey:aCacheKey];
 
     if (image)
         return image;
@@ -180,7 +180,7 @@
 	return image;
 }
 
-- (void)addImage:(UIImage *)image forTile:(RMTile)tile withData:(NSData *)tileData withCacheKey:(NSString *)aCacheKey
+- (void)addImage:(NSImage *)image forTile:(RMTile)tile withData:(NSData *)tileData withCacheKey:(NSString *)aCacheKey
 {
     if (!image || !aCacheKey)
         return;
@@ -201,7 +201,7 @@
     
 }
 
-- (void)addImage:(UIImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)aCacheKey
+- (void)addImage:(NSImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)aCacheKey
 {
     if (!image || !aCacheKey)
         return;

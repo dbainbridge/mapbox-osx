@@ -7,12 +7,12 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "UIColor.h"
-#import "UIImage.h"
 #import "UIGraphics.h"
 #import "UIFont.h"
 #import "UIStringDrawing.h"
 #import "UIDevice.h"
 #import "UIScreen.h"
+#import "NSImage+iOS.h"
 #endif
 
 #if DEBUG

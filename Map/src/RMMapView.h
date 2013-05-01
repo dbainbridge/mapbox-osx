@@ -107,7 +107,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSView *backgroundView;
 
 /** A custom image to use behind the map tiles. The default behavior is to show the default `backgroundView` and not a static image. */
-- (void)setBackgroundImage:(UIImage *)backgroundImage;
+- (void)setBackgroundImage:(NSImage *)backgroundImage;
 
 /** A Boolean value indicating whether to draw tile borders and z/x/y numbers on tile images for debugging purposes. Defaults to `NO`. */
 @property (nonatomic, assign) BOOL debugTiles;
@@ -140,7 +140,7 @@ typedef enum : NSUInteger {
           zoomLevel:(float)initialTileSourceZoomLevel
        maxZoomLevel:(float)initialTileSourceMaxZoomLevel
        minZoomLevel:(float)initialTileSourceMinZoomLevel
-    backgroundImage:(UIImage *)backgroundImage;
+    backgroundImage:(NSImage *)backgroundImage;
 
 - (void)setFrame:(CGRect)frame;
 
@@ -266,12 +266,12 @@ typedef enum : NSUInteger {
  *
  *   By default, the overlay containing any visible annotations is also captured.
  *   @return An image depicting the map view. */
-- (UIImage *)takeSnapshot;
+- (NSImage *)takeSnapshot;
 
 /** Take a snapshot of the map view.
  *   @param includeOverlay Whether to include the overlay containing any visible annotations.
  *   @return An image depicting the map view. */
-- (UIImage *)takeSnapshotAndIncludeOverlay:(BOOL)includeOverlay;
+- (NSImage *)takeSnapshotAndIncludeOverlay:(BOOL)includeOverlay;
 
 #pragma mark - Annotations
 

@@ -86,7 +86,7 @@
     return tileProjection.tileSideLength;
 }
 
-- (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
+- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
 {
     NSAssert4(((tile.zoom >= self.minZoom) && (tile.zoom <= self.maxZoom)),
 			  @"%@ tried to retrieve tile with zoomLevel %d, outside source's defined range %f to %f", 
@@ -101,7 +101,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:RMTileRequested object:[NSNumber numberWithUnsignedLongLong:RMTileKey(tile)]];
     });
     
-    __block UIImage *image = nil;
+    __block NSImage *image = nil;
 
     [queue inDatabase:^(FMDatabase *db)
     {
@@ -120,7 +120,7 @@
         if ( ! data)
             image = [RMTileImage errorTile];
         else
-            image = [UIImage imageWithData:data];
+            image = [NSImage imageWithData:data];
 
         [results close];
     }];

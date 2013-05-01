@@ -83,7 +83,7 @@
     });
 }
 
-- (UIImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)aCacheKey
+- (NSImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)aCacheKey
 {
 //    RMLog(@"Memory cache check  tile %d %d %d (%@)", tile.x, tile.y, tile.zoom, RMTileCacheHash(tile));
 
@@ -159,7 +159,7 @@
     });
 }
 
-- (void)addImage:(UIImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)aCacheKey
+- (void)addImage:(NSImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)aCacheKey
 {
 //    RMLog(@"Memory cache insert tile %d %d %d (%@)", tile.x, tile.y, tile.zoom, RMTileCacheHash(tile));
 

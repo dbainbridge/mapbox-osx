@@ -33,7 +33,7 @@ NS_INLINE NSNumber *RMTileCacheHash(RMTile tile) {
  *   @param tile A desired RMTile.
  *   @param cacheKey The key representing a certain cache.
  *   @return An image of the tile that can be used to draw a portion of the map. */
-- (UIImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)cacheKey;
+- (NSImage *)cachedImage:(RMTile)tile withCacheKey:(NSString *)cacheKey;
 
 - (void)didReceiveMemoryWarning;
 
@@ -44,9 +44,9 @@ NS_INLINE NSNumber *RMTileCacheHash(RMTile tile) {
  *   @param image A tile image to be cached.
  *   @param tile The RMTile describing the map location of the image.
  *   @param cacheKey The key representing a certain cache. */
-- (void)addImage:(UIImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)cacheKey;
+- (void)addImage:(NSImage *)image forTile:(RMTile)tile withCacheKey:(NSString *)cacheKey;
 
-- (void)addImage:(UIImage *)image forTile:(RMTile)tile withData:(NSData *)tileData withCacheKey:(NSString *)cacheKey;
+- (void)addImage:(NSImage *)image forTile:(RMTile)tile withData:(NSData *)tileData withCacheKey:(NSString *)cacheKey;
 
 /** @name Clearing the Cache */
 

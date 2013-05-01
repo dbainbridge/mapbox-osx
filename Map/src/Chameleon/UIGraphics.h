@@ -44,6 +44,7 @@ CGFloat _UIGraphicsGetContextScaleFactor(CGContextRef ctx);
 void UIGraphicsBeginImageContextWithOptions(CGSize size, BOOL opaque, CGFloat scale);
 void UIGraphicsBeginImageContext(CGSize size);
 UIImage *UIGraphicsGetImageFromCurrentImageContext(void);
+    NSImage *UIGraphicsGetCGImageFromCurrentImageContext();
 void UIGraphicsEndImageContext(void);
 
 void UIRectClip(CGRect rect);
