@@ -155,8 +155,8 @@
     NSRect newrect = NSInsetRect(visible, NSWidth(visible)*(1 - 1/zoomFactor)/2.0, NSHeight(visible)*(1 - 1/zoomFactor)/2.0);
     NSRect frame = [self.documentView frame];
     
-    NSLog(@"newRect: %@", NSStringFromRect(newrect));
-    NSLog(@"frame: %@", NSStringFromRect(frame));
+//    NSLog(@"newRect: %@", NSStringFromRect(newrect));
+//    NSLog(@"frame: %@", NSStringFromRect(frame));
     
     [self.documentView scaleUnitSquareToSize:NSMakeSize(zoomFactor, zoomFactor)];
     [self.documentView setFrame:NSMakeRect(0, 0, frame.size.width * zoomFactor, frame.size.height * zoomFactor)];

@@ -1141,7 +1141,7 @@
     RMUIScrollView *scrollView = (RMUIScrollView *)[clipView superview];
     
     CGPoint contentOffset = [scrollView contentOffset];
-    RMLog(@"contentOffset: %f, %f", contentOffset.x, contentOffset.y);
+//    RMLog(@"contentOffset: %f, %f", contentOffset.x, contentOffset.y);
     [self contentOffsetChanged:contentOffset];
 }
 
@@ -2463,9 +2463,8 @@
     _zoom = (newZoom > _maxZoom) ? _maxZoom : newZoom;
     _zoom = (_zoom < _minZoom) ? _minZoom : _zoom;
     
-        RMLog(@"New zoom:%f", _zoom);
-    if (_zoom > 0.99999)
-        NSLog(@"problem");
+//        RMLog(@"New zoom:%f", _zoom);
+
     _mapScrollView.zoomScale = exp2f(_zoom);
     [self updateMetersPerPixel];
     
@@ -2637,9 +2636,9 @@
     
     //normalizedProjectedPoint.y = -normalizedProjectedPoint.y;
     
-    RMLog(@"meters per pixel: %f", _metersPerPixel);
-    RMLog(@"pixelToPoint: {%f,%f} -> {%f,%f}", pixelCoordinate.x, pixelCoordinate.y, normalizedProjectedPoint.x, normalizedProjectedPoint.y);
-    RMLog(@"contentOFfset: {%f, %f}", _mapScrollView.contentOffset.x, _mapScrollView.contentOffset.y);
+//    RMLog(@"meters per pixel: %f", _metersPerPixel);
+//    RMLog(@"pixelToPoint: {%f,%f} -> {%f,%f}", pixelCoordinate.x, pixelCoordinate.y, normalizedProjectedPoint.x, normalizedProjectedPoint.y);
+//    RMLog(@"contentOFfset: {%f, %f}", _mapScrollView.contentOffset.x, _mapScrollView.contentOffset.y);
     return normalizedProjectedPoint;
 }
 
@@ -2805,14 +2804,14 @@
     CGPoint newPosition = CGPointMake((normalizedProjectedPoint.x / _metersPerPixel) - _mapScrollView.contentOffset.x,
                                        (normalizedProjectedPoint.y / _metersPerPixel) - _mapScrollView.contentOffset.y);
         
-    RMLog(@"Change annotation at {%f,%f} in mapView {%f,%f}", annotation.position.x, annotation.position.y, _mapScrollView.contentSize.width, _mapScrollView.contentSize.height);
+//    RMLog(@"Change annotation at {%f,%f} in mapView {%f,%f}", annotation.position.x, annotation.position.y, _mapScrollView.contentSize.width, _mapScrollView.contentSize.height);
     
     [annotation setPosition:newPosition animated:animated];
 }
 
 - (void)correctPositionOfAllAnnotationsIncludingInvisibles:(BOOL)correctAllAnnotations animated:(BOOL)animated
 {
-    NSLog(@"correctPositionOfAllAnnotationsIncludingInvisibles %d", animated);
+//    NSLog(@"correctPositionOfAllAnnotationsIncludingInvisibles %d", animated);
     // Prevent blurry movements
     [CATransaction begin];
     
