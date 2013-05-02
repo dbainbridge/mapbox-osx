@@ -200,10 +200,11 @@
 
          if ([results next])
          {
+             NSLog(@"------ tile found");
              data = [results dataForColumnIndex:0];
              if (data) cachedImage = [NSImage imageWithData:data];
-         }
-
+         } else
+             NSLog(@"!!!!!!!!!");
          [results close];
      }];
 
@@ -275,6 +276,7 @@
             
             [_queue inDatabase:^(FMDatabase *db)
              {
+                 NSLog(@"DB Insert: %@", RMTileCacheHash(tile));
                  result = [db executeUpdate:@"INSERT OR IGNORE INTO ZCACHE (tile_hash, cache_key, last_used, data) VALUES (?, ?, ?, ?)", RMTileCacheHash(tile), aCacheKey, [NSDate date], tileData];
              }];
             

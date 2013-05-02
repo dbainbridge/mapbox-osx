@@ -191,7 +191,7 @@
 
 #pragma mark RMTileSource methods
 
-- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
+- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache withBlock:(void (^)(NSImage *))imageBlock
 {
     __block NSImage *image = nil;
 

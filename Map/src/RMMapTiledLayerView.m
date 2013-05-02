@@ -30,7 +30,10 @@
 
 @interface RMMapTiledLayerView ()
 {
+
 }
+@property (nonatomic, strong) NSMutableDictionary *cache;
+@property (nonatomic, strong) dispatch_queue_t queue;
 @end
 
 
@@ -85,6 +88,9 @@
     
 //    [self setAutoresizesSubviews:YES];
 //    [self setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+
+    _cache = [[NSMutableDictionary alloc] init];
+    _queue = dispatch_queue_create("com.route-me.cachequeuedictionary", DISPATCH_QUEUE_CONCURRENT);
 
     return self;
 }
@@ -144,7 +150,7 @@
         {
             for (int y=y1; y<=y2; ++y)
             {
-                NSImage *tileImage = [_tileSource imageForTile:RMTileMake(x, y, zoom) inCache:[_mapView tileCache]];
+                NSImage *tileImage = [_tileSource imageForTile:RMTileMake(x, y, zoom) inCache:[_mapView tileCache] withBlock:nil];
                 
                 if (IS_VALID_TILE_IMAGE(tileImage))
                     [tileImage drawInRect:CGRectMake(x * rectSize, y * rectSize, rectSize, rectSize)];
@@ -211,7 +217,7 @@
             float nextTileX = floor(nextX),
             nextTileY = floor(nextY);
             
-            tileImage = [_tileSource imageForTile:RMTileMake((int)nextTileX, (int)nextTileY, currentZoom) inCache:[_mapView tileCache]];
+            tileImage = [_tileSource imageForTile:RMTileMake((int)nextTileX, (int)nextTileY, currentZoom) inCache:[_mapView tileCache] withBlock:nil];
             
             if (IS_VALID_TILE_IMAGE(tileImage))
             {
@@ -260,14 +266,24 @@
     return tileImage;
 }
 
-- (void)drawTileImage:(NSImage *)tileImage rect:(CGRect)rect tile:(RMTile)tile
-{    
+- (void)drawTileImage:(NSImage *)tileImage inContext:(CGContextRef)context rect:(CGRect)rect tile:(RMTile)tile
+{
+    if (!IS_VALID_TILE_IMAGE(tileImage)) {
+        NSLog(@"Invalid image for {%d,%d} @ %d", tile.x, tile.y, tile.zoom);
+        return;
+    }
+
     if (_mapView.adjustTilesForRetinaDisplay && _mapView.screenScale > 1.0)
     {
         tileImage = [self cropTileImage:tileImage withRect:rect tile:tile];
     }
     
-    
+    NSGraphicsContext *nsGraphicsContext;
+    nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:context
+                                                                   flipped:NO];
+    [NSGraphicsContext saveGraphicsState];
+    [NSGraphicsContext setCurrentContext:nsGraphicsContext];
+   
 #pragma warn Figure out where we need to flip this NSImage/context so we do not have to flip again
     NSImage *flippedImage = [NSImage imageWithSize:tileImage.size flipped:YES drawingHandler:^BOOL(NSRect dstRect) {
         CGRect debugRect = CGRectMake(0, 0, tileImage.size.width, tileImage.size.height);
@@ -283,6 +299,32 @@
         [flippedImage drawInRect:rect];
         
     }
+    [NSGraphicsContext restoreGraphicsState];
+    
+}
+
+
+- (id)cacheObjectForKey:(id)key
+{
+    __block id obj;
+    dispatch_sync(_queue, ^{
+        obj = [_cache objectForKey:key];
+    });
+    return obj;
+}
+
+- (void)setCacheObject:(id)obj forKey:(id)key
+{
+    dispatch_barrier_async(_queue, ^{
+        [_cache setObject:obj forKey:key];
+    });
+}
+
+- (void)removeCacheObjectForKey:(id)key
+{
+    dispatch_barrier_async(_queue, ^{
+        [_cache removeObjectForKey:key];
+    });
     
 }
 
@@ -311,17 +353,14 @@
         y >>= 1;
     }
     
+    RMTile currentTile = RMTileMake(x, y, zoom);
+    
     //        NSLog(@"Tile @ x:%d, y:%d, zoom:%d", x, y, zoom);
     
-    NSGraphicsContext *nsGraphicsContext;
-    nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:context
-                                                                   flipped:NO];
-    [NSGraphicsContext saveGraphicsState];
-    [NSGraphicsContext setCurrentContext:nsGraphicsContext];
     
     NSImage *tileImage = nil;
     
-    if (zoom >= _tileSource.minZoom && zoom <= _tileSource.maxZoom)
+    if ((zoom >= _tileSource.minZoom) && (zoom <= _tileSource.maxZoom))
     {
         RMDatabaseCache *databaseCache = nil;
         
@@ -333,58 +372,50 @@
         {
             // for non-web tiles, query the source directly since trivial blocking
             //
-            tileImage = [_tileSource imageForTile:RMTileMake(x, y, zoom) inCache:[_mapView tileCache]];
+            tileImage = [_tileSource imageForTile:RMTileMake(x, y, zoom) inCache:[_mapView tileCache] withBlock:nil];
+            if (!tileImage)
+            {
+                tileImage = [self createMissingTileImageForTile:currentTile];
+            }
+            [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
         }
         else
         {
             // For non-local cacheable tiles, check if tile exists in cache already
             
-            if (_tileSource.isCacheable)
-                tileImage = [[_mapView tileCache] cachedImage:RMTileMake(x, y, zoom) withCacheKey:[_tileSource uniqueTilecacheKey]];
-            
-            if (!tileImage)
-            {
-                // Tile image is not in cache so we need to retrieve it
-                // fire off an asynchronous retrieval
-                //
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
-                               {
-                                   // ensure only one request for a URL at a time
-                                   //
-                                   @synchronized ([(RMAbstractWebMapSource *)_tileSource URLForTile:RMTileMake(x, y, zoom)])
-                                   {
-                                       // this will return quicker if cached since above attempt, else block on fetch
-                                       //
-                                       if (_tileSource.isCacheable && [_tileSource imageForTile:RMTileMake(x, y, zoom) inCache:[_mapView tileCache]])
-                                       {
-                                           dispatch_async(dispatch_get_main_queue(), ^(void)
-                                                          {
-                                                              // do it all again for this tile, next time synchronously from cache
-                                                              //
-                                                              [self.layer setNeedsDisplayInRect:rect];
-                                                          });
-                                       }
-                                   }
-                               });
-            }
+            if (_tileSource.isCacheable) {
+                
+                tileImage = [[_mapView tileCache] cachedImage:currentTile withCacheKey:[_tileSource uniqueTilecacheKey]];
+                
+                if (!tileImage) {
+                    if ([self cacheObjectForKey:RMTileCacheHash(currentTile)]) {
+                        return;
+                    }
+                    else {
+                        [self setCacheObject:@"1" forKey:RMTileCacheHash(currentTile)];
+                    }
+                    
+                    tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] withBlock:^(NSImage *newImage) {
+                        if (!newImage) {
+                            newImage = [self createMissingTileImageForTile:currentTile];
+                        }
+                        [self removeCacheObjectForKey:RMTileCacheHash(currentTile)];
+                        [self.layer setNeedsDisplayInRect:rect];
+ 
+                    }];
+                }
+                else {
+                    [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
+                }
+           }
         }
     }
-    
-    if (!tileImage)
-    {
-        tileImage = [self createMissingTileImageForTile:RMTileMake(x, y, zoom)];
+    else {
+        tileImage = [self createMissingTileImageForTile:currentTile];        
+        [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
     }
     
-    if (IS_VALID_TILE_IMAGE(tileImage))
-    {
-        [self drawTileImage:tileImage rect:rect tile:RMTileMake(x, y, zoom)];
-    }
-    else
-    {
-        //            NSLog(@"Invalid image for {%d,%d} @ %d", x, y, zoom);
-    }
     
-    [NSGraphicsContext restoreGraphicsState];
     
 }
 @end

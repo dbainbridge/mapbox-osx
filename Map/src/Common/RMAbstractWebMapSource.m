@@ -29,8 +29,13 @@
 
 #import "RMTileCacheMulti.h"
 #import "RMConfiguration.h"
+#import "AFNetworking.h"
 
 #define HTTP_404_NOT_FOUND 404
+
+@interface RMAbstractWebMapSource()
+@property (nonatomic, strong) AFHTTPClient *client;
+@end
 
 @implementation RMAbstractWebMapSource
 
@@ -44,6 +49,8 @@
     self.retryCount = RMAbstractWebMapSourceDefaultRetryCount;
     self.requestTimeoutSeconds = RMAbstractWebMapSourceDefaultWaitSeconds;
 
+    NSURL *baseURL = [NSURL URLWithString:@"http://a.tiles.mapbox.com/v3/dbainbridge.map-tn3fvrcv"];
+    _client = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
     return self;
 }
 
@@ -59,7 +66,7 @@
     return [NSArray arrayWithObjects:[self URLForTile:tile], nil];
 }
 
-- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
+- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache withBlock:(void (^)(NSImage *))imageBlock
 {
     __block NSImage *image = nil;
 	tile = [[self mercatorToTileProjection] normaliseTile:tile];
@@ -161,6 +168,33 @@
    }
     else
     {
+        
+        NSURLRequest *request = [NSURLRequest requestWithURL:[URLs objectAtIndex:0]];
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+        [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"success: %@", operation.responseString);
+            NSData *tileData = responseObject;
+            NSImage *image = [NSImage imageWithData:tileData];
+            
+            if (image && self.isCacheable) {
+                if (tileCache.repondsTo.addImageForTileWithDataWithCacheKey)
+                    [tileCache addImage:image forTile:tile withData:tileData withCacheKey:[self uniqueTilecacheKey]];
+                else
+                    [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
+            }
+            imageBlock(image);
+
+            
+        }
+                                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                              NSLog(@"error: %@",  operation.responseString);
+                                              
+                                          }
+         ];
+        [self.client enqueueHTTPRequestOperation:operation];
+        /*
+        
         NSData *tileData;
         for (NSUInteger try = 0; image == nil && try < self.retryCount; ++try)
         {
@@ -180,6 +214,8 @@
                     [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
             }
        }
+         */
+        
     }
 
 

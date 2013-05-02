@@ -103,7 +103,7 @@
 	return @"n/a";
 }
 
-- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
+- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache withBlock:(void (^)(NSImage *))imageBlock
 {
     NSImage *image = nil;
 
@@ -134,7 +134,7 @@
         if (tile.zoom < tileSource.minZoom || tile.zoom > tileSource.maxZoom || ![tileSource tileSourceHasTile:tile])
             continue;
 
-        NSImage *tileImage = [tileSource imageForTile:tile inCache:tileCache];
+        NSImage *tileImage = [tileSource imageForTile:tile inCache:tileCache withBlock:nil];
 
         if (tileImage)
         {

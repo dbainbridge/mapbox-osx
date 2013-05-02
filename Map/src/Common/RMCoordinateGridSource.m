@@ -109,7 +109,7 @@ static double coordinateGridSpacingDecimal[19] = {
     return self;
 }
 
-- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache
+- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache withBlock:(void (^)(NSImage *))imageBlock
 {
     if (tile.zoom < 0 || tile.zoom > 18)
         return nil;
