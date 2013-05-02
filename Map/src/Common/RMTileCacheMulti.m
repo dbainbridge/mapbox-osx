@@ -101,7 +101,7 @@
                 newCache = [self databaseCacheWithConfig:cfg];
 
             if (newCache)
-                [_tileCaches addObject:newCache];
+                [self addCache:newCache];
             else
                 RMLog(@"failed to create cache of type %@", type);
 
@@ -136,6 +136,8 @@
 - (void)addCache:(RMTileCacheBase *)cache
 {
     dispatch_barrier_async(_tileCacheQueue, ^{
+        if ([cache isKindOfClass:[RMDatabaseCache class]])
+            _databaseCache = (RMDatabaseCache *)cache;
         [_tileCaches addObject:cache];
     });
 }

@@ -31,7 +31,7 @@
 #import "RMCacheObject.h"
 #import "RMTileCacheBase.h"
 
-@class RMTileImage, RMMemoryCache;
+@class RMTileImage, RMMemoryCache, RMDatabaseCache;
 
 
 
@@ -97,6 +97,10 @@
 
 /** The list of caches managed by a cache manager. This could include memory-based, disk-based, or other types of caches. */
 @property (nonatomic, readonly, strong) NSArray *tileCaches;
+
+// Use this to identify a database cache if one exists, used by RMTiledLayerView but usage there needs to be refactored
+#warning Hacky, fix later
+@property (nonatomic, readonly, weak) RMDatabaseCache *databaseCache;
 
 - (void)didReceiveMemoryWarning;
 

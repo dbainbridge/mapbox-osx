@@ -362,11 +362,7 @@
     
     if ((zoom >= _tileSource.minZoom) && (zoom <= _tileSource.maxZoom))
     {
-        RMDatabaseCache *databaseCache = nil;
-        
-        for (RMTileCacheBase *componentCache in _mapView.tileCache.tileCaches)
-            if ([componentCache isKindOfClass:[RMDatabaseCache class]])
-                databaseCache = (RMDatabaseCache *)componentCache;
+        RMDatabaseCache *databaseCache = _mapView.tileCache.databaseCache;
         
         if (![_tileSource isKindOfClass:[RMAbstractWebMapSource class]] || ! databaseCache || ! databaseCache.capacity)
         {
