@@ -368,7 +368,7 @@
         {
             // for non-web tiles, query the source directly since trivial blocking
             //
-            tileImage = [_tileSource imageForTile:RMTileMake(x, y, zoom) inCache:[_mapView tileCache] withBlock:nil];
+            tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] withBlock:nil];
             if (!tileImage)
             {
                 tileImage = [self createMissingTileImageForTile:currentTile];
@@ -383,19 +383,20 @@
                 
                 tileImage = [[_mapView tileCache] cachedImage:currentTile withCacheKey:[_tileSource uniqueTilecacheKey]];
                 
+                NSNumber *tileCacheHash = RMTileCacheHash(currentTile);
                 if (!tileImage) {
-                    if ([self cacheObjectForKey:RMTileCacheHash(currentTile)]) {
+                    if ([self cacheObjectForKey:tileCacheHash]) {
                         return;
                     }
                     else {
-                        [self setCacheObject:@"1" forKey:RMTileCacheHash(currentTile)];
+                        [self setCacheObject:@"1" forKey:tileCacheHash];
                     }
                     
                     tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] withBlock:^(NSImage *newImage) {
                         if (!newImage) {
                             newImage = [self createMissingTileImageForTile:currentTile];
                         }
-                        [self removeCacheObjectForKey:RMTileCacheHash(currentTile)];
+                        [self removeCacheObjectForKey:tileCacheHash];
                         [self.layer setNeedsDisplayInRect:rect];
  
                     }];
