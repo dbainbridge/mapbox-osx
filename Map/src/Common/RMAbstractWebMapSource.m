@@ -177,12 +177,14 @@
                 else
                     [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
             }
-            imageBlock(image);
+            if (imageBlock)
+                imageBlock(image);
 
             
         }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              imageBlock(nil);
+              if (imageBlock)
+                  imageBlock(nil);
               NSLog(@"error: %@",  operation.responseString);
               
           }
