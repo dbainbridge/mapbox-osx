@@ -400,6 +400,13 @@
                         [self.layer setNeedsDisplayInRect:rect];
  
                     }];
+                    
+                    if (!tileImage) {
+                        tileImage = [self createMissingTileImageForTile:currentTile];
+                        if (tileImage)
+                            [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
+                    }
+
                 }
                 else {
                     [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
