@@ -38,7 +38,6 @@
 		46A6033016D2AD94006A4081 /* UIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6031616D2AD94006A4081 /* UIColor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033116D2AD94006A4081 /* UIColorRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6031916D2AD94006A4081 /* UIColorRep.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033216D2AD94006A4081 /* UIDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6031B16D2AD94006A4081 /* UIDevice.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		46A6033316D2AD94006A4081 /* UIFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6031E16D2AD94006A4081 /* UIFont.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033416D2AD94006A4081 /* UIGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032116D2AD94006A4081 /* UIGeometry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033516D2AD94006A4081 /* UIGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032316D2AD94006A4081 /* UIGraphics.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033616D2AD94006A4081 /* UIImage+UIPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032516D2AD94006A4081 /* UIImage+UIPrivate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -46,7 +45,6 @@
 		46A6033816D2AD94006A4081 /* UIImageAppKitIntegration.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032916D2AD94006A4081 /* UIImageAppKitIntegration.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033916D2AD94006A4081 /* UIImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032B16D2AD94006A4081 /* UIImageRep.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033A16D2AD94006A4081 /* UIScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032D16D2AD94006A4081 /* UIScreen.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		46A6033B16D2AD94006A4081 /* UIStringDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032F16D2AD94006A4081 /* UIStringDrawing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033D16D2ADE6006A4081 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A6033C16D2ADE6006A4081 /* SystemConfiguration.framework */; };
 		46A6035A16D2AE12006A4081 /* NSView+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6033F16D2AE12006A4081 /* NSView+UIView.m */; };
 		46A6035B16D2AE12006A4081 /* RMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6034116D2AE12006A4081 /* RMAppDelegate.m */; };
@@ -163,10 +161,6 @@
 		46A6031916D2AD94006A4081 /* UIColorRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColorRep.m; sourceTree = "<group>"; };
 		46A6031A16D2AD94006A4081 /* UIDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDevice.h; sourceTree = "<group>"; };
 		46A6031B16D2AD94006A4081 /* UIDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDevice.m; sourceTree = "<group>"; };
-		46A6031C16D2AD94006A4081 /* UIFont+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+UIPrivate.h"; sourceTree = "<group>"; };
-		46A6031D16D2AD94006A4081 /* UIFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIFont.h; sourceTree = "<group>"; };
-		46A6031E16D2AD94006A4081 /* UIFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIFont.m; sourceTree = "<group>"; };
-		46A6031F16D2AD94006A4081 /* UIFontAppKitIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIFontAppKitIntegration.h; sourceTree = "<group>"; };
 		46A6032016D2AD94006A4081 /* UIGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGeometry.h; sourceTree = "<group>"; };
 		46A6032116D2AD94006A4081 /* UIGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGeometry.m; sourceTree = "<group>"; };
 		46A6032216D2AD94006A4081 /* UIGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGraphics.h; sourceTree = "<group>"; };
@@ -181,8 +175,6 @@
 		46A6032B16D2AD94006A4081 /* UIImageRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageRep.m; sourceTree = "<group>"; };
 		46A6032C16D2AD94006A4081 /* UIScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScreen.h; sourceTree = "<group>"; };
 		46A6032D16D2AD94006A4081 /* UIScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScreen.m; sourceTree = "<group>"; };
-		46A6032E16D2AD94006A4081 /* UIStringDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIStringDrawing.h; sourceTree = "<group>"; };
-		46A6032F16D2AD94006A4081 /* UIStringDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIStringDrawing.m; sourceTree = "<group>"; };
 		46A6033C16D2ADE6006A4081 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		46A6033E16D2AE12006A4081 /* NSView+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+UIView.h"; sourceTree = "<group>"; };
 		46A6033F16D2AE12006A4081 /* NSView+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+UIView.m"; sourceTree = "<group>"; };
@@ -537,10 +529,6 @@
 				46A6031916D2AD94006A4081 /* UIColorRep.m */,
 				46A6031A16D2AD94006A4081 /* UIDevice.h */,
 				46A6031B16D2AD94006A4081 /* UIDevice.m */,
-				46A6031C16D2AD94006A4081 /* UIFont+UIPrivate.h */,
-				46A6031D16D2AD94006A4081 /* UIFont.h */,
-				46A6031E16D2AD94006A4081 /* UIFont.m */,
-				46A6031F16D2AD94006A4081 /* UIFontAppKitIntegration.h */,
 				46A6032016D2AD94006A4081 /* UIGeometry.h */,
 				46A6032116D2AD94006A4081 /* UIGeometry.m */,
 				46A6032216D2AD94006A4081 /* UIGraphics.h */,
@@ -555,8 +543,6 @@
 				46A6032B16D2AD94006A4081 /* UIImageRep.m */,
 				46A6032C16D2AD94006A4081 /* UIScreen.h */,
 				46A6032D16D2AD94006A4081 /* UIScreen.m */,
-				46A6032E16D2AD94006A4081 /* UIStringDrawing.h */,
-				46A6032F16D2AD94006A4081 /* UIStringDrawing.m */,
 			);
 			path = Chameleon;
 			sourceTree = "<group>";
@@ -751,7 +737,6 @@
 				46A6033016D2AD94006A4081 /* UIColor.m in Sources */,
 				46A6033116D2AD94006A4081 /* UIColorRep.m in Sources */,
 				46A6033216D2AD94006A4081 /* UIDevice.m in Sources */,
-				46A6033316D2AD94006A4081 /* UIFont.m in Sources */,
 				46A6033416D2AD94006A4081 /* UIGeometry.m in Sources */,
 				46A6033516D2AD94006A4081 /* UIGraphics.m in Sources */,
 				46A6033616D2AD94006A4081 /* UIImage+UIPrivate.m in Sources */,
@@ -759,7 +744,6 @@
 				46A6033816D2AD94006A4081 /* UIImageAppKitIntegration.m in Sources */,
 				46A6033916D2AD94006A4081 /* UIImageRep.m in Sources */,
 				46A6033A16D2AD94006A4081 /* UIScreen.m in Sources */,
-				46A6033B16D2AD94006A4081 /* UIStringDrawing.m in Sources */,
 				46A6035A16D2AE12006A4081 /* NSView+UIView.m in Sources */,
 				46A6035B16D2AE12006A4081 /* RMAppDelegate.m in Sources */,
 				46A6035C16D2AE12006A4081 /* RMAttributionViewController.m in Sources */,
