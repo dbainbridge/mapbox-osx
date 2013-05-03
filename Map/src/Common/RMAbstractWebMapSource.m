@@ -71,9 +71,6 @@
     __block NSImage *image = nil;
 	tile = [[self mercatorToTileProjection] normaliseTile:tile];
 
-    if (tile.zoom == -1) {
-        NSLog(@"tile error");
-    }
     // Return NSNull here so that the RMMapTiledLayerView will try to
     // fetch another tile if missingTilesDepth > 0
     if ( ! [self tileSourceHasTile:tile])
@@ -168,12 +165,9 @@
    }
     else
     {
-        
         NSURLRequest *request = [NSURLRequest requestWithURL:[URLs objectAtIndex:0]];
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
-        [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            NSLog(@"success: %@", operation.responseString);
+        [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {            
             NSData *tileData = responseObject;
             NSImage *image = [NSImage imageWithData:tileData];
             
@@ -187,35 +181,13 @@
 
             
         }
-                                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                              NSLog(@"error: %@",  operation.responseString);
-                                              
-                                          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              imageBlock(nil);
+              NSLog(@"error: %@",  operation.responseString);
+              
+          }
          ];
-        [self.client enqueueHTTPRequestOperation:operation];
-        /*
-        
-        NSData *tileData;
-        for (NSUInteger try = 0; image == nil && try < self.retryCount; ++try)
-        {
-            NSHTTPURLResponse *response = nil;
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[URLs objectAtIndex:0]];
-            [request setTimeoutInterval:(self.requestTimeoutSeconds / (CGFloat)self.retryCount)];
-            tileData = [NSURLConnection sendBrandedSynchronousRequest:request returningResponse:&response error:nil];
-            image = [NSImage imageWithData:tileData];
-
-            if (response.statusCode == HTTP_404_NOT_FOUND)
-                break;
-            
-            if (image && self.isCacheable) {
-                if (tileCache.repondsTo.addImageForTileWithDataWithCacheKey)
-                    [tileCache addImage:image forTile:tile withData:tileData withCacheKey:[self uniqueTilecacheKey]];
-                else
-                    [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
-            }
-       }
-         */
-        
+        [self.client enqueueHTTPRequestOperation:operation];        
     }
 
 
