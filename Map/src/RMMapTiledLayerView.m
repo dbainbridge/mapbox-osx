@@ -292,7 +292,7 @@
         {
             // for non-web tiles, query the source directly since trivial blocking
             //
-            tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] options:RMGenerateMissingTile withBlock:nil];
+            tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] options:0 withBlock:nil];
              [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
         }
         else
@@ -305,11 +305,11 @@
                 
                 if (!tileImage) {
                     
-                    tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] options:RMGenerateMissingTile withBlock:^(NSImage *newImage) {
+                    tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] options:0 withBlock:^(NSImage *newImage) {
                            [self.layer setNeedsDisplayInRect:rect];
                     }];
-                    
-                    [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
+                    if (tileImage)
+                        [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
                 }
                 else {
                     [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];

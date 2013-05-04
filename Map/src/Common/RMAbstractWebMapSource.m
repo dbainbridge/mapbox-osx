@@ -250,7 +250,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:[NSNumber numberWithUnsignedLongLong:RMTileKey(tile)]];
     });
 
-    if (RMGenerateMissingTile)
+    if (RMGenerateMissingTile & mask)
         image = [self imageForMissingTile:tile fromCache:tileCache];
     
     return image;

@@ -106,12 +106,13 @@
             nextY = tile.y / powf(2.0, (float)currentTileDepth);
             float nextTileX = floor(nextX),
             nextTileY = floor(nextY);
-            RMTile tile = RMTileMake((int)nextTileX, (int)nextTileY, currentZoom);
+            RMTile nextTile = RMTileMake((int)nextTileX, (int)nextTileY, currentZoom);
  //           tileImage = [self imageForTile:tile inCache:tileCache options:0 withBlock:nil];
-            tileImage = [tileCache cachedImage:tile withCacheKey:[self uniqueTilecacheKey]];
+            tileImage = [tileCache cachedImage:nextTile withCacheKey:[self uniqueTilecacheKey]];
             
             if (IS_VALID_TILE_IMAGE(tileImage))
             {
+                /*
                 // crop
                 float cropSize = 1.0 / powf(2.0, (float)currentTileDepth);
                 
