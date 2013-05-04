@@ -100,8 +100,6 @@ typedef enum : NSUInteger {
 
 /** @name Fine-Tuning the Map Appearance */
 
-/** Take missing tiles from lower-numbered zoom levels, up to a given number of zoom levels. This can be used in order to increase perceived tile load performance or to allow zooming in beyond levels supported natively by a given tile source. Defaults to 1. */
-@property (nonatomic, assign) NSUInteger missingTilesDepth;
 
 /** A custom, static view to use behind the map tiles. The default behavior is to use grid imagery that moves with map panning like MapKit. */
 @property (nonatomic, strong) NSView *backgroundView;

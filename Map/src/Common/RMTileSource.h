@@ -16,6 +16,10 @@
 
 #define kDefaultTileSize 256
 
+typedef NS_OPTIONS(NSUInteger, RMImageForTileOptions) {
+    RMGenerateMissingTile = 1,
+};
+
 @class RMFractalTileProjection, RMTileCacheBase, RMProjection, RMTileImage;
 
 @protocol RMMercatorToTileProjection;
@@ -72,12 +76,16 @@
 
 /** @name Supplying Tile Images */
 
+/** Take missing tiles from lower-numbered zoom levels, up to a given number of zoom levels. This can be used in order to increase perceived tile load performance or to allow zooming in beyond levels supported natively by a given tile source. Defaults to 1. */
+@property (nonatomic, assign) NSUInteger missingTilesDepth;
+
 /** Provide an image for a given tile location using a given cache.
  *   @param tile The map tile in question.
  *   @param tileCache A tile cache to check first when providing the image.
  *   @return An image to display. */
-- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache withBlock:(void (^)(NSImage *tileImage))imageBlock;
-//- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache;
+- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache options:(RMImageForTileOptions)mask withBlock:(void (^)(NSImage *tileImage))imageBlock;
+
+- (NSImage *)imageForMissingTile:(RMTile)tile fromCache:(RMTileCacheBase *)tileCache;
 
 /** Check if the tile source can provide the requested tile.
  *  @param tile The map tile in question.

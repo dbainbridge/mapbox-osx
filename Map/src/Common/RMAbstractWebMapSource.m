@@ -106,7 +106,7 @@
     return [NSArray arrayWithObjects:[self URLForTile:tile], nil];
 }
 
-- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache withBlock:(void (^)(NSImage *))imageBlock
+- (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache options:(RMImageForTileOptions)mask withBlock:(void (^)(NSImage *))imageBlock
 {
     // verify we haven't already requested this tile
     NSNumber *tileCacheHash = RMTileCacheHash(tile);
@@ -122,9 +122,10 @@
 
     // Return NSNull here so that the RMMapTiledLayerView will try to
     // fetch another tile if missingTilesDepth > 0
-    if ( ! [self tileSourceHasTile:tile])
-        return (NSImage *)[NSNull null];
-
+    if (![self tileSourceHasTile:tile]) {
+        if (RMGenerateMissingTile & mask)
+            return [self imageForMissingTile:tile fromCache:tileCache];
+    }
     if (self.isCacheable)
     {
         image = [tileCache cachedImage:tile withCacheKey:[self uniqueTilecacheKey]];
@@ -249,6 +250,9 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:RMTileRetrieved object:[NSNumber numberWithUnsignedLongLong:RMTileKey(tile)]];
     });
 
+    if (RMGenerateMissingTile)
+        image = [self imageForMissingTile:tile fromCache:tileCache];
+    
     return image;
 }
 

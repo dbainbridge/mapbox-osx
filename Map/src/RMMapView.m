@@ -203,7 +203,6 @@
 @synthesize showsUserLocation = _showsUserLocation;
 @synthesize userTrackingMode = _userTrackingMode;
 @synthesize displayHeadingCalibration = _displayHeadingCalibration;
-@synthesize missingTilesDepth = _missingTilesDepth;
 @synthesize debugTiles = _debugTiles;
 @synthesize hideAttribution = _hideAttribution;
 @synthesize showLogoBug = _showLogoBug;
@@ -244,7 +243,6 @@
     _screenScale = 2.0;
     
     _adjustTilesForRetinaDisplay = NO;
-    _missingTilesDepth = 1;
     _debugTiles = NO;
     
     _orderMarkersByYPosition = YES;

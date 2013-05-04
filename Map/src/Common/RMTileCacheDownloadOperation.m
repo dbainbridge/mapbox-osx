@@ -59,7 +59,7 @@
         if ([self isCancelled])
             return;
 
-        if ( ! [_source imageForTile:_tile inCache:_cache withBlock:nil])
+        if ( ! [_source imageForTile:_tile inCache:_cache options:NO withBlock:nil])
             [self cancel];
     }
 }

@@ -148,7 +148,7 @@
         {
             for (int y=y1; y<=y2; ++y)
             {
-                NSImage *tileImage = [_tileSource imageForTile:RMTileMake(x, y, zoom) inCache:[_mapView tileCache] withBlock:nil];
+                NSImage *tileImage = [_tileSource imageForTile:RMTileMake(x, y, zoom) inCache:[_mapView tileCache] options:NO withBlock:nil];
                 
                 if (IS_VALID_TILE_IMAGE(tileImage))
                     [tileImage drawInRect:CGRectMake(x * rectSize, y * rectSize, rectSize, rectSize)];
@@ -194,57 +194,6 @@
     return newTile;
 }
 
-- (NSImage *)createMissingTileImageForTile:(RMTile)tile
-{
-    NSImage *tileImage;
-    
-    if (_mapView.missingTilesDepth == 0)
-    {
-        tileImage = [RMTileImage errorTile];
-    }
-    else
-    {
-        NSUInteger currentTileDepth = 1;
-        NSUInteger currentZoom = tile.zoom - currentTileDepth;
-        
-        // tries to return lower zoom level tiles if a tile cannot be found
-        while ( !tileImage && currentZoom >= _tileSource.minZoom && currentTileDepth <= _mapView.missingTilesDepth)
-        {
-            float nextX = tile.x / powf(2.0, (float)currentTileDepth),
-            nextY = tile.y / powf(2.0, (float)currentTileDepth);
-            float nextTileX = floor(nextX),
-            nextTileY = floor(nextY);
-            
-            tileImage = [_tileSource imageForTile:RMTileMake((int)nextTileX, (int)nextTileY, currentZoom) inCache:[_mapView tileCache] withBlock:nil];
-            
-            if (IS_VALID_TILE_IMAGE(tileImage))
-            {
-                // crop
-                float cropSize = 1.0 / powf(2.0, (float)currentTileDepth);
-                
-                CGRect cropBounds = CGRectMake(tileImage.size.width * (nextX - nextTileX),
-                                               tileImage.size.height * (nextY - nextTileY),
-                                               tileImage.size.width * cropSize,
-                                               tileImage.size.height * cropSize);
-                
-                CGImageRef imageRef = CGImageCreateWithImageInRect([tileImage CGImage], cropBounds);
-                tileImage = [NSImage imageWithCGImage:imageRef];
-                CGImageRelease(imageRef);
-                
-                break;
-            }
-            else
-            {
-                tileImage = nil;
-            }
-            
-            currentTileDepth++;
-            currentZoom = tile.zoom - currentTileDepth;
-        }
-    }
-    
-    return tileImage;
-}
 
 - (NSImage *)cropTileImage:(NSImage *)tileImage withRect:(CGRect)rect tile:(RMTile)tile
 {
@@ -343,38 +292,24 @@
         {
             // for non-web tiles, query the source directly since trivial blocking
             //
-            tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] withBlock:nil];
-            if (!tileImage)
-            {
-                tileImage = [self createMissingTileImageForTile:currentTile];
-            }
-            [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
+            tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] options:RMGenerateMissingTile withBlock:nil];
+             [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
         }
         else
         {
             // For non-local cacheable tiles, check if tile exists in cache already
             
             if (_tileSource.isCacheable) {
-                
+    
                 tileImage = [[_mapView tileCache] cachedImage:currentTile withCacheKey:[_tileSource uniqueTilecacheKey]];
                 
-                NSNumber *tileCacheHash = RMTileCacheHash(currentTile);
                 if (!tileImage) {
                     
-                    tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] withBlock:^(NSImage *newImage) {
-                        if (!newImage) {
-                            newImage = [self createMissingTileImageForTile:currentTile];
-                        }
-                        [self.layer setNeedsDisplayInRect:rect];
- 
+                    tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] options:RMGenerateMissingTile withBlock:^(NSImage *newImage) {
+                           [self.layer setNeedsDisplayInRect:rect];
                     }];
                     
-                    if (!tileImage) {
-                        tileImage = [self createMissingTileImageForTile:currentTile];
-                        if (tileImage)
-                            [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
-                    }
-
+                    [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
                 }
                 else {
                     [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
@@ -383,7 +318,7 @@
         }
     }
     else {
-        tileImage = [self createMissingTileImageForTile:currentTile];        
+        tileImage = [_tileSource imageForMissingTile:currentTile fromCache:[_mapView tileCache]];
         [self drawTileImage:tileImage inContext:context rect:rect tile:currentTile];
     }
     
