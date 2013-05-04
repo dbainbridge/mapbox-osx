@@ -112,7 +112,7 @@
             
             if (IS_VALID_TILE_IMAGE(tileImage))
             {
-                /*
+                
                 // crop
                 float cropSize = 1.0 / powf(2.0, (float)currentTileDepth);
                 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>caches</key>
+	<array>
+		<dict>
+			<key>capacity</key>
+			<integer>20000</integer>
+			<key>useCachesDirectory</key>
+			<false/>
+			<key>strategy</key>
+			<string>FIFO</string>
+			<key>type</key>
+			<string>db-cache</string>
+			<key>expiryPeriod</key>
+			<integer>86400</integer>
+			<key>minimalPurge</key>
+			<integer>1000</integer>
+		</dict>
+		<dict>
+			<key>capacity</key>
+			<integer>1000</integer>
+			<key>type</key>
+			<string>memory-cache</string>
+		</dict>
+	</array>
+</dict>
+</plist>

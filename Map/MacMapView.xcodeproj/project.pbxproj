@@ -110,6 +110,7 @@
 		46C6231C16D2B1E300879171 /* LoadingTileZoom.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230A16D2B1E300879171 /* LoadingTileZoom.png */; };
 		46C6231D16D2B1E300879171 /* mapbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230B16D2B1E300879171 /* mapbox.png */; };
 		46C6231E16D2B1E300879171 /* mapbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C6230C16D2B1E300879171 /* mapbox@2x.png */; };
+		46D9C6681735D2C000800B1B /* routeme-osx.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46D9C6671735D2C000800B1B /* routeme-osx.plist */; };
 		46DA7E7A16D93B2E00FA1A10 /* RMMapStatWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA7E7816D93B2E00FA1A10 /* RMMapStatWindowController.m */; };
 		46DA7E7B16D93B2E00FA1A10 /* RMMapStatWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46DA7E7916D93B2E00FA1A10 /* RMMapStatWindow.xib */; };
 		46DA7E8A16DAD1AD00FA1A10 /* DuxScrollViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA7E8916DAD1AD00FA1A10 /* DuxScrollViewAnimation.m */; };
@@ -305,6 +306,7 @@
 		46C6231216D2B1E300879171 /* TrackingHeading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrackingHeading@2x.png"; sourceTree = "<group>"; };
 		46C6231316D2B1E300879171 /* TrackingLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrackingLocation.png; sourceTree = "<group>"; };
 		46C6231416D2B1E300879171 /* TrackingLocation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrackingLocation@2x.png"; sourceTree = "<group>"; };
+		46D9C6671735D2C000800B1B /* routeme-osx.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "routeme-osx.plist"; sourceTree = "<group>"; };
 		46DA7E7716D93B2E00FA1A10 /* RMMapStatWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapStatWindowController.h; sourceTree = "<group>"; };
 		46DA7E7816D93B2E00FA1A10 /* RMMapStatWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMapStatWindowController.m; sourceTree = "<group>"; };
 		46DA7E7916D93B2E00FA1A10 /* RMMapStatWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMMapStatWindow.xib; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				46A6030216D2AD29006A4081 /* main.m */,
 				46A6030416D2AD29006A4081 /* MacMapView-Prefix.pch */,
 				46A6030516D2AD29006A4081 /* Credits.rtf */,
+				46D9C6671735D2C000800B1B /* routeme-osx.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -725,6 +728,7 @@
 				46C6231D16D2B1E300879171 /* mapbox.png in Resources */,
 				46C6231E16D2B1E300879171 /* mapbox@2x.png in Resources */,
 				46DA7E7B16D93B2E00FA1A10 /* RMMapStatWindow.xib in Resources */,
+				46D9C6681735D2C000800B1B /* routeme-osx.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
