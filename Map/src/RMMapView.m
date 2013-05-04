@@ -212,7 +212,7 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (void)performInitializationWithTilesource:(id <RMTileSource>)newTilesource
+- (void)performInitializationWithTilesource:(RMTileSource *)newTilesource
                            centerCoordinate:(CLLocationCoordinate2D)initialCenterCoordinate
                                   zoomLevel:(float)initialTileSourceZoomLevel
                                maxZoomLevel:(float)initialTileSourceMaxZoomLevel
@@ -344,7 +344,7 @@
     return [self initWithFrame:frame andTilesource:[RMMapBoxSource new]];
 }
 
-- (id)initWithFrame:(CGRect)frame andTilesource:(id <RMTileSource>)newTilesource
+- (id)initWithFrame:(CGRect)frame andTilesource:(RMTileSource *)newTilesource
 {
 	CLLocationCoordinate2D coordinate;
 	coordinate.latitude = kDefaultInitialLatitude;
@@ -360,7 +360,7 @@
 }
 
 - (id)initWithFrame:(CGRect)frame
-      andTilesource:(id <RMTileSource>)newTilesource
+      andTilesource:(RMTileSource *)newTilesource
    centerCoordinate:(CLLocationCoordinate2D)initialCenterCoordinate
           zoomLevel:(float)initialZoomLevel
        maxZoomLevel:(float)maxZoomLevel
@@ -1213,7 +1213,7 @@
     //    _tiledLayersSuperview = [[NSView alloc] initWithFrame:CGRectMake(0.0, 0.0, 512, 512)];
 //    _tiledLayersSuperview.userInteractionEnabled = NO;
     
-    for (id <RMTileSource> tileSource in _tileSourcesContainer.tileSources)
+    for (RMTileSource * tileSource in _tileSourcesContainer.tileSources)
     {
         RMMapTiledLayerView *tiledLayerView = [[RMMapTiledLayerView alloc] initWithFrame:CGRectMake(0.0, 0.0, contentSize.width, contentSize.height) mapView:self forTileSource:tileSource];
        
@@ -2087,7 +2087,7 @@
     return _tileSourcesContainer;
 }
 
-- (id <RMTileSource>)tileSource
+- (RMTileSource *)tileSource
 {
     NSArray *tileSources = [_tileSourcesContainer tileSources];
     
@@ -2102,7 +2102,7 @@
     return [_tileSourcesContainer tileSources];
 }
 
-- (void)setTileSource:(id <RMTileSource>)tileSource
+- (void)setTileSource:(RMTileSource *)tileSource
 {
     [_tileSourcesContainer removeAllTileSources];
     [self addTileSource:tileSource];
@@ -2130,12 +2130,12 @@
     [self setCenterProjectedPoint:centerPoint animated:NO];
 }
 
-- (void)addTileSource:(id <RMTileSource>)tileSource
+- (void)addTileSource:(RMTileSource *)tileSource
 {
     [self addTileSource:tileSource atIndex:-1];
 }
 
-- (void)addTileSource:(id<RMTileSource>)newTileSource atIndex:(NSUInteger)index
+- (void)addTileSource:(RMTileSource *)newTileSource atIndex:(NSUInteger)index
 {
     if ([_tileSourcesContainer.tileSources containsObject:newTileSource])
         return;
@@ -2180,7 +2180,7 @@
     [self setCenterProjectedPoint:centerPoint animated:NO];
 }
 
-- (void)removeTileSource:(id <RMTileSource>)tileSource
+- (void)removeTileSource:(RMTileSource *)tileSource
 {
     RMProjectedPoint centerPoint = [self centerProjectedPoint];
     
@@ -2255,11 +2255,11 @@
     [self setCenterProjectedPoint:centerPoint animated:NO];
 }
 
-- (void)setHidden:(BOOL)isHidden forTileSource:(id <RMTileSource>)tileSource
+- (void)setHidden:(BOOL)isHidden forTileSource:(RMTileSource *)tileSource
 {
     NSArray *tileSources = [self tileSources];
     
-    [tileSources enumerateObjectsUsingBlock:^(id <RMTileSource> currentTileSource, NSUInteger index, BOOL *stop)
+    [tileSources enumerateObjectsUsingBlock:^(RMTileSource *currentTileSource, NSUInteger index, BOOL *stop)
      {
          if (tileSource == currentTileSource)
          {
@@ -2277,7 +2277,7 @@
     ((RMMapTiledLayerView *)[_tiledLayersSuperview.subviews objectAtIndex:index]).hidden = isHidden;
 }
 
-- (void)reloadTileSource:(id <RMTileSource>)tileSource
+- (void)reloadTileSource:(RMTileSource *)tileSource
 {
     // Reload the map layer
     for (RMMapTiledLayerView *tiledLayerView in _tiledLayersSuperview.subviews)

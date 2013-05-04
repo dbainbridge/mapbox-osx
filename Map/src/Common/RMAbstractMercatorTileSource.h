@@ -30,7 +30,6 @@
 
 #pragma mark --- begin constants ---
 
-#define kDefaultTileSize 256
 #define kDefaultMinTileZoom 0
 #define kDefaultMaxTileZoom 18
 #define kDefaultLatLonBoundingBox ((RMSphericalTrapezium){.northEast = {.latitude = 90.0, .longitude = 180.0}, .southWest = {.latitude = -90.0, .longitude = -180.0}})
@@ -38,6 +37,6 @@
 #pragma mark --- end constants ---
 
 /** Abstract class representing a Mercator projection for the display of map tiles. Developers wanting to provide custom network-based tiles should subclass RMAbstractWebMapSource. */
-@interface RMAbstractMercatorTileSource : NSObject <RMTileSource>
+@interface RMAbstractMercatorTileSource : RMTileSource
 
 @end

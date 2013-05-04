@@ -57,7 +57,7 @@
     float tileSourcesMinZoom = FLT_MAX, tileSourcesMaxZoom = FLT_MIN;
     BOOL tileSourcesAreOpaque = YES;
 
-    for (id <RMTileSource> currentTileSource in _tileSources)
+    for (RMTileSource *currentTileSource in _tileSources)
     {
         tileSourcesMinZoom = MIN(tileSourcesMinZoom, currentTileSource.minZoom);
         tileSourcesMaxZoom = MAX(tileSourcesMaxZoom, currentTileSource.maxZoom);
@@ -129,7 +129,7 @@
 
     for (NSInteger u = [_tileSources count]-1; u >=0 ; --u)
     {
-        id <RMTileSource> tileSource = [_tileSources objectAtIndex:u];
+        RMTileSource *tileSource = [_tileSources objectAtIndex:u];
 
         if (tile.zoom < tileSource.minZoom || tile.zoom > tileSource.maxZoom || ![tileSource tileSourceHasTile:tile])
             continue;

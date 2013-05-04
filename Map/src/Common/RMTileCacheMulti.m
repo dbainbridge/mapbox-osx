@@ -55,7 +55,7 @@
 
     dispatch_queue_t _tileCacheQueue;
     
-    id <RMTileSource>_activeTileSource;
+    RMTileSource *_activeTileSource;
     NSOperationQueue *_backgroundFetchQueue;
 }
 
@@ -269,7 +269,7 @@
     return (_activeTileSource || _backgroundFetchQueue);
 }
 
-- (void)beginBackgroundCacheForTileSource:(id <RMTileSource>)tileSource southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(float)minZoom maxZoom:(float)maxZoom
+- (void)beginBackgroundCacheForTileSource:(RMTileSource *)tileSource southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(float)minZoom maxZoom:(float)maxZoom
 {
     if (self.isBackgroundCaching)
         return;

@@ -35,23 +35,63 @@
 
 @interface RMAbstractWebMapSource()
 @property (nonatomic, strong) AFHTTPClient *client;
+
+@property (nonatomic, strong) NSMutableDictionary *requestCache;
+@property (nonatomic, strong) dispatch_queue_t queue;
 @end
 
 @implementation RMAbstractWebMapSource
 
-@synthesize retryCount, requestTimeoutSeconds;
 
 - (id)init
 {
     if (!(self = [super init]))
         return nil;
 
-    self.retryCount = RMAbstractWebMapSourceDefaultRetryCount;
-    self.requestTimeoutSeconds = RMAbstractWebMapSourceDefaultWaitSeconds;
+    _retryCount = RMAbstractWebMapSourceDefaultRetryCount;
+    _requestTimeoutSeconds = RMAbstractWebMapSourceDefaultWaitSeconds;
 
     NSURL *baseURL = [NSURL URLWithString:@"http://a.tiles.mapbox.com/v3/dbainbridge.map-tn3fvrcv"];
     _client = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
+
+    _requestCache = [[NSMutableDictionary alloc] init];
+    
     return self;
+}
+
+- (id)cacheObjectForKey:(id)key
+{
+    __block id obj;
+    dispatch_sync(self.queue, ^{
+        obj = [_requestCache objectForKey:key];
+    });
+    return obj;
+}
+
+- (void)setCacheObject:(id)obj forKey:(id)key
+{
+    dispatch_barrier_async(_queue, ^{
+        [_requestCache setObject:obj forKey:key];
+    });
+}
+
+- (void)removeCacheObjectForKey:(id)key
+{
+    dispatch_barrier_async(_queue, ^{
+        [_requestCache removeObjectForKey:key];
+    });
+    
+}
+
+- (dispatch_queue_t)queue
+{
+    if (!_queue) {
+        NSString *cacheKey = [self uniqueTilecacheKey];
+        NSString *queueName = [@"route-me." stringByAppendingString:cacheKey];
+        const char *c_queueName = [cacheKey cStringUsingEncoding:NSASCIIStringEncoding];
+        _queue = dispatch_queue_create(c_queueName, DISPATCH_QUEUE_CONCURRENT);
+    }
+    return _queue;
 }
 
 - (NSURL *)URLForTile:(RMTile)tile
@@ -68,6 +108,15 @@
 
 - (NSImage *)imageForTile:(RMTile)tile inCache:(RMTileCacheBase *)tileCache withBlock:(void (^)(NSImage *))imageBlock
 {
+    // verify we haven't already requested this tile
+    NSNumber *tileCacheHash = RMTileCacheHash(tile);
+    if ([self cacheObjectForKey:tileCacheHash]) {
+        return nil;
+    }
+    else {
+        [self setCacheObject:@"1" forKey:tileCacheHash];
+    }
+
     __block NSImage *image = nil;
 	tile = [[self mercatorToTileProjection] normaliseTile:tile];
 
@@ -177,6 +226,8 @@
                 else
                     [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
             }
+            [self removeCacheObjectForKey:tileCacheHash];
+
             if (imageBlock)
                 imageBlock(image);
 

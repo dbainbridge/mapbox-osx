@@ -123,7 +123,7 @@ typedef enum : NSUInteger {
  *   @param frame The frame with which to initialize the map view.
  *   @param newTilesource The tile source to use for the map tiles.
  *   @return An initialized map view, or `nil` if the map view was unable to be initialized. */
-- (id)initWithFrame:(CGRect)frame andTilesource:(id <RMTileSource>)newTilesource;
+- (id)initWithFrame:(CGRect)frame andTilesource:(RMTileSource *)newTilesource;
 
 /** Designated initializer. Initialize a map view.
  *   @param frame The map view's frame.
@@ -135,7 +135,7 @@ typedef enum : NSUInteger {
  *   @param backgroundImage A custom background image to use behind the map instead of the default gridded tile background that moves with the map.
  *   @return An initialized map view, or `nil` if a map view was unable to be initialized. */
 - (id)initWithFrame:(CGRect)frame
-      andTilesource:(id <RMTileSource>)newTilesource
+      andTilesource:(RMTileSource *)newTilesource
    centerCoordinate:(CLLocationCoordinate2D)initialCenterCoordinate
           zoomLevel:(float)initialTileSourceZoomLevel
        maxZoomLevel:(float)initialTileSourceMaxZoomLevel
@@ -348,23 +348,23 @@ typedef enum : NSUInteger {
 /** @name Managing Tile Sources */
 
 /** The first tile source of a map view, ordered from bottom to top. */
-@property (nonatomic, strong) id <RMTileSource> tileSource;
+@property (nonatomic, strong) RMTileSource *tileSource;
 
 /** All of the tile sources for a map view, ordered bottom to top. */
 @property (nonatomic, strong) NSArray *tileSources;
 
 /** Add a tile source to a map view above the current tile sources.
  *   @param tileSource The tile source to add. */
-- (void)addTileSource:(id <RMTileSource>)tileSource;
+- (void)addTileSource:(RMTileSource *)tileSource;
 
 /** Add a tile source to a map view at a given index.
  *   @param tileSource The tile source to add.
  *   @param index The index at which to add the tile source. A value of zero adds the tile source below all other tile sources. */
-- (void)addTileSource:(id<RMTileSource>)tileSource atIndex:(NSUInteger)index;
+- (void)addTileSource:(RMTileSource *)tileSource atIndex:(NSUInteger)index;
 
 /** Remove a tile source from the map view.
  *   @param tileSource The tile source to remove. */
-- (void)removeTileSource:(id <RMTileSource>)tileSource;
+- (void)removeTileSource:(RMTileSource *)tileSource;
 
 /** Remove the tile source at a given index from the map view.
  *   @param index The index of the tile source to remove. */
@@ -378,7 +378,7 @@ typedef enum : NSUInteger {
 /** Hide or show a tile source.
  *   @param isHidden A Boolean indicating whether to hide the tile source or not.
  *   @param tileSource The tile source to hide or show. */
-- (void)setHidden:(BOOL)isHidden forTileSource:(id <RMTileSource>)tileSource;
+- (void)setHidden:(BOOL)isHidden forTileSource:(RMTileSource *)tileSource;
 
 /** Hide or show a tile source at a given index.
  *   @param isHidden A Boolean indicating whether to hide the tile source or not.
@@ -387,7 +387,7 @@ typedef enum : NSUInteger {
 
 /** Reload the tiles for a given tile source.
  *   @param tileSource The tile source to reload. */
-- (void)reloadTileSource:(id <RMTileSource>)tileSource;
+- (void)reloadTileSource:(RMTileSource *)tileSource;
 
 /** Reload the tiles for a tile source at a given index.
  *   @param index The index of the tile source to reload. */

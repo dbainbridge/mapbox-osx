@@ -30,11 +30,11 @@
 @implementation RMTileCacheDownloadOperation
 {
     RMTile _tile;
-    id <RMTileSource>_source;
+    RMTileSource *_source;
     RMTileCacheBase *_cache;
 }
 
-- (id)initWithTile:(RMTile)tile forTileSource:(id <RMTileSource>)source usingCache:(RMTileCacheBase *)cache
+- (id)initWithTile:(RMTile)tile forTileSource:(RMTileSource *)source usingCache:(RMTileCacheBase *)cache
 {
     if (!(self = [super init]))
         return nil;

@@ -40,7 +40,7 @@
 @implementation RMMapTiledLayerView
 {
     RMMapView *_mapView;
-    id <RMTileSource> _tileSource;
+    RMTileSource *_tileSource;
 }
 
 - (BOOL)isFlipped
@@ -61,7 +61,7 @@
     return (CATiledLayer *)self.layer;
 }
 
-- (id)initWithFrame:(CGRect)frame mapView:(RMMapView *)aMapView forTileSource:(id <RMTileSource>)aTileSource
+- (id)initWithFrame:(CGRect)frame mapView:(RMMapView *)aMapView forTileSource:(RMTileSource *)aTileSource
 {
     if (!(self = [super initWithFrame:frame]))
         return nil;
@@ -89,8 +89,6 @@
 //    [self setAutoresizesSubviews:YES];
 //    [self setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 
-    _cache = [[NSMutableDictionary alloc] init];
-    _queue = dispatch_queue_create("com.route-me.cachequeuedictionary", DISPATCH_QUEUE_CONCURRENT);
 
     return self;
 }
@@ -304,29 +302,6 @@
 }
 
 
-- (id)cacheObjectForKey:(id)key
-{
-    __block id obj;
-    dispatch_sync(_queue, ^{
-        obj = [_cache objectForKey:key];
-    });
-    return obj;
-}
-
-- (void)setCacheObject:(id)obj forKey:(id)key
-{
-    dispatch_barrier_async(_queue, ^{
-        [_cache setObject:obj forKey:key];
-    });
-}
-
-- (void)removeCacheObjectForKey:(id)key
-{
-    dispatch_barrier_async(_queue, ^{
-        [_cache removeObjectForKey:key];
-    });
-    
-}
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context
 {
@@ -385,18 +360,11 @@
                 
                 NSNumber *tileCacheHash = RMTileCacheHash(currentTile);
                 if (!tileImage) {
-                    if ([self cacheObjectForKey:tileCacheHash]) {
-                        return;
-                    }
-                    else {
-                        [self setCacheObject:@"1" forKey:tileCacheHash];
-                    }
                     
                     tileImage = [_tileSource imageForTile:currentTile inCache:[_mapView tileCache] withBlock:^(NSImage *newImage) {
                         if (!newImage) {
                             newImage = [self createMissingTileImageForTile:currentTile];
                         }
-                        [self removeCacheObjectForKey:tileCacheHash];
                         [self.layer setNeedsDisplayInRect:rect];
  
                     }];

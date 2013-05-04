@@ -49,17 +49,17 @@
 
 @property (nonatomic, weak, readonly) NSArray *tileSources;
 
-- (id <RMTileSource>)tileSourceForUniqueTilecacheKey:(NSString *)uniqueTilecacheKey;
+- (RMTileSource *)tileSourceForUniqueTilecacheKey:(NSString *)uniqueTilecacheKey;
 
 #pragma mark -
 
-- (BOOL)setTileSource:(id <RMTileSource>)tileSource;
+- (BOOL)setTileSource:(RMTileSource *)tileSource;
 - (BOOL)setTileSources:(NSArray *)tileSources;
 
-- (BOOL)addTileSource:(id <RMTileSource>)tileSource;
-- (BOOL)addTileSource:(id<RMTileSource>)tileSource atIndex:(NSUInteger)index;
+- (BOOL)addTileSource:(RMTileSource *)tileSource;
+- (BOOL)addTileSource:(RMTileSource *)tileSource atIndex:(NSUInteger)index;
 
-- (void)removeTileSource:(id <RMTileSource>)tileSource;
+- (void)removeTileSource:(RMTileSource *)tileSource;
 - (void)removeTileSourceAtIndex:(NSUInteger)index;
 
 - (void)moveTileSourceAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;

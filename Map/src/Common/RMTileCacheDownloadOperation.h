@@ -33,6 +33,6 @@
 
 @interface RMTileCacheDownloadOperation : NSOperation
 
-- (id)initWithTile:(RMTile)tile forTileSource:(id <RMTileSource>)source usingCache:(RMTileCacheBase *)cache;
+- (id)initWithTile:(RMTile)tile forTileSource:(RMTileSource *)source usingCache:(RMTileCacheBase *)cache;
 
 @end

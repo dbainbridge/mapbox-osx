@@ -46,7 +46,7 @@
 *   @param tileCache The tile cache. 
 *   @param tileCount The total number of tiles required for coverage of the desired geographic area. 
 *   @param tileSource The tile source providing the tiles. */
-- (void)tileCache:(RMTileCacheBase *)tileCache didBeginBackgroundCacheWithCount:(int)tileCount forTileSource:(id <RMTileSource>)tileSource;
+- (void)tileCache:(RMTileCacheBase *)tileCache didBeginBackgroundCacheWithCount:(int)tileCount forTileSource:(RMTileSource *)tileSource;
 
 /** Sent upon caching of each tile in a background cache operation.
 *   @param tileCache The tile cache. 
@@ -118,7 +118,7 @@
 *   @param northEast The northeast corner of the geographic area to cache. 
 *   @param minZoom The minimum zoom level to cache. 
 *   @param maxZoom The maximum zoom level to cache. */
-- (void)beginBackgroundCacheForTileSource:(id <RMTileSource>)tileSource southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(float)minZoom maxZoom:(float)maxZoom;
+- (void)beginBackgroundCacheForTileSource:(RMTileSource *)tileSource southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(float)minZoom maxZoom:(float)maxZoom;
 
 /** Cancel any background caching. 
 *

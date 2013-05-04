@@ -78,7 +78,7 @@
         .southWest = {.latitude = -90.0, .longitude = -180.0}
     });
     
-    for (id <RMTileSource>tileSource in _tileSources)
+    for (RMTileSource *tileSource in _tileSources)
     {
         RMSphericalTrapezium newLatitudeLongitudeBoundingBox = [tileSource latitudeLongitudeBoundingBox];
         
@@ -109,7 +109,7 @@
     return tileSources;
 }
 
-- (id <RMTileSource>)tileSourceForUniqueTilecacheKey:(NSString *)uniqueTilecacheKey
+- (RMTileSource *)tileSourceForUniqueTilecacheKey:(NSString *)uniqueTilecacheKey
 {
     if (!uniqueTilecacheKey)
         return nil;
@@ -122,7 +122,7 @@
 
     while ([tileSources count])
     {
-        id <RMTileSource> currentTileSource = [tileSources objectAtIndex:0];
+        RMTileSource *currentTileSource = [tileSources objectAtIndex:0];
         [tileSources removeObjectAtIndex:0];
 
         if ([currentTileSource isKindOfClass:[RMCompositeSource class]])
@@ -141,7 +141,7 @@
     return result;
 }
 
-- (BOOL)setTileSource:(id <RMTileSource>)tileSource
+- (BOOL)setTileSource:(RMTileSource *)tileSource
 {
     BOOL result;
 
@@ -163,7 +163,7 @@
 
     [self removeAllTileSources];
 
-    for (id <RMTileSource> tileSource in tileSources)
+    for (RMTileSource *tileSource in tileSources)
         result &= [self addTileSource:tileSource];
 
     [_tileSourcesLock unlock];
@@ -171,12 +171,12 @@
     return result;
 }
 
-- (BOOL)addTileSource:(id <RMTileSource>)tileSource
+- (BOOL)addTileSource:(RMTileSource *)tileSource
 {
     return [self addTileSource:tileSource atIndex:-1];
 }
 
-- (BOOL)addTileSource:(id<RMTileSource>)tileSource atIndex:(NSUInteger)index
+- (BOOL)addTileSource:(RMTileSource *)tileSource atIndex:(NSUInteger)index
 {
     if ( ! tileSource)
         return NO;
@@ -240,7 +240,7 @@
     return YES;
 }
 
-- (void)removeTileSource:(id <RMTileSource>)tileSource
+- (void)removeTileSource:(RMTileSource *)tileSource
 {
     [tileSource cancelAllDownloads];
 
@@ -268,7 +268,7 @@
         return;
     }
 
-    id <RMTileSource> tileSource = [_tileSources objectAtIndex:index];
+    RMTileSource *tileSource = [_tileSources objectAtIndex:index];
     [tileSource cancelAllDownloads];
     [_tileSources removeObject:tileSource];
 
@@ -330,7 +330,7 @@
 {
     [_tileSourcesLock lock];
 
-    for (id <RMTileSource>tileSource in _tileSources)
+    for (RMTileSource *tileSource in _tileSources)
         [tileSource cancelAllDownloads];
 
     [_tileSourcesLock unlock];
@@ -386,7 +386,7 @@
 {
     [_tileSourcesLock lock];
 
-    for (id <RMTileSource>tileSource in _tileSources)
+    for (RMTileSource *tileSource in _tileSources)
         [tileSource didReceiveMemoryWarning];
 
     [_tileSourcesLock unlock];
