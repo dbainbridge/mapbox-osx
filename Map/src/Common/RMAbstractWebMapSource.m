@@ -36,7 +36,7 @@
 @interface RMAbstractWebMapSource()
 @property (nonatomic, strong) AFHTTPClient *client;
 
-@property (nonatomic, strong) NSMutableDictionary *requestCache;
+@property (nonatomic, strong) NSMutableSet *requestCache;
 @property (nonatomic, strong) dispatch_queue_t queue;
 @end
 
@@ -54,31 +54,31 @@
     NSURL *baseURL = [NSURL URLWithString:@"http://a.tiles.mapbox.com/v3/dbainbridge.map-tn3fvrcv"];
     _client = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
 
-    _requestCache = [[NSMutableDictionary alloc] init];
+    _requestCache = [[NSMutableSet alloc] init];
     
     return self;
 }
 
-- (id)cacheObjectForKey:(id)key
+- (BOOL)containsObject:(id)object
 {
-    __block id obj;
+    __block BOOL contains;
     dispatch_sync(self.queue, ^{
-        obj = [_requestCache objectForKey:key];
+        contains = [_requestCache containsObject:object];
     });
-    return obj;
+    return contains;
 }
 
-- (void)setCacheObject:(id)obj forKey:(id)key
+- (void)addObject:(id)object
 {
     dispatch_barrier_async(_queue, ^{
-        [_requestCache setObject:obj forKey:key];
+        [_requestCache addObject:object];
     });
 }
 
-- (void)removeCacheObjectForKey:(id)key
+- (void)removeCacheObject:(id)object
 {
     dispatch_barrier_async(_queue, ^{
-        [_requestCache removeObjectForKey:key];
+        [_requestCache removeObject:object];
     });
     
 }
@@ -110,11 +110,11 @@
 {
     // verify we haven't already requested this tile
     NSNumber *tileCacheHash = RMTileCacheHash(tile);
-    if ([self cacheObjectForKey:tileCacheHash]) {
+    if ([self containsObject:tileCacheHash]) {
         return nil;
     }
     else {
-        [self setCacheObject:@"1" forKey:tileCacheHash];
+        [self addObject:tileCacheHash];
     }
 
     __block NSImage *image = nil;
@@ -227,7 +227,7 @@
                 else
                     [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
             }
-            [self removeCacheObjectForKey:tileCacheHash];
+            [self removeCacheObject:tileCacheHash];
 
             if (imageBlock)
                 imageBlock(image);
