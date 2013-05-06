@@ -36,15 +36,8 @@
 		46A6030716D2AD29006A4081 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 46A6030516D2AD29006A4081 /* Credits.rtf */; };
 		46A6030A16D2AD29006A4081 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6030916D2AD29006A4081 /* AppDelegate.m */; };
 		46A6030D16D2AD29006A4081 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46A6030B16D2AD29006A4081 /* MainMenu.xib */; };
-		46A6033016D2AD94006A4081 /* UIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6031616D2AD94006A4081 /* UIColor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		46A6033116D2AD94006A4081 /* UIColorRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6031916D2AD94006A4081 /* UIColorRep.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033216D2AD94006A4081 /* UIDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6031B16D2AD94006A4081 /* UIDevice.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033416D2AD94006A4081 /* UIGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032116D2AD94006A4081 /* UIGeometry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		46A6033516D2AD94006A4081 /* UIGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032316D2AD94006A4081 /* UIGraphics.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		46A6033616D2AD94006A4081 /* UIImage+UIPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032516D2AD94006A4081 /* UIImage+UIPrivate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		46A6033716D2AD94006A4081 /* UIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032716D2AD94006A4081 /* UIImage.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		46A6033816D2AD94006A4081 /* UIImageAppKitIntegration.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032916D2AD94006A4081 /* UIImageAppKitIntegration.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		46A6033916D2AD94006A4081 /* UIImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032B16D2AD94006A4081 /* UIImageRep.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033A16D2AD94006A4081 /* UIScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032D16D2AD94006A4081 /* UIScreen.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033D16D2ADE6006A4081 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A6033C16D2ADE6006A4081 /* SystemConfiguration.framework */; };
 		46A6035A16D2AE12006A4081 /* NSView+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6033F16D2AE12006A4081 /* NSView+UIView.m */; };
@@ -157,26 +150,10 @@
 		46A6030816D2AD29006A4081 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		46A6030916D2AD29006A4081 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		46A6030C16D2AD29006A4081 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		46A6031416D2AD94006A4081 /* UIColor+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+UIPrivate.h"; sourceTree = "<group>"; };
-		46A6031516D2AD94006A4081 /* UIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColor.h; sourceTree = "<group>"; };
-		46A6031616D2AD94006A4081 /* UIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColor.m; sourceTree = "<group>"; };
-		46A6031716D2AD94006A4081 /* UIColorAppKitIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColorAppKitIntegration.h; sourceTree = "<group>"; };
-		46A6031816D2AD94006A4081 /* UIColorRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColorRep.h; sourceTree = "<group>"; };
-		46A6031916D2AD94006A4081 /* UIColorRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColorRep.m; sourceTree = "<group>"; };
 		46A6031A16D2AD94006A4081 /* UIDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDevice.h; sourceTree = "<group>"; };
 		46A6031B16D2AD94006A4081 /* UIDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDevice.m; sourceTree = "<group>"; };
 		46A6032016D2AD94006A4081 /* UIGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGeometry.h; sourceTree = "<group>"; };
 		46A6032116D2AD94006A4081 /* UIGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGeometry.m; sourceTree = "<group>"; };
-		46A6032216D2AD94006A4081 /* UIGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGraphics.h; sourceTree = "<group>"; };
-		46A6032316D2AD94006A4081 /* UIGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGraphics.m; sourceTree = "<group>"; };
-		46A6032416D2AD94006A4081 /* UIImage+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIPrivate.h"; sourceTree = "<group>"; };
-		46A6032516D2AD94006A4081 /* UIImage+UIPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIPrivate.m"; sourceTree = "<group>"; };
-		46A6032616D2AD94006A4081 /* UIImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImage.h; sourceTree = "<group>"; };
-		46A6032716D2AD94006A4081 /* UIImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImage.m; sourceTree = "<group>"; };
-		46A6032816D2AD94006A4081 /* UIImageAppKitIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageAppKitIntegration.h; sourceTree = "<group>"; };
-		46A6032916D2AD94006A4081 /* UIImageAppKitIntegration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageAppKitIntegration.m; sourceTree = "<group>"; };
-		46A6032A16D2AD94006A4081 /* UIImageRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageRep.h; sourceTree = "<group>"; };
-		46A6032B16D2AD94006A4081 /* UIImageRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageRep.m; sourceTree = "<group>"; };
 		46A6032C16D2AD94006A4081 /* UIScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScreen.h; sourceTree = "<group>"; };
 		46A6032D16D2AD94006A4081 /* UIScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScreen.m; sourceTree = "<group>"; };
 		46A6033C16D2ADE6006A4081 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -527,26 +504,10 @@
 		46A6031316D2AD94006A4081 /* Chameleon */ = {
 			isa = PBXGroup;
 			children = (
-				46A6031416D2AD94006A4081 /* UIColor+UIPrivate.h */,
-				46A6031516D2AD94006A4081 /* UIColor.h */,
-				46A6031616D2AD94006A4081 /* UIColor.m */,
-				46A6031716D2AD94006A4081 /* UIColorAppKitIntegration.h */,
-				46A6031816D2AD94006A4081 /* UIColorRep.h */,
-				46A6031916D2AD94006A4081 /* UIColorRep.m */,
 				46A6031A16D2AD94006A4081 /* UIDevice.h */,
 				46A6031B16D2AD94006A4081 /* UIDevice.m */,
 				46A6032016D2AD94006A4081 /* UIGeometry.h */,
 				46A6032116D2AD94006A4081 /* UIGeometry.m */,
-				46A6032216D2AD94006A4081 /* UIGraphics.h */,
-				46A6032316D2AD94006A4081 /* UIGraphics.m */,
-				46A6032416D2AD94006A4081 /* UIImage+UIPrivate.h */,
-				46A6032516D2AD94006A4081 /* UIImage+UIPrivate.m */,
-				46A6032616D2AD94006A4081 /* UIImage.h */,
-				46A6032716D2AD94006A4081 /* UIImage.m */,
-				46A6032816D2AD94006A4081 /* UIImageAppKitIntegration.h */,
-				46A6032916D2AD94006A4081 /* UIImageAppKitIntegration.m */,
-				46A6032A16D2AD94006A4081 /* UIImageRep.h */,
-				46A6032B16D2AD94006A4081 /* UIImageRep.m */,
 				46A6032C16D2AD94006A4081 /* UIScreen.h */,
 				46A6032D16D2AD94006A4081 /* UIScreen.m */,
 			);
@@ -741,15 +702,8 @@
 			files = (
 				46A6030316D2AD29006A4081 /* main.m in Sources */,
 				46A6030A16D2AD29006A4081 /* AppDelegate.m in Sources */,
-				46A6033016D2AD94006A4081 /* UIColor.m in Sources */,
-				46A6033116D2AD94006A4081 /* UIColorRep.m in Sources */,
 				46A6033216D2AD94006A4081 /* UIDevice.m in Sources */,
 				46A6033416D2AD94006A4081 /* UIGeometry.m in Sources */,
-				46A6033516D2AD94006A4081 /* UIGraphics.m in Sources */,
-				46A6033616D2AD94006A4081 /* UIImage+UIPrivate.m in Sources */,
-				46A6033716D2AD94006A4081 /* UIImage.m in Sources */,
-				46A6033816D2AD94006A4081 /* UIImageAppKitIntegration.m in Sources */,
-				46A6033916D2AD94006A4081 /* UIImageRep.m in Sources */,
 				46A6033A16D2AD94006A4081 /* UIScreen.m in Sources */,
 				46A6035A16D2AE12006A4081 /* NSView+UIView.m in Sources */,
 				46A6035B16D2AE12006A4081 /* RMAppDelegate.m in Sources */,

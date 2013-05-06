@@ -76,6 +76,23 @@ static double coordinateGridSpacingDecimal[19] = {
     0.01, // 18
 };
 
+CG_INLINE CGContextRef CGContextCreate(CGSize size)
+{
+	CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
+	CGContextRef ctx = CGBitmapContextCreate(nil, size.width, size.height, 8, size.width * (CGColorSpaceGetNumberOfComponents(space) + 1), space, kCGImageAlphaPremultipliedLast);
+	CGColorSpaceRelease(space);
+    
+	return ctx;
+}
+
+CG_INLINE NSImage* NSGraphicsGetImageFromContext(CGContextRef ctx)
+{
+	CGImageRef cgImage = CGBitmapContextCreateImage(ctx);
+	NSImage* image = [[NSImage alloc] initWithCGImage:cgImage size:NSMakeSize(CGImageGetWidth(cgImage), CGImageGetHeight(cgImage))];
+	CGImageRelease(cgImage);
+    
+	return image;
+}
 @implementation RMCoordinateGridSource
 
 @synthesize gridColor = _gridColor;
@@ -170,9 +187,9 @@ static double coordinateGridSpacingDecimal[19] = {
            right = ceil(northEast.longitude / gridSpacing) * gridSpacing;
 
     // Draw the tile
-
-	UIGraphicsBeginImageContext(CGSizeMake(paddedTileSideLength, paddedTileSideLength));
-	CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextRef context = CGContextCreate(CGSizeMake(paddedTileSideLength, paddedTileSideLength));
+//	UIGraphicsBeginImageContext(CGSizeMake(paddedTileSideLength, paddedTileSideLength));
+//	CGContextRef context = UIGraphicsGetCurrentContext();
 
     CGContextSetStrokeColorWithColor(context, self.gridColor.CGColor);
     CGContextSetLineWidth(context, self.gridLineWidth);
@@ -238,13 +255,15 @@ static double coordinateGridSpacingDecimal[19] = {
                 CGRect labelBackgroundRect = CGRectMake(xCoordinate - label1Size.width - 3.0, upperBorder - 1.0, label1Size.width + label2Size.width + 8.0, MAX(label1Size.height, label2Size.height) + 2.0);
 
                 CGContextSetFillColorWithColor(context, [NSColor clearColor].CGColor);
-                UIRectFill(labelBackgroundRect);
+                CGContextFillRect(context, labelBackgroundRect);
+                //UIRectFill(labelBackgroundRect);
 
                 CGContextSetFillColorWithColor(context, self.majorLabelColor.CGColor);
-                [label1 drawAtPoint:CGPointMake(xCoordinate - label1Size.width - 1.0, upperBorder) withFont:self.majorLabelFont];
-
+#warning Fix text drawing
+//                [label1 drawAtPoint:CGPointMake(xCoordinate - label1Size.width - 1.0, upperBorder) withFont:self.majorLabelFont];
+                
                 CGContextSetFillColorWithColor(context, self.minorLabelColor.CGColor);
-                [label2 drawAtPoint:CGPointMake(xCoordinate + 1.0, upperBorder) withFont:self.minorLabelFont];
+//                [label2 drawAtPoint:CGPointMake(xCoordinate + 1.0, upperBorder) withFont:self.minorLabelFont];
             }
         }
     }
@@ -288,26 +307,27 @@ static double coordinateGridSpacingDecimal[19] = {
                 CGRect labelBackgroundRect = CGRectMake(xCoordinate - label1Size.width - 3.0, upperBorder - 1.0, label1Size.width + label2Size.width + 8.0, MAX(label1Size.height, label2Size.height) + 2.0);
 
                 CGContextSetFillColorWithColor(context, [NSColor clearColor].CGColor);
-                UIRectFill(labelBackgroundRect);
+//                UIRectFill(labelBackgroundRect);
+                CGContextFillRect(context, labelBackgroundRect);
 
                 CGContextSetFillColorWithColor(context, self.majorLabelColor.CGColor);
-                [label1 drawAtPoint:CGPointMake(xCoordinate - label1Size.width - 1.0, upperBorder) withFont:self.majorLabelFont];
+   //             [label1 drawAtPoint:CGPointMake(xCoordinate - label1Size.width - 1.0, upperBorder) withFont:self.majorLabelFont];
 
                 CGContextSetFillColorWithColor(context, self.minorLabelColor.CGColor);
-                [label2 drawAtPoint:CGPointMake(xCoordinate + 1.0, upperBorder) withFont:self.minorLabelFont];
+  //              [label2 drawAtPoint:CGPointMake(xCoordinate + 1.0, upperBorder) withFont:self.minorLabelFont];
             }
         }
     }
 
     // Image
-
-    image = UIGraphicsGetCGImageFromCurrentImageContext();
+    image = NSGraphicsGetImageFromContext(context);
+/*    image = UIGraphicsGetCGImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(kTileSidePadding, kTileSidePadding, self.tileSideLength, self.tileSideLength));
     image = [NSImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
-
+*/
     if (image)
         [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
 

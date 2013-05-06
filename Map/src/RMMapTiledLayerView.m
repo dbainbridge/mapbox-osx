@@ -142,7 +142,8 @@
     
     if (zoom >= _tileSource.minZoom && zoom <= _tileSource.maxZoom)
     {
-        UIGraphicsPushContext(context);
+#warning fix snapshot
+//        UIGraphicsPushContext(context);
         
         for (int x=x1; x<=x2; ++x)
         {
@@ -155,7 +156,7 @@
             }
         }
         
-        UIGraphicsPopContext();
+//        UIGraphicsPopContext();
     }
     
 }
