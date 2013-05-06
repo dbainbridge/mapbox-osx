@@ -24,7 +24,7 @@
     if (self) {
         _cacheable = YES;
         _opaque = YES;
-        _missingTilesDepth = 1;
+        _missingTilesDepth = 2;
     }
     return self;
 }
@@ -136,7 +136,7 @@
             currentZoom = tile.zoom - currentTileDepth;
         }
     }
-    
+
     return tileImage;
 }
 

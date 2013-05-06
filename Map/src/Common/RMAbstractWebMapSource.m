@@ -111,7 +111,7 @@
     // verify we haven't already requested this tile
     NSNumber *tileCacheHash = RMTileCacheHash(tile);
     if ([self containsObject:tileCacheHash]) {
-        return nil;
+        return [self imageForMissingTile:tile fromCache:tileCache];
     }
     else {
         [self addObject:tileCacheHash];
