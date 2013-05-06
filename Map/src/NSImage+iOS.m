@@ -10,8 +10,12 @@
 
 NSData *NSImagePNGRepresentation(NSImage *image)
 {
-    NSBitmapImageRep *imgRep = [[image representations] objectAtIndex: 0];
-    NSData *data = [imgRep representationUsingType: NSPNGFileType properties: nil];
+    NSData *imageData = [image TIFFRepresentation];
+    NSBitmapImageRep *imageRep = [NSBitmapImageRep imageRepWithData:imageData];
+    NSData *data = [imageRep representationUsingType: NSPNGFileType properties: nil];
+    
+  //  NSBitmapImageRep *imgRep = [[image representations] objectAtIndex: 0];
+  //  NSData *data = [imgRep representationUsingType: NSPNGFileType properties: nil];
     
     return data;
 }
