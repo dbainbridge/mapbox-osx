@@ -29,6 +29,7 @@
 
 + (NSImage *)errorTile;
 + (NSImage *)missingTile;
++ (NSImage *)loadingTile;
 
 + (void)setErrorTile:(NSImage *)newErrorTile;
 + (void)setMissingTile:(NSImage *)newMissingTile;

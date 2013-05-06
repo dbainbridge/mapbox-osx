@@ -136,7 +136,9 @@
             currentZoom = tile.zoom - currentTileDepth;
         }
     }
-
+    if (!tileImage)
+        tileImage = [RMTileImage loadingTile];
+    
     return tileImage;
 }
 

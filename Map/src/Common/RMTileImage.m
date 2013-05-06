@@ -31,6 +31,7 @@ static BOOL _didLoadErrorTile = NO;
 static BOOL _didLoadMissingTile = NO;
 static NSImage *_errorTile = nil;
 static NSImage *_missingTile = nil;
+static NSImage *_loadingTile = nil;
 
 @implementation RMTileImage
 
@@ -67,6 +68,17 @@ static NSImage *_missingTile = nil;
     _didLoadMissingTile = YES;
 
     return _missingTile;
+}
+
++ (NSImage *)loadingTile
+{
+    if (_loadingTile)
+        return _loadingTile;
+    
+    
+    _loadingTile = [NSImage imageNamed:@"LoadingTile.png"];
+    
+    return _loadingTile;
 }
 
 + (void)setMissingTile:(NSImage *)newMissingTile
