@@ -8,6 +8,22 @@
 
 #import "NSString+iOS.h"
 
+NSString *NSStringFromCGPoint(CGPoint p)
+{
+    return NSStringFromPoint(NSPointFromCGPoint(p));
+}
+
+NSString *NSStringFromCGRect(CGRect r)
+{
+    return NSStringFromRect(NSRectFromCGRect(r));
+}
+
+NSString *NSStringFromCGSize(CGSize s)
+{
+    return NSStringFromSize(NSSizeFromCGSize(s));
+}
+
+
 @implementation NSString (iOS)
 
 - (CGSize)sizeWithFont:(NSFont *)font

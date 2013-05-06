@@ -31,7 +31,6 @@
 #import "RMUserLocation.h"
 
 #import "RMAttributionViewController.h"
-#import "UIGeometry.h"
 
 #import "DuxScrollViewAnimation.h"
 
@@ -298,6 +297,7 @@
     _mapTransform = CGAffineTransformIdentity;
     _annotationTransform = CATransform3DIdentity;
     
+   
     // TODO: Check
     /*
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -1218,7 +1218,7 @@
 //        tiledLayerView.layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 //        sublayer.layoutManager = [CAConstraintLayoutManager layoutManager];
 
-        //       ((CATiledLayer *)tiledLayerView.layer).tileSize = CGSizeMake(tileSideLength, tileSideLength);
+        ((CATiledLayer *)tiledLayerView.layer).tileSize = CGSizeMake(tileSideLength, tileSideLength);
         
         [_tiledLayersSuperview addSubview:tiledLayerView];
     }
@@ -1606,7 +1606,7 @@
     NSClipView *clipView = [_mapScrollView contentView];
     
     [clipView scrollToPoint:[clipView constrainScrollPoint:newOrigin]];
-    [_mapScrollView reflectScrolledClipView:clipView];
+//    [_mapScrollView reflectScrolledClipView:clipView];
 }
 
 - (void)magnifyWithEvent:(NSEvent *)theEvent

@@ -37,7 +37,6 @@
 		46A6030A16D2AD29006A4081 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6030916D2AD29006A4081 /* AppDelegate.m */; };
 		46A6030D16D2AD29006A4081 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46A6030B16D2AD29006A4081 /* MainMenu.xib */; };
 		46A6033216D2AD94006A4081 /* UIDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6031B16D2AD94006A4081 /* UIDevice.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		46A6033416D2AD94006A4081 /* UIGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032116D2AD94006A4081 /* UIGeometry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033A16D2AD94006A4081 /* UIScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6032D16D2AD94006A4081 /* UIScreen.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46A6033D16D2ADE6006A4081 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A6033C16D2ADE6006A4081 /* SystemConfiguration.framework */; };
 		46A6035A16D2AE12006A4081 /* NSView+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A6033F16D2AE12006A4081 /* NSView+UIView.m */; };
@@ -152,8 +151,6 @@
 		46A6030C16D2AD29006A4081 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		46A6031A16D2AD94006A4081 /* UIDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDevice.h; sourceTree = "<group>"; };
 		46A6031B16D2AD94006A4081 /* UIDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDevice.m; sourceTree = "<group>"; };
-		46A6032016D2AD94006A4081 /* UIGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGeometry.h; sourceTree = "<group>"; };
-		46A6032116D2AD94006A4081 /* UIGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGeometry.m; sourceTree = "<group>"; };
 		46A6032C16D2AD94006A4081 /* UIScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScreen.h; sourceTree = "<group>"; };
 		46A6032D16D2AD94006A4081 /* UIScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScreen.m; sourceTree = "<group>"; };
 		46A6033C16D2ADE6006A4081 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -506,8 +503,6 @@
 			children = (
 				46A6031A16D2AD94006A4081 /* UIDevice.h */,
 				46A6031B16D2AD94006A4081 /* UIDevice.m */,
-				46A6032016D2AD94006A4081 /* UIGeometry.h */,
-				46A6032116D2AD94006A4081 /* UIGeometry.m */,
 				46A6032C16D2AD94006A4081 /* UIScreen.h */,
 				46A6032D16D2AD94006A4081 /* UIScreen.m */,
 			);
@@ -703,7 +698,6 @@
 				46A6030316D2AD29006A4081 /* main.m in Sources */,
 				46A6030A16D2AD29006A4081 /* AppDelegate.m in Sources */,
 				46A6033216D2AD94006A4081 /* UIDevice.m in Sources */,
-				46A6033416D2AD94006A4081 /* UIGeometry.m in Sources */,
 				46A6033A16D2AD94006A4081 /* UIScreen.m in Sources */,
 				46A6035A16D2AE12006A4081 /* NSView+UIView.m in Sources */,
 				46A6035B16D2AE12006A4081 /* RMAppDelegate.m in Sources */,

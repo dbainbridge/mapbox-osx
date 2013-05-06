@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "NSView+UIView.h"
-#import "UIGeometry.h"
 
 
 
@@ -25,7 +24,7 @@
 
 //@property (nonatomic) CGSize contentSize;
 @property (nonatomic) CGPoint contentOffset;
-@property (nonatomic) UIEdgeInsets contentInset;
+//@property (nonatomic) UIEdgeInsets contentInset;
 
 @property (nonatomic) float maximumZoomScale;
 @property (nonatomic) float minimumZoomScale;

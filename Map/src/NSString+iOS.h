@@ -7,6 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
+
+NSString *NSStringFromCGPoint(CGPoint p);
+NSString *NSStringFromCGRect(CGRect r);
+NSString *NSStringFromCGSize(CGSize s);
 
 @interface NSString (iOS)
 - (CGSize)sizeWithFont:(NSFont *)font;
