@@ -165,7 +165,9 @@
     if (image)
         return image;
 
-    dispatch_sync(_tileCacheQueue, ^{
+    // dbainbridge 05/06/2013 don't believe sync necessary here is each cache is syncing themselves
+    // This is also called from non-main thread from displayLayer:inContext:
+//    dispatch_sync(_tileCacheQueue, ^{
         for (RMTileCacheBase *cache in _tileCaches)
         {
             image = [cache cachedImage:tile withCacheKey:aCacheKey];
@@ -177,7 +179,7 @@
             }
         }
 
-    });
+//    });
 
 	return image;
 }
@@ -189,8 +191,9 @@
     
     [_memoryCache addImage:image forTile:tile withCacheKey:aCacheKey];
     
-    dispatch_sync(_tileCacheQueue, ^{
-        
+    // dbainbridge 05/06/2013 don't believe sync necessary here is each cache is syncing themselves
+    // This is also called from non-main thread from displayLayer:inContext:
+//    dispatch_sync(_tileCacheQueue, ^{
         for (RMTileCacheBase *cache in _tileCaches)
         {
             if (cache.repondsTo.addImageForTileWithDataWithCacheKey)
@@ -199,7 +202,7 @@
                 [cache addImage:image forTile:tile withCacheKey:aCacheKey];
         }
         
-    });
+//    });
     
 }
 
