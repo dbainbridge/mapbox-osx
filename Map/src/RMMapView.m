@@ -237,11 +237,9 @@
     _mapScrollView = nil;
     _overlayView = nil;
     
-    // TODO: FIXME
-    //_screenScale = [UIScreen mainScreen].scale;
-    _screenScale = 2.0;
+    _screenScale = [NSScreen mainScreen].backingScaleFactor;
     
-    _adjustTilesForRetinaDisplay = NO;
+    _adjustTilesForRetinaDisplay = YES;
     _debugTiles = NO;
     
     _orderMarkersByYPosition = YES;
