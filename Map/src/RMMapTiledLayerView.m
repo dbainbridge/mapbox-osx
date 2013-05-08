@@ -169,6 +169,9 @@
         
         [tileImage drawInRect:debugRect];
         
+        CGContextTranslateCTM(debugContext, 0, debugRect.size.height);
+        CGContextScaleCTM(debugContext, 1.0f, -1.0f);
+        
         NSFont *font = [NSFont systemFontOfSize:32.0];
         
         CGContextSetStrokeColorWithColor(debugContext, [NSColor whiteColor].CGColor);
