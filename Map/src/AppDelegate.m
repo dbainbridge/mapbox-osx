@@ -14,6 +14,8 @@
 #import "RMMapStatWindowController.h"
 #import "RMAnnotation.h"
 #import "RMMapLayer.h"
+#import "RMCompositeSource.h"
+#import "RMCoordinateGridSource.h"
 
 #define kNormalMapID @"examples.map-z2effxa8"
 #define kRetinaMapID @"examples.map-zswgei2n"
@@ -23,10 +25,11 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     NSView *myView = [self.window contentView];
-    NSString *myID = kNormalMapID;
-    RMMapBoxSource *onlineSource = [[RMMapBoxSource alloc] initWithMapID:myID];
-   
-    RMMapView *mapView = [[RMMapView alloc] initWithFrame:myView.bounds andTilesource:onlineSource];
+    NSString *myID = kRetinaMapID;
+
+     RMMapBoxSource *baseLayerSource = [[RMMapBoxSource alloc] initWithMapID:myID];
+
+    RMMapView *mapView = [[RMMapView alloc] initWithFrame:myView.bounds andTilesource:baseLayerSource];
     mapView.delegate = self;
     
     mapView.debugTiles = NO;
