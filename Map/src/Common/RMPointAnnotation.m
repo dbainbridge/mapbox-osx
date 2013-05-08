@@ -44,14 +44,9 @@
 {
     if ( ! [super layer])
     {
-#warning fix me
-        /*
         RMMarker *marker = [[RMMarker alloc] initWithMapBoxMarkerImage];
-
         marker.canShowCallout = YES;
-
         super.layer = marker;
-         */
     }
 
     return [super layer];
