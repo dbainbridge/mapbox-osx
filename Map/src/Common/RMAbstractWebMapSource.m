@@ -30,11 +30,13 @@
 #import "RMTileCacheMulti.h"
 #import "RMConfiguration.h"
 #import "AFNetworking.h"
+#import "RMHTTPClient.h"
+#import "RMHTTPRequestTileOperation.h"
 
 #define HTTP_404_NOT_FOUND 404
 
 @interface RMAbstractWebMapSource()
-@property (nonatomic, strong) AFHTTPClient *client;
+@property (nonatomic, strong) RMHTTPClient *client;
 
 @property (nonatomic, strong) NSMutableSet *requestCache;
 @property (nonatomic, strong) dispatch_queue_t queue;
@@ -51,8 +53,8 @@
     _retryCount = RMAbstractWebMapSourceDefaultRetryCount;
     _requestTimeoutSeconds = RMAbstractWebMapSourceDefaultWaitSeconds;
 
-    NSURL *baseURL = [NSURL URLWithString:@"http://a.tiles.mapbox.com/v3/dbainbridge.map-tn3fvrcv"];
-    _client = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
+    NSURL *baseURL = [NSURL URLWithString:@"http://a.tiles.mapbox.com/v3/examples.map-zswgei2n"];
+    _client = [[RMHTTPClient alloc] initWithBaseURL:baseURL];
 
     _requestCache = [[NSMutableSet alloc] init];
     
@@ -216,7 +218,8 @@
     else
     {
         NSURLRequest *request = [NSURLRequest requestWithURL:[URLs objectAtIndex:0]];
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+ 
+        RMHTTPRequestTileOperation *operation = [[RMHTTPRequestTileOperation alloc]initWithRequest:request];
         [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {            
             NSData *tileData = responseObject;
             NSImage *image = [NSImage imageWithData:tileData];
@@ -241,7 +244,8 @@
               
           }
          ];
-        [self.client enqueueHTTPRequestOperation:operation];        
+        
+        [self.client enqueueHTTPRequestOperation:operation];
     }
 
 
