@@ -39,7 +39,7 @@
 
 @implementation RMMapTiledLayerView
 {
-    RMMapView *_mapView;
+    __weak RMMapView *_mapView;
     RMTileSource *_tileSource;
 }
 
