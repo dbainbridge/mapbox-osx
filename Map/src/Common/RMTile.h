@@ -28,7 +28,7 @@
 #ifndef _RMTILE_H_
 #define _RMTILE_H_
 
-#include <CoreGraphics/CGGeometry.h>
+#include <ApplicationServices/ApplicationServices.h>
 #include <stdint.h>
 
 // Uniquely specifies coordinates and zoom level for a particular tile in some tile source.

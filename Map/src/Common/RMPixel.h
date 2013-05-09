@@ -30,7 +30,7 @@
 
 // Pixel coordinates are stored using apple-standard CGRects.
 
-#include <CoreGraphics/CGGeometry.h>
+#include <ApplicationServices/ApplicationServices.h>
 
 CGPoint RMScaleCGPointAboutPoint(CGPoint point, float factor, CGPoint pivot);
 CGRect RMScaleCGRectAboutPoint(CGRect rect, float factor, CGPoint pivot);

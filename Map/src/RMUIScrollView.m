@@ -127,7 +127,7 @@
     
 //    [self.documentView scaleUnitSquareToSize:NSMakeSize(zoomFactor, zoomFactor)];
     NSView *docView = [self documentView];
-    NSView *subView = [docView subviews][0];
+    NSView *subView = [[docView subviews] objectAtIndex:0];
 //    [self.documentView setBounds:frame];
     [self.documentView setFrame:frame];
     [subView setFrame:frame];

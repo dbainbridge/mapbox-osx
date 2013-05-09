@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <CoreGraphics/CGGeometry.h>
+#import <ApplicationServices/ApplicationServices.h>
 
 #import "RMGlobalConstants.h"
 #import "RMFoundation.h"
