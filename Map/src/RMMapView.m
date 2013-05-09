@@ -1589,7 +1589,8 @@
         NSPoint curPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
         [self doubleTapAtPoint:curPoint];
         
-    } else {
+    } 
+    else {
         self.clickPoint = [theEvent locationInWindow];
         self.originalOrigin = [[_mapScrollView contentView] bounds].origin;
         
@@ -1644,7 +1645,7 @@
         [_delegate doubleTapOnMap:self at:aPoint];
 }
 
-#if 0
+
 
 - (RMAnnotation *)findAnnotationInLayer:(CALayer *)layer
 {
@@ -1667,9 +1668,10 @@
         [_delegate singleTapOnMap:self at:aPoint];
 }
 
-- (void)handleSingleTap:(UIGestureRecognizer *)recognizer
+- (void)handleSingleTap:(NSEvent *)event
 {
-    CALayer *hit = [_overlayView overlayHitTest:[recognizer locationInView:self]];
+    NSPoint hitPoint = [self convertPoint:[event locationInWindow] fromView:nil];
+    CALayer *hit = [_overlayView overlayHitTest:hitPoint];
     
     if (_currentAnnotation && ! [hit isEqual:_currentAnnotation.layer])
     {
@@ -1678,7 +1680,7 @@
     
     if ( ! hit)
     {
-        [self singleTapAtPoint:[recognizer locationInView:self]];
+        [self singleTapAtPoint:hitPoint];
         return;
     }
     
@@ -1687,23 +1689,147 @@
     // See if tap was on an annotation layer or marker label and send delegate protocol method
     if ([hit isKindOfClass:[RMMapLayer class]])
     {
-        [self tapOnAnnotation:[((RMMapLayer *)hit) annotation] atPoint:[recognizer locationInView:self]];
+        [self tapOnAnnotation:[((RMMapLayer *)hit) annotation] atPoint:hitPoint];
     }
     else if (superlayer != nil && [superlayer isKindOfClass:[RMMarker class]])
     {
-        [self tapOnLabelForAnnotation:[((RMMarker *)superlayer) annotation] atPoint:[recognizer locationInView:self]];
+        [self tapOnLabelForAnnotation:[((RMMarker *)superlayer) annotation] atPoint:hitPoint];
     }
     else if ([superlayer superlayer] != nil && [[superlayer superlayer] isKindOfClass:[RMMarker class]])
     {
-        [self tapOnLabelForAnnotation:[((RMMarker *)[superlayer superlayer]) annotation] atPoint:[recognizer locationInView:self]];
+        [self tapOnLabelForAnnotation:[((RMMarker *)[superlayer superlayer]) annotation] atPoint:hitPoint];
     }
     else
     {
-        [self singleTapAtPoint:[recognizer locationInView:self]];
+        [self singleTapAtPoint:hitPoint];
     }
 }
 
+// Overlay
 
+- (void)tapOnAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
+{
+    if (anAnnotation.isEnabled && ! [anAnnotation isEqual:_currentAnnotation])
+        [self selectAnnotation:anAnnotation animated:YES];
+    
+    if (delegateRespondsTo.tapOnAnnotation && anAnnotation)
+    {
+        [_delegate tapOnAnnotation:anAnnotation onMap:self];
+    }
+    else
+    {
+        if (delegateRespondsTo.singleTapOnMap)
+            [_delegate singleTapOnMap:self at:aPoint];
+    }
+}
+
+- (void)tapOnLabelForAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
+{
+    if (delegateRespondsTo.tapOnLabelForAnnotation && anAnnotation)
+    {
+        [_delegate tapOnLabelForAnnotation:anAnnotation onMap:self];
+    }
+    else if (delegateRespondsTo.tapOnAnnotation && anAnnotation)
+    {
+        [_delegate tapOnAnnotation:anAnnotation onMap:self];
+    }
+    else
+    {
+        if (delegateRespondsTo.singleTapOnMap)
+            [_delegate singleTapOnMap:self at:aPoint];
+    }
+}
+/*
+- (void)selectAnnotation:(RMAnnotation *)anAnnotation animated:(BOOL)animated
+{
+    if ( ! anAnnotation && _currentAnnotation)
+    {
+        [self deselectAnnotation:_currentAnnotation animated:animated];
+    }
+    else if (anAnnotation.isEnabled && ! [anAnnotation isEqual:_currentAnnotation])
+    {
+        [self deselectAnnotation:_currentAnnotation animated:NO];
+        
+        _currentAnnotation = anAnnotation;
+        
+        
+        if (anAnnotation.layer.canShowCallout && anAnnotation.title)
+        {
+            _currentCallout = [SMCalloutView new];
+            
+            _currentCallout.backgroundView = [SMCalloutBackgroundView systemBackgroundView];
+            
+            _currentCallout.title    = anAnnotation.title;
+            _currentCallout.subtitle = anAnnotation.subtitle;
+            
+            _currentCallout.calloutOffset = anAnnotation.layer.calloutOffset;
+            
+            if (anAnnotation.layer.leftCalloutAccessoryView)
+            {
+                if ([anAnnotation.layer.leftCalloutAccessoryView isKindOfClass:[UIControl class]])
+                    [anAnnotation.layer.leftCalloutAccessoryView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnCalloutAccessoryWithGestureRecognizer:)]];
+                
+                _currentCallout.leftAccessoryView = anAnnotation.layer.leftCalloutAccessoryView;
+            }
+            
+            if (anAnnotation.layer.rightCalloutAccessoryView)
+            {
+                if ([anAnnotation.layer.rightCalloutAccessoryView isKindOfClass:[UIControl class]])
+                    [anAnnotation.layer.rightCalloutAccessoryView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnCalloutAccessoryWithGestureRecognizer:)]];
+                
+                _currentCallout.rightAccessoryView = anAnnotation.layer.rightCalloutAccessoryView;
+            }
+            
+            _currentCallout.delegate = self;
+            
+            [_currentCallout presentCalloutFromRect:anAnnotation.layer.bounds
+                                            inLayer:anAnnotation.layer
+                                 constrainedToLayer:self.layer
+                           permittedArrowDirections:SMCalloutArrowDirectionDown
+                                           animated:animated];
+        }
+        
+        [self correctPositionOfAllAnnotations];
+        
+        anAnnotation.layer.zPosition = _currentCallout.layer.zPosition = MAXFLOAT;
+        
+        if (delegateRespondsTo.didSelectAnnotation)
+            [_delegate mapView:self didSelectAnnotation:anAnnotation];
+    }
+}
+
+- (void)deselectAnnotation:(RMAnnotation *)annotation animated:(BOOL)animated
+{
+    if ([annotation isEqual:_currentAnnotation])
+    {
+        [_currentCallout dismissCalloutAnimated:animated];
+        
+        if (animated)
+            [self performSelector:@selector(correctPositionOfAllAnnotations) withObject:nil afterDelay:1.0/3.0];
+        else
+            [self correctPositionOfAllAnnotations];
+        
+        _currentAnnotation = nil;
+        _currentCallout = nil;
+        
+        if (_delegateHasDidDeselectAnnotation)
+            [_delegate mapView:self didDeselectAnnotation:annotation];
+    }
+}
+
+*/
+- (void)setSelectedAnnotation:(RMAnnotation *)selectedAnnotation
+{
+    if ( ! [selectedAnnotation isEqual:_currentAnnotation])
+        [self selectAnnotation:selectedAnnotation animated:YES];
+}
+
+- (RMAnnotation *)selectedAnnotation
+{
+    return _currentAnnotation;
+}
+
+#if 0
 - (void)handleDoubleTap:(UIGestureRecognizer *)recognizer
 {
     CALayer *hit = [_overlayView overlayHitTest:[recognizer locationInView:self]];
@@ -1836,25 +1962,6 @@
     }
 }
 
-// Overlay
-
-- (void)tapOnAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
-{
-    if (anAnnotation.layer && anAnnotation.isAnnotationOnScreen && anAnnotation.layer.canShowCallout && anAnnotation.title && ! [anAnnotation isEqual:_currentAnnotation])
-    {
-        [self performSelector:@selector(popupCalloutViewForAnnotation:) withObject:anAnnotation afterDelay:1.0/3.0]; // allows for MapKit-like delay
-    }
-    
-    if (delegateRespondsTo.tapOnAnnotation && anAnnotation)
-    {
-        [_delegate tapOnAnnotation:anAnnotation onMap:self];
-    }
-    else
-    {
-        if (delegateRespondsTo.singleTapOnMap)
-            [_delegate singleTapOnMap:self at:aPoint];
-    }
-}
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
@@ -1869,45 +1976,6 @@
     return [super hitTest:point withEvent:event];
 }
 
-- (void)selectAnnotation:(RMAnnotation *)annotation animated:(BOOL)animated
-{
-    if ( ! annotation && _currentAnnotation)
-        [self deselectAnnotation:_currentAnnotation animated:animated];
-    
-    if (annotation.isAnnotationOnScreen && ! [annotation isEqual:_currentAnnotation])
-    {
-        [self deselectAnnotation:_currentAnnotation animated:NO];
-        [self popupCalloutViewForAnnotation:annotation animated:animated];
-    }
-}
-
-- (void)deselectAnnotation:(RMAnnotation *)annotation animated:(BOOL)animated
-{
-    if ([annotation isEqual:_currentAnnotation] && _currentCallout)
-    {
-        [_currentCallout dismissCalloutAnimated:animated];
-        
-        if (animated)
-            [self performSelector:@selector(correctPositionOfAllAnnotations) withObject:nil afterDelay:1.0/3.0];
-        else
-            [self correctPositionOfAllAnnotations];
-        
-        _currentAnnotation = nil;
-        _currentCallout = nil;
-    }
-}
-
-
-- (void)setSelectedAnnotation:(RMAnnotation *)selectedAnnotation
-{
-    if ( ! [selectedAnnotation isEqual:_currentAnnotation])
-        [self selectAnnotation:selectedAnnotation animated:YES];
-}
-
-- (RMAnnotation *)selectedAnnotation
-{
-    return _currentAnnotation;
-}
 
 - (void)popupCalloutViewForAnnotation:(RMAnnotation *)anAnnotation
 {
@@ -1988,22 +2056,6 @@
     }
 }
 
-- (void)tapOnLabelForAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
-{
-    if (delegateRespondsTo.tapOnLabelForAnnotation && anAnnotation)
-    {
-        [_delegate tapOnLabelForAnnotation:anAnnotation onMap:self];
-    }
-    else if (delegateRespondsTo.tapOnAnnotation && anAnnotation)
-    {
-        [_delegate tapOnAnnotation:anAnnotation onMap:self];
-    }
-    else
-    {
-        if (delegateRespondsTo.singleTapOnMap)
-            [_delegate singleTapOnMap:self at:aPoint];
-    }
-}
 
 - (void)doubleTapOnLabelForAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
 {

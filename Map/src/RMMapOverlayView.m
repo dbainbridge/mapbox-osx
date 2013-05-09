@@ -7,10 +7,11 @@
 //
 
 #import "RMMapOverlayView.h"
-//#import "RMAnnotation.h"
+#import "RMAnnotation.h"
 #import "RMPixel.h"
 #import "RMMapView.h"
 #import "RMUserLocation.h"
+#import "RMMapLayer.h"
 
 @implementation RMMapOverlayView
 
@@ -71,9 +72,6 @@
 
 - (CALayer *)overlayHitTest:(CGPoint)point
 {
-    return NO;
-//TODO: FIX ME
-    /*
     RMMapView *mapView = ((RMMapView *)self.superview);
     
     // Here we be sure to hide disabled but visible annotations' layers to
@@ -100,7 +98,7 @@
         annotation.layer.hidden = NO;
     
     return hit;
-     */
+     
 }
 
 @end
