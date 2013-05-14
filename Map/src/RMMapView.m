@@ -101,7 +101,7 @@
 
 @implementation RMMapView
 {
-    id <RMMapViewDelegate> _delegate;
+    __weak id <RMMapViewDelegate> _delegate;
     struct {
         unsigned int beforeMapMove:1;
         unsigned int afterMapMove:1;
