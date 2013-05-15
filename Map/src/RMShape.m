@@ -306,14 +306,10 @@
             }
             else if (controlPoint2.x == (double)INFINITY)
             {
-                NSLog(@"Warning: RMShape addCurveToProjectedPoint not fully implemented.");
-/*
-                controlPoint1.x = controlPoint1.x - projectedLocation.x;
-                controlPoint1.y = controlPoint1.y - projectedLocation.y;
-                
-                [bezierPath addQuadCurveToPoint:CGPointMake(point.x, -point.y)
-                                   controlPoint:CGPointMake(controlPoint1.x, -controlPoint1.y)];
- */
+                NSLog(@"Warning: RMShape addCurveToProjectedPoint not fully implemented.  Rough estimation.");
+                [bezierPath addCurveToPoint:CGPointMake(point.x, -point.y)
+                              controlPoint1:CGPointMake(controlPoint1.x, -controlPoint1.y)
+                              controlPoint2:CGPointMake(controlPoint1.x, -controlPoint1.y)];
             }
             else
             {
