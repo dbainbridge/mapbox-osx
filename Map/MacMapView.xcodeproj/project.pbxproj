@@ -108,6 +108,8 @@
 		46DA7E7A16D93B2E00FA1A10 /* RMMapStatWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA7E7816D93B2E00FA1A10 /* RMMapStatWindowController.m */; };
 		46DA7E7B16D93B2E00FA1A10 /* RMMapStatWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46DA7E7916D93B2E00FA1A10 /* RMMapStatWindow.xib */; };
 		46DA7E8A16DAD1AD00FA1A10 /* DuxScrollViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA7E8916DAD1AD00FA1A10 /* DuxScrollViewAnimation.m */; };
+		46F7DA7B174312BD009FEA7C /* NSBezierPath+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F7DA7A174312BD009FEA7C /* NSBezierPath+iOS.m */; };
+		46F7DA7E17432466009FEA7C /* NSValue+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F7DA7D17432466009FEA7C /* NSValue+iOS.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -292,6 +294,10 @@
 		46DA7E7916D93B2E00FA1A10 /* RMMapStatWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMMapStatWindow.xib; sourceTree = "<group>"; };
 		46DA7E8816DAD1AD00FA1A10 /* DuxScrollViewAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuxScrollViewAnimation.h; sourceTree = "<group>"; };
 		46DA7E8916DAD1AD00FA1A10 /* DuxScrollViewAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DuxScrollViewAnimation.m; sourceTree = "<group>"; };
+		46F7DA79174312BD009FEA7C /* NSBezierPath+iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+iOS.h"; sourceTree = "<group>"; };
+		46F7DA7A174312BD009FEA7C /* NSBezierPath+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+iOS.m"; sourceTree = "<group>"; };
+		46F7DA7C17432466009FEA7C /* NSValue+iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+iOS.h"; sourceTree = "<group>"; };
+		46F7DA7D17432466009FEA7C /* NSValue+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+iOS.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -456,6 +462,10 @@
 				46A6033F16D2AE12006A4081 /* NSView+UIView.m */,
 				460669D317317F2200E81EC3 /* NSImage+iOS.h */,
 				460669D417317F2400E81EC3 /* NSImage+iOS.m */,
+				46F7DA79174312BD009FEA7C /* NSBezierPath+iOS.h */,
+				46F7DA7A174312BD009FEA7C /* NSBezierPath+iOS.m */,
+				46F7DA7C17432466009FEA7C /* NSValue+iOS.h */,
+				46F7DA7D17432466009FEA7C /* NSValue+iOS.m */,
 				460669D61731BF5E00E81EC3 /* NSString+iOS.h */,
 				460669D71731BF6000E81EC3 /* NSString+iOS.m */,
 				46A6034016D2AE12006A4081 /* RMAppDelegate.h */,
@@ -777,6 +787,8 @@
 				460669F91734185900E81EC3 /* RMTileSource.m in Sources */,
 				46D9C66C1738192800800B1B /* RMHTTPClient.m in Sources */,
 				469AAD59173AEE440081704C /* RMHTTPRequestTileOperation.m in Sources */,
+				46F7DA7B174312BD009FEA7C /* NSBezierPath+iOS.m in Sources */,
+				46F7DA7E17432466009FEA7C /* NSValue+iOS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,7 +894,9 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../Proj4\"",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -900,7 +914,9 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../Proj4\"",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
