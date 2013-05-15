@@ -110,6 +110,10 @@
 		46DA7E8A16DAD1AD00FA1A10 /* DuxScrollViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA7E8916DAD1AD00FA1A10 /* DuxScrollViewAnimation.m */; };
 		46F7DA7B174312BD009FEA7C /* NSBezierPath+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F7DA7A174312BD009FEA7C /* NSBezierPath+iOS.m */; };
 		46F7DA7E17432466009FEA7C /* NSValue+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F7DA7D17432466009FEA7C /* NSValue+iOS.m */; };
+		46F7DA85174343B8009FEA7C /* RMShapeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F7DA80174343B8009FEA7C /* RMShapeAnnotation.m */; };
+		46F7DA86174343B8009FEA7C /* RMPolylineAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F7DA82174343B8009FEA7C /* RMPolylineAnnotation.m */; };
+		46F7DA87174343B8009FEA7C /* RMPolygonAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F7DA84174343B8009FEA7C /* RMPolygonAnnotation.m */; };
+		46F7DA8A174343E1009FEA7C /* NSColor+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F7DA89174343E1009FEA7C /* NSColor+iOS.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -298,6 +302,14 @@
 		46F7DA7A174312BD009FEA7C /* NSBezierPath+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+iOS.m"; sourceTree = "<group>"; };
 		46F7DA7C17432466009FEA7C /* NSValue+iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+iOS.h"; sourceTree = "<group>"; };
 		46F7DA7D17432466009FEA7C /* NSValue+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+iOS.m"; sourceTree = "<group>"; };
+		46F7DA7F174343B8009FEA7C /* RMShapeAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMShapeAnnotation.h; sourceTree = "<group>"; };
+		46F7DA80174343B8009FEA7C /* RMShapeAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMShapeAnnotation.m; sourceTree = "<group>"; };
+		46F7DA81174343B8009FEA7C /* RMPolylineAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPolylineAnnotation.h; sourceTree = "<group>"; };
+		46F7DA82174343B8009FEA7C /* RMPolylineAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPolylineAnnotation.m; sourceTree = "<group>"; };
+		46F7DA83174343B8009FEA7C /* RMPolygonAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPolygonAnnotation.h; sourceTree = "<group>"; };
+		46F7DA84174343B8009FEA7C /* RMPolygonAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPolygonAnnotation.m; sourceTree = "<group>"; };
+		46F7DA88174343E1009FEA7C /* NSColor+iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+iOS.h"; sourceTree = "<group>"; };
+		46F7DA89174343E1009FEA7C /* NSColor+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+iOS.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -458,16 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				46A6036716D2AE5A006A4081 /* Common */,
-				46A6033E16D2AE12006A4081 /* NSView+UIView.h */,
-				46A6033F16D2AE12006A4081 /* NSView+UIView.m */,
-				460669D317317F2200E81EC3 /* NSImage+iOS.h */,
-				460669D417317F2400E81EC3 /* NSImage+iOS.m */,
-				46F7DA79174312BD009FEA7C /* NSBezierPath+iOS.h */,
-				46F7DA7A174312BD009FEA7C /* NSBezierPath+iOS.m */,
-				46F7DA7C17432466009FEA7C /* NSValue+iOS.h */,
-				46F7DA7D17432466009FEA7C /* NSValue+iOS.m */,
-				460669D61731BF5E00E81EC3 /* NSString+iOS.h */,
-				460669D71731BF6000E81EC3 /* NSString+iOS.m */,
+				46F7DA8B17434404009FEA7C /* Categories */,
 				46A6034016D2AE12006A4081 /* RMAppDelegate.h */,
 				46A6034116D2AE12006A4081 /* RMAppDelegate.m */,
 				46A6034216D2AE12006A4081 /* RMAttributionViewController.h */,
@@ -621,6 +624,12 @@
 				46A6052816D2AE5B006A4081 /* RMAnnotation.m */,
 				46A6055216D2AE5C006A4081 /* RMPointAnnotation.h */,
 				46A6055316D2AE5C006A4081 /* RMPointAnnotation.m */,
+				46F7DA7F174343B8009FEA7C /* RMShapeAnnotation.h */,
+				46F7DA80174343B8009FEA7C /* RMShapeAnnotation.m */,
+				46F7DA81174343B8009FEA7C /* RMPolylineAnnotation.h */,
+				46F7DA82174343B8009FEA7C /* RMPolylineAnnotation.m */,
+				46F7DA83174343B8009FEA7C /* RMPolygonAnnotation.h */,
+				46F7DA84174343B8009FEA7C /* RMPolygonAnnotation.m */,
 				46A6034416D2AE12006A4081 /* RMCircle.h */,
 				46A6034516D2AE12006A4081 /* RMCircle.m */,
 				46A6035616D2AE12006A4081 /* RMShape.h */,
@@ -629,6 +638,25 @@
 				46A6035416D2AE12006A4081 /* RMMarker.m */,
 			);
 			name = "Annotation Layers";
+			sourceTree = "<group>";
+		};
+		46F7DA8B17434404009FEA7C /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				46A6033E16D2AE12006A4081 /* NSView+UIView.h */,
+				46A6033F16D2AE12006A4081 /* NSView+UIView.m */,
+				460669D317317F2200E81EC3 /* NSImage+iOS.h */,
+				460669D417317F2400E81EC3 /* NSImage+iOS.m */,
+				46F7DA79174312BD009FEA7C /* NSBezierPath+iOS.h */,
+				46F7DA7A174312BD009FEA7C /* NSBezierPath+iOS.m */,
+				46F7DA7C17432466009FEA7C /* NSValue+iOS.h */,
+				46F7DA7D17432466009FEA7C /* NSValue+iOS.m */,
+				460669D61731BF5E00E81EC3 /* NSString+iOS.h */,
+				460669D71731BF6000E81EC3 /* NSString+iOS.m */,
+				46F7DA88174343E1009FEA7C /* NSColor+iOS.h */,
+				46F7DA89174343E1009FEA7C /* NSColor+iOS.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -789,6 +817,10 @@
 				469AAD59173AEE440081704C /* RMHTTPRequestTileOperation.m in Sources */,
 				46F7DA7B174312BD009FEA7C /* NSBezierPath+iOS.m in Sources */,
 				46F7DA7E17432466009FEA7C /* NSValue+iOS.m in Sources */,
+				46F7DA85174343B8009FEA7C /* RMShapeAnnotation.m in Sources */,
+				46F7DA86174343B8009FEA7C /* RMPolylineAnnotation.m in Sources */,
+				46F7DA87174343B8009FEA7C /* RMPolygonAnnotation.m in Sources */,
+				46F7DA8A174343E1009FEA7C /* NSColor+iOS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
