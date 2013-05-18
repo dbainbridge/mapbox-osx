@@ -99,7 +99,7 @@
     {
         CGFloat red, green, blue, alpha;
         [color getRed:&red green:&green blue:&blue alpha:&alpha];
-        colorHex = [NSString stringWithFormat:@"%02lx%02lx%02lx", ((NSUInteger)red * 255), ((NSUInteger)green * 255), ((NSUInteger)blue * 255)];
+        colorHex = [NSString stringWithFormat:@"%02lx%02lx%02lx", (NSUInteger)(red * 255), (NSUInteger)(green * 255), (NSUInteger)(blue * 255)];
     }
     
     return [self initWithMapBoxMarkerImage:symbolName tintColorHex:colorHex sizeString:sizeString];
