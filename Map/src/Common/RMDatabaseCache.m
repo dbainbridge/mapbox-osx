@@ -294,6 +294,11 @@
     [self addImage:image forTile:tile withData:nil withCacheKey:aCacheKey];
 }
 
+- (unsigned long long)fileSize
+{
+    return [[[NSFileManager defaultManager] attributesOfItemAtPath:self.databasePath error:nil] fileSize];
+}
+
 #pragma mark -
 
 - (NSUInteger)count
