@@ -1,3 +1,6 @@
+(Deprecated due to Mac OS X Mavericks inclusion of a Map SDK)
+=============================================================
+
 mapbox-osx
 ==========
 
@@ -11,4 +14,3 @@ Requires Mac OS X 10.8.
 Currently tested with "retina" resolution Mac display only.
 
 
-(Deprecated due to Mac OS X Mavericks inclusion of a Map SDK)
